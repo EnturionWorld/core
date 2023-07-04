@@ -147,9 +147,7 @@ void ByteBuffer::put(size_t pos, uint8 const* src, size_t cnt)
 
 void ByteBuffer::print_storage() const
 {
-    if (!sLog->ShouldLog("network", LOG_LEVEL_TRACE)) // optimize disabled trace output
-        return;
-
+#ifdef DEBUG
     std::ostringstream o;
     o << "STORAGE_SIZE: " << size();
     for (uint32 i = 0; i < size(); ++i)
@@ -157,13 +155,11 @@ void ByteBuffer::print_storage() const
     o << " ";
 
     TC_LOG_TRACE("network", "%s", o.str().c_str());
+#endif
 }
 
 void ByteBuffer::textlike() const
 {
-    if (!sLog->ShouldLog("network", LOG_LEVEL_TRACE)) // optimize disabled trace output
-        return;
-
     std::ostringstream o;
     o << "STORAGE_SIZE: " << size();
     for (uint32 i = 0; i < size(); ++i)
@@ -178,9 +174,6 @@ void ByteBuffer::textlike() const
 
 void ByteBuffer::hexlike() const
 {
-    if (!sLog->ShouldLog("network", LOG_LEVEL_TRACE)) // optimize disabled trace output
-        return;
-
     uint32 j = 1, k = 1;
 
     std::ostringstream o;

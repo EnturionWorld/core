@@ -327,34 +327,30 @@ Updates.CleanDeadRefMaxCount = 3
 #                         3 - (Info)
 #                         4 - (Warn)
 #                         5 - (Error)
-#                         6 - (Fatal)
-#
-#                     Flags:
-#                         0 - None
-#                         1 - Prefix Timestamp to the text
-#                         2 - Prefix Log Level to the text
-#                         4 - Prefix Log Filter type to the text
-#                         8 - Append timestamp to the log file name. Format: YYYY-MM-DD_HH-MM-SS (Only used with Type = 2)
-#                        16 - Make a backup of existing file before overwrite (Only used with Mode = w)
 #
 #                     Colors (read as optional1 if Type = Console)
-#                         Format: "fatal error warn info debug trace"
+#                         Format: "error warn info debug trace"
 #                         0 - BLACK
-#                         1 - RED
+#                         1 - MAROON
 #                         2 - GREEN
-#                         3 - BROWN
+#                         3 - OLIVE
 #                         4 - BLUE
-#                         5 - MAGENTA
+#                         5 - PURPLE
 #                         6 - CYAN
-#                         7 - GREY
-#                         8 - YELLOW
+#                         7 - SILVER
+#                         8 - GREY
 #                         9 - LRED
 #                        10 - LGREEN
-#                        11 - LBLUE
-#                        12 - LMAGENTA
-#                        13 - LCYAN
-#                        14 - WHITE
-#                         Example: "13 11 9 5 3 1"
+#                        11 - LYELLOW
+#                        12 - LBLUE
+#                        13 - FUCHSIA
+#                        14 - LCYAN
+#                        15 - WHITE
+#                         Example: "9 11 12 5 2"
+#
+#                     Target: Console target (read as optional2 if Type = Console)
+#                          o - (stdout, default)
+#                          e - (stderr)
 #
 #                     File: Name of the file (read as optional1 if Type = File)
 #                         Allows to use one "%s" to create dynamic files
@@ -371,8 +367,8 @@ Updates.CleanDeadRefMaxCount = 3
 #                         Example:  536870912 (512 MB)
 #
 
-Appender.Console=1,2,0
-Appender.Auth=2,2,0,Auth.log,w
+Appender.Console=1,2
+Appender.Auth=2,2,Auth.log,w
 
 #  Logger config values: Given a logger "name"
 #    Logger.name

@@ -557,7 +557,7 @@ bool MySQLConnection::_HandleMySQLErrno(uint32 errNo, uint8 attempts /*= 5*/)
                 // Don't remove 'this' pointer unless you want to skip loading all prepared statements...
                 if (!this->PrepareStatements())
                 {
-                    TC_LOG_FATAL("sql.sql", "Could not re-prepare statements!");
+                    TC_LOG_ERROR("sql.sql", "Could not re-prepare statements!");
                     std::this_thread::sleep_for(std::chrono::seconds(10));
                     std::abort();
                 }
@@ -574,7 +574,7 @@ bool MySQLConnection::_HandleMySQLErrno(uint32 errNo, uint8 attempts /*= 5*/)
             {
                 // Shut down the server when the mysql server isn't
                 // reachable for some time
-                TC_LOG_FATAL("sql.sql", "Failed to reconnect to the MySQL server, "
+                TC_LOG_ERROR("sql.sql", "Failed to reconnect to the MySQL server, "
                              "terminating the server to prevent data corruption!");
 
                 // We could also initiate a shutdown through using std::raise(SIGTERM)

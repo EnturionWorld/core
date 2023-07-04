@@ -6,6 +6,7 @@ pub mod banner;
 pub mod config;
 pub mod dbc;
 pub mod error;
+pub mod log;
 pub mod signals;
 pub mod timer;
 #[cfg(windows)]

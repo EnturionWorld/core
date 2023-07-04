@@ -10,7 +10,7 @@ extern "C" {
 }
 
 async fn async_main(tick_callback: TickCallback) -> Result<(), Box<dyn std::error::Error>> {
-    let mut interval = time::interval(Duration::from_millis(1));
+    let mut interval = time::interval(Duration::from_millis(5));
     let mut signals = Signals::default();
 
     loop {
@@ -27,6 +27,7 @@ async fn async_main(tick_callback: TickCallback) -> Result<(), Box<dyn std::erro
             },
             _ = interval.tick() => {
                 unsafe { tick_callback(); }
+                ::log::logger().flush();
             }
         }
     }
