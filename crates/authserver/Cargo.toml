@@ -13,5 +13,6 @@ cbindgen = "0.24.3"
 
 [dependencies]
 enturion_shared = { path = "../shared" }
+log = "0.4.17"
 futures = "0.3.28"
 tokio = { version = "1.28", features = ["rt", "rt-multi-thread", "signal", "time"] }

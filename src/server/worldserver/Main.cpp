@@ -20,7 +20,6 @@
 /// \file
 
 #include "Common.h"
-#include "AppenderDB.h"
 #include "AsyncAcceptor.h"
 #include "Banner.h"
 #include "BattlegroundMgr.h"
@@ -190,9 +189,8 @@ extern int main(int argc, char** argv)
 
     std::shared_ptr<Kitron::Asio::IoContext> ioContext = std::make_shared<Kitron::Asio::IoContext>();
 
-    sLog->RegisterAppender<AppenderDB>();
     // If logs are supposed to be handled async then we need to pass the IoContext into the Log singleton
-    sLog->Initialize(sConfigMgr->GetBoolDefault("Log.Async.Enable", false) ? ioContext.get() : nullptr);
+    sLog->Initialize(sConfigMgr->ptr());
 
     PrintBanner();
     TC_LOG_INFO("server.worldserver", "Using configuration file %s.", sConfigMgr->GetFilename().c_str());
@@ -376,9 +374,6 @@ extern int main(int argc, char** argv)
     ioContextStopHandle.reset();
 
     threadPool.reset();
-
-    sLog->SetSynchronous();
-
     sScriptMgr->OnShutdown();
 
     // set server offline

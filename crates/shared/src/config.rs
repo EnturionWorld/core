@@ -290,7 +290,7 @@ impl Config {
 #[cfg(feature = "ffi_config")]
 impl Drop for Config {
     fn drop(&mut self) {
-        if self.inner != ptr::null() {
+        if !self.inner.is_null() {
             unsafe {
                 ptr::drop_in_place(self.inner as *mut c_void);
             }

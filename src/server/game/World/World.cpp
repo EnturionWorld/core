@@ -483,7 +483,8 @@ void World::LoadConfigSettings(bool reload)
 
             return;
         }
-        sLog->LoadFromConfig();
+
+        sLog->Initialize(sConfigMgr->ptr());
         sMetric->LoadFromConfigs();
     }
 
@@ -1590,7 +1591,7 @@ void World::SetInitialWorldSettings()
             !MapManager::ExistMapAndVMap(530, 10349.6f, -6357.29f) ||
             !MapManager::ExistMapAndVMap(530, -3961.64f, -13931.2f))))
     {
-        TC_LOG_FATAL("server.loading", "Unable to load critical files - server shutting down !!!");
+        TC_LOG_ERROR("server.loading", "Unable to load critical files - server shutting down !!!");
         exit(1);
     }
 

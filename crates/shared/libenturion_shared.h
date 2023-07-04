@@ -1,4 +1,5 @@
 #define FFI_CONFIG 1
+#define FFI_LOG 1
 
 #ifndef libenturion_shared_h
 #define libenturion_shared_h
@@ -28,6 +29,8 @@ enum DbcFieldFormat
 #ifndef __cplusplus
 typedef uint8_t DbcFieldFormat;
 #endif // __cplusplus
+
+typedef struct LogMgr LogMgr;
 
 typedef struct Config {
 #if defined(FFI_CONFIG)
@@ -136,6 +139,27 @@ void Config_Free(struct Config self);
  * Asserts that the format pointer is non-null.
  */
 uintptr_t DBCFileLoader_GetFormatRecordSize(const char *format, int32_t *index_pos);
+
+#if defined(FFI_LOG)
+/**
+ * Write a log entry
+ *
+ * # Safety
+ * C FFI: char pointers are checked for equality to nullptr.
+ */
+void LogMgr_Write(const struct LogMgr *self,
+                  const char *target,
+                  uint8_t level,
+                  const char *message);
+#endif
+
+#if defined(FFI_LOG)
+const struct LogMgr *LogMgr_Initialize(const struct Config *config);
+#endif
+
+#if defined(FFI_LOG)
+void LogMgr_Free(struct LogMgr *logmgr);
+#endif
 
 void CreateTimer(uint64_t interval_seconds, TimerCallback callback);
 

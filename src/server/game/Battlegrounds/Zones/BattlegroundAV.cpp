@@ -1417,22 +1417,22 @@ void BattlegroundAV::AssaultNode(BG_AV_Nodes node, uint16 team)
 {
     if (m_Nodes[node].TotalOwner == team)
     {
-        TC_LOG_FATAL("bg.battleground", "Assaulting team is TotalOwner of node");
+        TC_LOG_ERROR("bg.battleground", "Assaulting team is TotalOwner of node");
         ABORT();
     }
     if (m_Nodes[node].Owner == team)
     {
-        TC_LOG_FATAL("bg.battleground", "Assaulting team is owner of node");
+        TC_LOG_ERROR("bg.battleground", "Assaulting team is owner of node");
         ABORT();
     }
     if (m_Nodes[node].State == POINT_DESTROYED)
     {
-        TC_LOG_FATAL("bg.battleground", "Destroyed node is being assaulted");
+        TC_LOG_ERROR("bg.battleground", "Destroyed node is being assaulted");
         ABORT();
     }
     if (m_Nodes[node].State == POINT_ASSAULTED && m_Nodes[node].TotalOwner) //only assault an assaulted node if no totalowner exists
     {
-        TC_LOG_FATAL("bg.battleground", "Assault on an not assaulted node with total owner");
+        TC_LOG_ERROR("bg.battleground", "Assault on an not assaulted node with total owner");
         ABORT();
     }
     //the timer gets another time, if the previous owner was 0 == Neutral

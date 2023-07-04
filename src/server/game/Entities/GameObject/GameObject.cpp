@@ -1479,7 +1479,7 @@ void GameObject::ActivateObject(GameObjectActions action, WorldObject* spellCast
     switch (action)
     {
         case GameObjectActions::None:
-            TC_LOG_FATAL("spell", "Spell %d has action type NONE in effect %d", spellId, effectIndex);
+            TC_LOG_ERROR("spell", "Spell %d has action type NONE in effect %d", spellId, effectIndex);
             break;
         case GameObjectActions::AnimateCustom0:
         case GameObjectActions::AnimateCustom1:

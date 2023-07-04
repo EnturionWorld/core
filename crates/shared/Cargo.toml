@@ -14,9 +14,11 @@ cbindgen = "0.24.3"
 [dependencies]
 anyhow = "1.0.71"
 config = { git = "https://github.com/mehcode/config-rs.git" }
+console = "0.15.5"
 glob = "0.3.1"
 futures = "0.3.28"
 libc = "0.2.144"
+log = "0.4.17"
 log4rs = "1.2.0"
 serde = "1.0.163"
 tokio = { version = "1.28.1", features = ["macros", "rt", "rt-multi-thread", "signal", "time"] }
@@ -27,6 +29,7 @@ winapi = { version = "0.3.9", features = ["errhandlingapi", "libloaderapi", "min
 windows-service = "0.6.0"
 
 [features]
-default = ["ffi_config", "ffi_timer"]
+default = ["ffi_config", "ffi_log", "ffi_timer"]
 ffi_config = []
+ffi_log = []
 ffi_timer = []

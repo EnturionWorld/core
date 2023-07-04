@@ -864,7 +864,7 @@ private:
             fs::copy_file(path, cache_path, fs::copy_option::fail_if_exists, code);
             if (code)
             {
-                TC_LOG_FATAL("scripts.hotswap", ">> Failed to create cache entry for module "
+                TC_LOG_ERROR("scripts.hotswap", ">> Failed to create cache entry for module "
                     "\"%s\" at \"%s\" with reason (\"%s\")!",
                     path.filename().generic_string().c_str(), cache_path.generic_string().c_str(),
                     code.message().c_str());
@@ -883,7 +883,7 @@ private:
         auto module = ScriptModule::CreateFromPath(path, cache_path);
         if (!module)
         {
-            TC_LOG_FATAL("scripts.hotswap", ">> Failed to load script module \"%s\"!",
+            TC_LOG_ERROR("scripts.hotswap", ">> Failed to load script module \"%s\"!",
                 path.filename().generic_string().c_str());
 
             // Find a better solution for this but it's much better
@@ -1076,14 +1076,13 @@ private:
             auto name = itr->first;
             rebuild_buildfiles = !itr->second.empty();
 
-            if (sLog->ShouldLog("scripts.hotswap", LogLevel::LOG_LEVEL_TRACE))
-                for (auto const& entry : itr->second)
-                {
-                    TC_LOG_TRACE("scripts.hotswap", "Source file %s was %s.",
-                        entry.first.generic_string().c_str(),
-                        ((entry.second == ChangeStateRequest::CHANGE_REQUEST_ADDED) ?
-                            "added" : "removed"));
-                }
+            for (auto const& entry : itr->second)
+            {
+                TC_LOG_TRACE("scripts.hotswap", "Source file %s was %s.",
+                    entry.first.generic_string().c_str(),
+                    ((entry.second == ChangeStateRequest::CHANGE_REQUEST_ADDED) ?
+                        "added" : "removed"));
+            }
 
             _sources_changed.erase(itr);
             return name;

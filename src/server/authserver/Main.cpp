@@ -23,7 +23,6 @@
 * authentication server
 */
 
-#include "AppenderDB.h"
 #include "AuthSocketMgr.h"
 #include "Banner.h"
 #include "Config.h"
@@ -110,8 +109,7 @@ int main(int argc, char** argv)
         return 1;
     }
 
-    sLog->RegisterAppender<AppenderDB>();
-    sLog->Initialize(nullptr);
+    sLog->Initialize(sConfigMgr->ptr());
 
     PrintBanner();
     TC_LOG_INFO("server.authserver", "Using configuration file %s.", sConfigMgr->GetFilename().c_str());

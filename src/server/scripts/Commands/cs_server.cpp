@@ -89,7 +89,6 @@ public:
 
         static std::vector<ChatCommand> serverSetCommandTable =
         {
-            { "loglevel", rbac::RBAC_PERM_COMMAND_SERVER_SET_LOGLEVEL, true, &HandleServerSetLogLevelCommand, "" },
             { "motd",     rbac::RBAC_PERM_COMMAND_SERVER_SET_MOTD,     true, &HandleServerSetMotdCommand,     "" },
             { "closed",   rbac::RBAC_PERM_COMMAND_SERVER_SET_CLOSED,   true, &HandleServerSetClosedCommand,   "" },
         };
@@ -429,16 +428,6 @@ public:
         handler->SendSysMessage(LANG_USE_BOL);
         handler->SetSentErrorMessage(true);
         return false;
-    }
-
-    // Set the level of logging
-    static bool HandleServerSetLogLevelCommand(ChatHandler* /*handler*/, std::string const& type, std::string const& name, int32 level)
-    {
-        if (name.empty() || level < 0 || (type != "a" && type != "l"))
-            return false;
-
-        sLog->SetLogLevel(name, level, type == "l");
-        return true;
     }
 
 private:

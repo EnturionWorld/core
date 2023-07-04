@@ -67,7 +67,7 @@ static Optional<BigNumber> GetHexFromConfig(char const* configKey, int bits)
     BigNumber secret;
     if (!secret.SetHexStr(str.c_str()))
     {
-        TC_LOG_FATAL("server.loading", "Invalid value for '%s' - specify a hexadecimal integer of up to %d bits with no prefix.", configKey, bits);
+        TC_LOG_ERROR("server.loading", "Invalid value for '%s' - specify a hexadecimal integer of up to %d bits with no prefix.", configKey, bits);
         ABORT();
     }
 
@@ -90,7 +90,7 @@ void SecretMgr::Initialize()
         if (secret_info[i].flags() & SECRET_FLAG_DEFER_LOAD)
             continue;
         std::unique_lock<std::mutex> lock(_secrets[i].lock);
-        AttemptLoad(Secrets(i), LOG_LEVEL_FATAL, lock);
+        AttemptLoad(Secrets(i), LOG_LEVEL_ERROR, lock);
         if (!_secrets[i].IsAvailable())
             ABORT(); // load failed
     }

@@ -82,7 +82,7 @@ void UpdateFetcher::FillFileListRecursively(Path const& path, LocaleFileStorage&
             // Because elements are only compared by their filenames, this is ok
             if (storage.find(entry) != storage.end())
             {
-                TC_LOG_FATAL("sql.updates", "Duplicate filename \"%s\" occurred. Because updates are ordered " \
+                TC_LOG_ERROR("sql.updates", "Duplicate filename \"%s\" occurred. Because updates are ordered " \
                     "by their filenames, every name needs to be unique!", itr->path().generic_string().c_str());
 
                 throw UpdateException("Updating failed, see the log for details.");
@@ -154,7 +154,7 @@ std::string UpdateFetcher::ReadSQLUpdate(boost::filesystem::path const& file) co
     std::ifstream in(file.c_str());
     if (!in.is_open())
     {
-        TC_LOG_FATAL("sql.updates", "Failed to open the sql update \"%s\" for reading! "
+        TC_LOG_ERROR("sql.updates", "Failed to open the sql update \"%s\" for reading! "
                      "Stopping the server to keep the database integrity, "
                      "try to identify and solve the issue or disable the database updater.",
                      file.generic_string().c_str());

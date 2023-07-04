@@ -40,6 +40,7 @@ public:
     static ConfigMgr* instance();
 
     bool Reload(std::vector<std::string>& errors);
+    Config * ptr() { return &_config; }
 
     std::string GetStringDefault(std::string const& name, const std::string& def) const;
     bool GetBoolDefault(std::string const& name, bool def) const;
