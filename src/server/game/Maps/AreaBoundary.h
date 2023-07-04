@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_AREA_BOUNDARY_H
-#define Kitron_AREA_BOUNDARY_H
+#ifndef KITRON_AREA_BOUNDARY_H
+#define KITRON_AREA_BOUNDARY_H
 
 #include "Position.h"
 
@@ -165,4 +165,4 @@ class TC_GAME_API BoundaryUnionBoundary : public AreaBoundary
         AreaBoundary const* const _b2;
 };
 
-#endif //Kitron_AREA_BOUNDARY_H
+#endif //KITRON_AREA_BOUNDARY_H

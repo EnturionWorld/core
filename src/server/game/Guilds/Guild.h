@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KitronCORE_GUILD_H
-#define KitronCORE_GUILD_H
+#ifndef KITRONCORE_GUILD_H
+#define KITRONCORE_GUILD_H
 
 #include "DatabaseEnvFwd.h"
 #include "ObjectGuid.h"

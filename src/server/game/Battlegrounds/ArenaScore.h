@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_ARENA_SCORE_H
-#define Kitron_ARENA_SCORE_H
+#ifndef KITRON_ARENA_SCORE_H
+#define KITRON_ARENA_SCORE_H
 
 #include "BattlegroundScore.h"
 #include <sstream>
@@ -74,4 +74,4 @@ struct TC_GAME_API ArenaTeamScore
         std::string TeamName;
 };
 
-#endif // Kitron_ARENA_SCORE_H
+#endif // KITRON_ARENA_SCORE_H

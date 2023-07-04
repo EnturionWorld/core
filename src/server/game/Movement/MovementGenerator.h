@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_MOVEMENTGENERATOR_H
-#define Kitron_MOVEMENTGENERATOR_H
+#ifndef KITRON_MOVEMENTGENERATOR_H
+#define KITRON_MOVEMENTGENERATOR_H
 
 #include "Define.h"
 #include "FactoryHolder.h"

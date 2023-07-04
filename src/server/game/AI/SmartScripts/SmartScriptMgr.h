@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_SMARTSCRIPTMGR_H
-#define Kitron_SMARTSCRIPTMGR_H
+#ifndef KITRON_SMARTSCRIPTMGR_H
+#define KITRON_SMARTSCRIPTMGR_H
 
 #include "Define.h"
 #include "EnumFlag.h"

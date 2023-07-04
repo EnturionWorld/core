@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_MAIL_H
-#define Kitron_MAIL_H
+#ifndef KITRON_MAIL_H
+#define KITRON_MAIL_H
 
 #include "Common.h"
 #include "DatabaseEnvFwd.h"

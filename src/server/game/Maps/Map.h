@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_MAP_H
-#define Kitron_MAP_H
+#ifndef KITRON_MAP_H
+#define KITRON_MAP_H
 
 #include "Define.h"
 

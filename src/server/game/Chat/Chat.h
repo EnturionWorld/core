@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KitronCORE_CHAT_H
-#define KitronCORE_CHAT_H
+#ifndef KITRONCORE_CHAT_H
+#define KITRONCORE_CHAT_H
 
 #include "Common.h"
 #include "ChatCommand.h"

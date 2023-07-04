@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_TIMER_H
-#define Kitron_TIMER_H
+#ifndef KITRON_TIMER_H
+#define KITRON_TIMER_H
 
 #include "Define.h"
 #include "Duration.h"

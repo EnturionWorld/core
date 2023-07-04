@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KitronCORE_ERRORS_H
-#define KitronCORE_ERRORS_H
+#ifndef KITRONCORE_ERRORS_H
+#define KITRONCORE_ERRORS_H
 
 #include "Define.h"
 #include <string>
@@ -41,7 +41,7 @@ namespace Kitron
 
 TC_COMMON_API std::string GetDebugInfo();
 
-#if Kitron_COMPILER == Kitron_COMPILER_MICROSOFT
+#if KITRON_COMPILER == KITRON_COMPILER_MICROSOFT
 #define ASSERT_BEGIN __pragma(warning(push)) __pragma(warning(disable: 4127))
 #define ASSERT_END __pragma(warning(pop))
 #else
@@ -49,7 +49,7 @@ TC_COMMON_API std::string GetDebugInfo();
 #define ASSERT_END
 #endif
 
-#if Kitron_PLATFORM == Kitron_PLATFORM_WINDOWS
+#if KITRON_PLATFORM == KITRON_PLATFORM_WINDOWS
 #define EXCEPTION_ASSERTION_FAILURE 0xC0000420L
 #endif
 

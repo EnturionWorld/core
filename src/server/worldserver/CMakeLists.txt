@@ -34,7 +34,7 @@ add_executable(worldserver
 
 if(NOT WIN32)
   set_target_properties(worldserver PROPERTIES
-    COMPILE_DEFINITIONS _Kitron_CORE_CONFIG="${CONF_DIR}/worldserver.conf"
+    COMPILE_DEFINITIONS _KITRON_CORE_CONFIG="${CONF_DIR}/worldserver.conf"
   )
 endif()
 

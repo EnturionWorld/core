@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_TOTP_H
-#define Kitron_TOTP_H
+#ifndef KITRON_TOTP_H
+#define KITRON_TOTP_H
 
 #include "Define.h"
 #include <ctime>

@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_OBJECTACCESSOR_H
-#define Kitron_OBJECTACCESSOR_H
+#ifndef KITRON_OBJECTACCESSOR_H
+#define KITRON_OBJECTACCESSOR_H
 
 #include "ObjectGuid.h"
 #include <shared_mutex>

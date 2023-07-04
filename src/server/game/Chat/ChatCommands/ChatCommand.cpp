@@ -112,7 +112,7 @@ static ChatSubCommandMap COMMAND_MAP;
             if (std::holds_alternative<std::monostate>(cmd->_help))
                 cmd->_help.emplace<std::string>(help);
             else
-                TC_LOG_ERROR("sql.sql", "Table `command` contains legacy help text for command '" STRING_VIEW_FMT "', which uses `Kitron_string`. Skipped.", STRING_VIEW_FMT_ARG(name));
+                TC_LOG_ERROR("sql.sql", "Table `command` contains legacy help text for command '" STRING_VIEW_FMT "', which uses `trinity_string`. Skipped.", STRING_VIEW_FMT_ARG(name));
         } while (result->NextRow());
     }
 

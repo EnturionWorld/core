@@ -27,7 +27,7 @@
 
 using boost::asio::ip::tcp;
 
-#define Kitron_MAX_LISTEN_CONNECTIONS boost::asio::socket_base::max_listen_connections
+#define KITRON_MAX_LISTEN_CONNECTIONS boost::asio::socket_base::max_listen_connections
 
 class AsyncAcceptor
 {
@@ -80,7 +80,7 @@ public:
             return false;
         }
 
-#if Kitron_PLATFORM != Kitron_PLATFORM_WINDOWS
+#if KITRON_PLATFORM != KITRON_PLATFORM_WINDOWS
         _acceptor.set_option(boost::asio::ip::tcp::acceptor::reuse_address(true), errorCode);
         if (errorCode)
         {
@@ -96,7 +96,7 @@ public:
             return false;
         }
 
-        _acceptor.listen(Kitron_MAX_LISTEN_CONNECTIONS, errorCode);
+        _acceptor.listen(KITRON_MAX_LISTEN_CONNECTIONS, errorCode);
         if (errorCode)
         {
             TC_LOG_INFO("network", "Failed to start listening on %s:%u %s", _endpoint.address().to_string().c_str(), _endpoint.port(), errorCode.message().c_str());

@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __Kitron_VEHICLEDEFINES_H
-#define __Kitron_VEHICLEDEFINES_H
+#ifndef __KITRON_VEHICLEDEFINES_H
+#define __KITRON_VEHICLEDEFINES_H
 
 #include "Define.h"
 #include "Duration.h"

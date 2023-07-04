@@ -33,7 +33,7 @@ EndScriptData */
 #include "Player.h"
 #include "RBAC.h"
 
-#if Kitron_COMPILER == Kitron_COMPILER_GNU
+#if KITRON_COMPILER == KITRON_COMPILER_GNU
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 #endif
 

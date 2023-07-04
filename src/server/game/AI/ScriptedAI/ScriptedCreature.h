@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_SCRIPTEDCREATURE_H
-#define Kitron_SCRIPTEDCREATURE_H
+#ifndef KITRON_SCRIPTEDCREATURE_H
+#define KITRON_SCRIPTEDCREATURE_H
 
 #include "Creature.h"  // convenience include for scripts, all uses of ScriptedCreature also need Creature (except ScriptedCreature itself doesn't need Creature)
 #include "CreatureAI.h"
@@ -408,4 +408,4 @@ inline void GetPlayerListInGrid(Container& container, WorldObject* source, float
     source->GetPlayerListInGrid(container, maxSearchRange, alive);
 }
 
-#endif // Kitron_SCRIPTEDCREATURE_H
+#endif // KITRON_SCRIPTEDCREATURE_H

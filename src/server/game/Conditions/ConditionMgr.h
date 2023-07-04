@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_CONDITIONMGR_H
-#define Kitron_CONDITIONMGR_H
+#ifndef KITRON_CONDITIONMGR_H
+#define KITRON_CONDITIONMGR_H
 
 #include "Define.h"
 #include "Hash.h"

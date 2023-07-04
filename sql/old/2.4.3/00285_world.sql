@@ -1,7 +1,7 @@
--- `Kitron_string` Language.h entries
+-- `trinity_string` Language.h entries
 
-DELETE FROM `Kitron_string` WHERE `entry` > 716 AND `entry` < 750;
-INSERT INTO `Kitron_string` VALUES
+DELETE FROM `trinity_string` WHERE `entry` > 716 AND `entry` < 750;
+INSERT INTO `trinity_string` VALUES
 (717,'Alliance',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
 (718,'Horde',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
 (719,'%s was destroyed by the %s!',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),

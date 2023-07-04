@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_BASE64_H
-#define Kitron_BASE64_H
+#ifndef KITRON_BASE64_H
+#define KITRON_BASE64_H
 
 #include "Define.h"
 #include "Optional.h"

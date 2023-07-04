@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KitronCORE_QUEST_H
-#define KitronCORE_QUEST_H
+#ifndef KITRONCORE_QUEST_H
+#define KITRONCORE_QUEST_H
 
 #include "Common.h"
 #include "DatabaseEnvFwd.h"

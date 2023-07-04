@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_ABSTRACTFOLLOWER_H
-#define Kitron_ABSTRACTFOLLOWER_H
+#ifndef KITRON_ABSTRACTFOLLOWER_H
+#define KITRON_ABSTRACTFOLLOWER_H
 
 class Unit;
 

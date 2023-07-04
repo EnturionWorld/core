@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_SRP6_H
-#define Kitron_SRP6_H
+#ifndef KITRON_SRP6_H
+#define KITRON_SRP6_H
 
 #include "AuthDefines.h"
 #include "BigNumber.h"

@@ -29,7 +29,7 @@ endif(USE_COREPCH)
 
 GroupSources(${CMAKE_CURRENT_SOURCE_DIR})
 
-add_definitions(-DKitron_API_EXPORT_COMMON)
+add_definitions(-DKITRON_API_EXPORT_COMMON)
 
 add_library(common
   ${PRIVATE_SOURCES}

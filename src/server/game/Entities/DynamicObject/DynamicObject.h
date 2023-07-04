@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KitronCORE_DYNAMICOBJECT_H
-#define KitronCORE_DYNAMICOBJECT_H
+#ifndef KITRONCORE_DYNAMICOBJECT_H
+#define KITRONCORE_DYNAMICOBJECT_H
 
 #include "Object.h"
 #include "GridObject.h"

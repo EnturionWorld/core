@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_COMMONHELPERS_H
-#define Kitron_COMMONHELPERS_H
+#ifndef KITRON_COMMONHELPERS_H
+#define KITRON_COMMONHELPERS_H
 
 #include "Define.h"
 
@@ -36,4 +36,4 @@ namespace Kitron
     }
 }
 
-#endif //Kitron_COMMONHELPERS_H
+#endif //KITRON_COMMONHELPERS_H

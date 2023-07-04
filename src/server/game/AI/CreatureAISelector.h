@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_CREATUREAISELECTOR_H
-#define Kitron_CREATUREAISELECTOR_H
+#ifndef KITRON_CREATUREAISELECTOR_H
+#define KITRON_CREATUREAISELECTOR_H
 
 class CreatureAI;
 class Creature;

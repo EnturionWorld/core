@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_OBJECTGRIDLOADER_H
-#define Kitron_OBJECTGRIDLOADER_H
+#ifndef KITRON_OBJECTGRIDLOADER_H
+#define KITRON_OBJECTGRIDLOADER_H
 
 #include "TypeList.h"
 #include "Define.h"

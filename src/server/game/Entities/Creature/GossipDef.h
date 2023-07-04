@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KitronCORE_GOSSIP_H
-#define KitronCORE_GOSSIP_H
+#ifndef KITRONCORE_GOSSIP_H
+#define KITRONCORE_GOSSIP_H
 
 #include "Common.h"
 #include "ObjectGuid.h"

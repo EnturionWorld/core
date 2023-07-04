@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __Kitron_ACHIEVEMENTMGR_H
-#define __Kitron_ACHIEVEMENTMGR_H
+#ifndef __KITRON_ACHIEVEMENTMGR_H
+#define __KITRON_ACHIEVEMENTMGR_H
 
 #include "DatabaseEnvFwd.h"
 #include "DBCEnums.h"

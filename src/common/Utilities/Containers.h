@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_CONTAINERS_H
-#define Kitron_CONTAINERS_H
+#ifndef KITRON_CONTAINERS_H
+#define KITRON_CONTAINERS_H
 
 #include "Define.h"
 #include "Random.h"
@@ -262,4 +262,4 @@ namespace Kitron
 }
 //! namespace Kitron
 
-#endif //! #ifdef Kitron_CONTAINERS_H
+#endif //! #ifdef KITRON_CONTAINERS_H

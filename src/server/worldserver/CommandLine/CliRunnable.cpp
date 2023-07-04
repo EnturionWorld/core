@@ -29,7 +29,7 @@
 #include "Log.h"
 #include "Util.h"
 
-#if Kitron_PLATFORM != Kitron_PLATFORM_WINDOWS
+#if KITRON_PLATFORM != KITRON_PLATFORM_WINDOWS
 #include "Chat.h"
 #include "ChatCommand.h"
 #include <cstring>
@@ -44,7 +44,7 @@ static inline void PrintCliPrefix()
     printf("%s", CLI_PREFIX);
 }
 
-#if Kitron_PLATFORM != Kitron_PLATFORM_WINDOWS
+#if KITRON_PLATFORM != KITRON_PLATFORM_WINDOWS
 namespace Kitron::Impl::Readline
 {
     static std::vector<std::string> vec;
@@ -77,7 +77,7 @@ namespace Kitron::Impl::Readline
 
 void utf8print(void* /*arg*/, std::string_view str)
 {
-#if Kitron_PLATFORM == Kitron_PLATFORM_WINDOWS
+#if KITRON_PLATFORM == KITRON_PLATFORM_WINDOWS
     WriteWinConsole(str);
 #else
 {
@@ -111,7 +111,7 @@ int kb_hit_return()
 /// %Thread start
 void CliThread()
 {
-#if Kitron_PLATFORM == Kitron_PLATFORM_WINDOWS
+#if KITRON_PLATFORM == KITRON_PLATFORM_WINDOWS
     // print this here the first time
     // later it will be printed after command queue updates
     PrintCliPrefix();
@@ -127,7 +127,7 @@ void CliThread()
     if (sConfigMgr->GetBoolDefault("BeepAtStart", true))
         printf("\a");                                       // \a = Alert
 
-#if Kitron_PLATFORM == Kitron_PLATFORM_WINDOWS
+#if KITRON_PLATFORM == KITRON_PLATFORM_WINDOWS
     if (sConfigMgr->GetBoolDefault("FlashAtStart", true))
     {
         FLASHWINFO fInfo;
@@ -146,7 +146,7 @@ void CliThread()
 
         std::string command;
 
-#if Kitron_PLATFORM == Kitron_PLATFORM_WINDOWS
+#if KITRON_PLATFORM == KITRON_PLATFORM_WINDOWS
         if (!ReadWinConsole(command))
             continue;
 #else
@@ -164,7 +164,7 @@ void CliThread()
             Optional<std::size_t> nextLineIndex = RemoveCRLF(command);
             if (nextLineIndex && *nextLineIndex == 0)
             {
-#if Kitron_PLATFORM == Kitron_PLATFORM_WINDOWS
+#if KITRON_PLATFORM == KITRON_PLATFORM_WINDOWS
                 PrintCliPrefix();
 #endif
                 continue;
@@ -172,7 +172,7 @@ void CliThread()
 
             fflush(stdout);
             sWorld->QueueCliCommand(new CliCommandHolder(nullptr, command.c_str(), &utf8print, &commandFinished));
-#if Kitron_PLATFORM != Kitron_PLATFORM_WINDOWS
+#if KITRON_PLATFORM != KITRON_PLATFORM_WINDOWS
             add_history(command.c_str());
 #endif
         }

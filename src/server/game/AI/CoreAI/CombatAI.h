@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_COMBATAI_H
-#define Kitron_COMBATAI_H
+#ifndef KITRON_COMBATAI_H
+#define KITRON_COMBATAI_H
 
 #include "CreatureAI.h"
 

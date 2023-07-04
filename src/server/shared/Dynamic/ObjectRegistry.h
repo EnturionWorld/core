@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_OBJECTREGISTRY_H
-#define Kitron_OBJECTREGISTRY_H
+#ifndef KITRON_OBJECTREGISTRY_H
+#define KITRON_OBJECTREGISTRY_H
 
 #include "Define.h"
 

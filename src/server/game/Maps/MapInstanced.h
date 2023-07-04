@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_MAP_INSTANCED_H
-#define Kitron_MAP_INSTANCED_H
+#ifndef KITRON_MAP_INSTANCED_H
+#define KITRON_MAP_INSTANCED_H
 
 #include "Map.h"
 #include "InstanceSaveMgr.h"

@@ -100,27 +100,27 @@ GroupSources(${CMAKE_CURRENT_SOURCE_DIR})
 # it to the variable arguments
 function(ConfigureScriptLoader SCRIPTLOADER_NAME LOADER_OUT IS_DYNAMIC_SCRIPTLOADER)
   # Deduces following variables which are referenced by thge template:
-  # Kitron_IS_DYNAMIC_SCRIPTLOADER
-  # Kitron_SCRIPTS_FORWARD_DECL
-  # Kitron_SCRIPTS_INVOKE
-  # Kitron_CURRENT_SCRIPT_PROJECT
+  # KITRON_IS_DYNAMIC_SCRIPTLOADER
+  # KITRON_SCRIPTS_FORWARD_DECL
+  # KITRON_SCRIPTS_INVOKE
+  # KITRON_CURRENT_SCRIPT_PROJECT
 
   # To generate export macros
-  set(Kitron_IS_DYNAMIC_SCRIPTLOADER ${IS_DYNAMIC_SCRIPTLOADER})
+  set(KITRON_IS_DYNAMIC_SCRIPTLOADER ${IS_DYNAMIC_SCRIPTLOADER})
   # To generate forward declarations of the loading functions
-  unset(Kitron_SCRIPTS_FORWARD_DECL)
-  unset(Kitron_SCRIPTS_INVOKE)
+  unset(KITRON_SCRIPTS_FORWARD_DECL)
+  unset(KITRON_SCRIPTS_INVOKE)
   # The current script project which is built in
-  set(Kitron_CURRENT_SCRIPT_PROJECT ${SCRIPTLOADER_NAME})
+  set(KITRON_CURRENT_SCRIPT_PROJECT ${SCRIPTLOADER_NAME})
   foreach(LOCALE_SCRIPT_MODULE ${ARGN})
     # Determine the loader function ("Add##${NameOfDirectory}##Scripts()")
     set(LOADER_FUNCTION
       "Add${LOCALE_SCRIPT_MODULE}Scripts()")
     # Generate the funciton call and the forward declarations
-    set(Kitron_SCRIPTS_FORWARD_DECL
-      "${Kitron_SCRIPTS_FORWARD_DECL}void ${LOADER_FUNCTION};\n")
-    set(Kitron_SCRIPTS_INVOKE
-      "${Kitron_SCRIPTS_INVOKE}    ${LOADER_FUNCTION};\n")
+    set(KITRON_SCRIPTS_FORWARD_DECL
+      "${KITRON_SCRIPTS_FORWARD_DECL}void ${LOADER_FUNCTION};\n")
+    set(KITRON_SCRIPTS_INVOKE
+      "${KITRON_SCRIPTS_INVOKE}    ${LOADER_FUNCTION};\n")
   endforeach()
   set(GENERATED_LOADER ${CMAKE_CURRENT_BINARY_DIR}/gen_scriptloader/${SCRIPTLOADER_NAME}/ScriptLoader.cpp)
   configure_file(${CMAKE_CURRENT_SOURCE_DIR}/ScriptLoader.cpp.in.cmake ${GENERATED_LOADER})

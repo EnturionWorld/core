@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_FORMATIONMOVEMENTGENERATOR_H
-#define Kitron_FORMATIONMOVEMENTGENERATOR_H
+#ifndef KITRON_FORMATIONMOVEMENTGENERATOR_H
+#define KITRON_FORMATIONMOVEMENTGENERATOR_H
 
 #include "AbstractFollower.h"
 #include "MovementGenerator.h"
@@ -54,4 +54,4 @@ class FormationMovementGenerator : public MovementGeneratorMedium<Creature, Form
         TimeTracker _nextMoveTimer;
 };
 
-#endif // Kitron_FORMATIONMOVEMENTGENERATOR_H
+#endif // KITRON_FORMATIONMOVEMENTGENERATOR_H

@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_CRYPTO_CONSTANTS_H
-#define Kitron_CRYPTO_CONSTANTS_H
+#ifndef KITRON_CRYPTO_CONSTANTS_H
+#define KITRON_CRYPTO_CONSTANTS_H
 
 #include "Define.h"
 

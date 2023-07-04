@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_SMARTENUM_H
-#define Kitron_SMARTENUM_H
+#ifndef KITRON_SMARTENUM_H
+#define KITRON_SMARTENUM_H
 
 #include "IteratorPair.h"
 #include <iterator>

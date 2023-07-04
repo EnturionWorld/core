@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_MOVEMENTDEFINES_H
-#define Kitron_MOVEMENTDEFINES_H
+#ifndef KITRON_MOVEMENTDEFINES_H
+#define KITRON_MOVEMENTDEFINES_H
 
 #include "Common.h"
 

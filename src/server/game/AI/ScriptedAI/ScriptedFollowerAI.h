@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_SCRIPTEDFOLLOWERAI_H
-#define Kitron_SCRIPTEDFOLLOWERAI_H
+#ifndef KITRON_SCRIPTEDFOLLOWERAI_H
+#define KITRON_SCRIPTEDFOLLOWERAI_H
 
 #include "ScriptedCreature.h"
 

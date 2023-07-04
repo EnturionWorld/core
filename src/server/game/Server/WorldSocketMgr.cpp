@@ -57,7 +57,7 @@ bool WorldSocketMgr::StartWorldNetwork(Kitron::Asio::IoContext& ioContext, std::
 {
     _tcpNoDelay = sConfigMgr->GetBoolDefault("Network.TcpNodelay", true);
 
-    int const max_connections = Kitron_MAX_LISTEN_CONNECTIONS;
+    int const max_connections = KITRON_MAX_LISTEN_CONNECTIONS;
     TC_LOG_DEBUG("misc", "Max allowed socket connections %d", max_connections);
 
     // -1 means use default

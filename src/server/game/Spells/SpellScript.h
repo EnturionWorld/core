@@ -118,12 +118,12 @@ class TC_GAME_API _SpellScript
 
     private:
 
-#ifdef Kitron_API_USE_DYNAMIC_LINKING
+#ifdef KITRON_API_USE_DYNAMIC_LINKING
 
         // Strong reference to keep the binary code loaded
         std::shared_ptr<ModuleReference> m_moduleReference;
 
-#endif // #ifndef Kitron_API_USE_DYNAMIC_LINKING
+#endif // #ifndef KITRON_API_USE_DYNAMIC_LINKING
 
     public:
         //

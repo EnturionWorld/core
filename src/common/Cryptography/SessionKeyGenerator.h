@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_SESSIONKEYGENERATOR_HPP
-#define Kitron_SESSIONKEYGENERATOR_HPP
+#ifndef KITRON_SESSIONKEYGENERATOR_HPP
+#define KITRON_SESSIONKEYGENERATOR_HPP
 
 #include <cstring>
 #include "CryptoHash.h"

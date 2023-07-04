@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_PLAYERAI_H
-#define Kitron_PLAYERAI_H
+#ifndef KITRON_PLAYERAI_H
+#define KITRON_PLAYERAI_H
 
 #include "Common.h"
 #include "UnitAI.h"

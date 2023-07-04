@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_WAYPOINTMOVEMENTGENERATOR_H
-#define Kitron_WAYPOINTMOVEMENTGENERATOR_H
+#ifndef KITRON_WAYPOINTMOVEMENTGENERATOR_H
+#define KITRON_WAYPOINTMOVEMENTGENERATOR_H
 
 #include "MovementGenerator.h"
 #include "PathMovementBase.h"

@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_GUARDAI_H
-#define Kitron_GUARDAI_H
+#ifndef KITRON_GUARDAI_H
+#define KITRON_GUARDAI_H
 
 #include "ScriptedCreature.h"
 

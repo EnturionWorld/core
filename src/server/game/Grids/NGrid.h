@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_NGRID_H
-#define Kitron_NGRID_H
+#ifndef KITRON_NGRID_H
+#define KITRON_NGRID_H
 
 /** NGrid is nothing more than a wrapper of the Grid with an NxN cells
  */

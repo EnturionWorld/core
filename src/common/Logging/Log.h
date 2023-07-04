@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KitronCORE_LOG_H
-#define KitronCORE_LOG_H
+#ifndef KITRONCORE_LOG_H
+#define KITRONCORE_LOG_H
 
 #include "Define.h"
 #include "AsioHacksFwd.h"
@@ -144,7 +144,7 @@ class TC_COMMON_API Log
 
 #ifdef PERFORMANCE_PROFILING
 #define TC_LOG_MESSAGE_BODY(filterType__, level__, ...) ((void)0)
-#elif Kitron_PLATFORM != Kitron_PLATFORM_WINDOWS
+#elif KITRON_PLATFORM != KITRON_PLATFORM_WINDOWS
 void check_args(char const*, ...) ATTR_PRINTF(1, 2);
 void check_args(std::string const&, ...);
 

@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_SPAWNDATA_H
-#define Kitron_SPAWNDATA_H
+#ifndef KITRON_SPAWNDATA_H
+#define KITRON_SPAWNDATA_H
 
 #include "Position.h"
 

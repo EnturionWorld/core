@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_TOTEMAI_H
-#define Kitron_TOTEMAI_H
+#ifndef KITRON_TOTEMAI_H
+#define KITRON_TOTEMAI_H
 
 #include "CreatureAI.h"
 #include "PassiveAI.h"

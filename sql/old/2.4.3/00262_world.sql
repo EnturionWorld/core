@@ -1,6 +1,6 @@
-DELETE FROM Kitron_string WHERE entry IN (1119,1120,1121);
+DELETE FROM trinity_string WHERE entry IN (1119,1120,1121);
 
-INSERT INTO Kitron_string VALUES
+INSERT INTO trinity_string VALUES
 (1119,'You must use male or female as gender.',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
 (1120,'You change gender of %s to %s.',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
 (1121,'Your gender changed to %s by %s.',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
@@ -23,7 +23,7 @@ insert into `command` (`name`, `security`, `help`) values
 ('sendmoney',3,'Syntax: .sendmoney #playername "#subject" "#text" #money\r\n\r\nSend mail with money to a player. Subject and mail text must be in "".');
 
 
-DELETE FROM Kitron_string WHERE entry IN (453);
+DELETE FROM trinity_string WHERE entry IN (453);
 
 
 DROP TABLE IF EXISTS `db_script_string`;
@@ -65,8 +65,8 @@ INSERT INTO `command` (`name`, `security`, `help`) VALUES
 ('server shutdown',3,'Syntax: .server shutdown #delay [#exist_code]\r\n\r\nShut the server down after #delay seconds. Use #exist_code or 0 as program exist code.'),
 ('server shutdown cancel',3,'Syntax: .server shutdown cancel\r\n\r\nCancel the restart/shutdown timer if any.');
 
-DELETE FROM Kitron_string WHERE entry IN (251);
-INSERT INTO Kitron_string VALUES
+DELETE FROM trinity_string WHERE entry IN (251);
+INSERT INTO trinity_string VALUES
 (251,'Text%d (ID: %i): %s',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 ALTER TABLE event_scripts
   DROP datatext,

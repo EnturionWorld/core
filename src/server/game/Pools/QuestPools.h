@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_QUESTPOOLS_H
-#define Kitron_QUESTPOOLS_H
+#ifndef KITRON_QUESTPOOLS_H
+#define KITRON_QUESTPOOLS_H
 
 #include "Define.h"
 #include <unordered_map>

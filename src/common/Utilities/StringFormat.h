@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KitronCORE_STRING_FORMAT_H
-#define KitronCORE_STRING_FORMAT_H
+#ifndef KITRONCORE_STRING_FORMAT_H
+#define KITRONCORE_STRING_FORMAT_H
 
 #include "fmt/printf.h"
 

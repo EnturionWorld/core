@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_DISABLEMGR_H
-#define Kitron_DISABLEMGR_H
+#ifndef KITRON_DISABLEMGR_H
+#define KITRON_DISABLEMGR_H
 
 #include "Define.h"
 
@@ -67,4 +67,4 @@ namespace DisableMgr
     TC_GAME_API bool IsPathfindingEnabled(uint32 mapId);
 }
 
-#endif //Kitron_DISABLEMGR_H
+#endif //KITRON_DISABLEMGR_H

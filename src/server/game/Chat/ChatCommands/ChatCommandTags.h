@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_CHATCOMMANDTAGS_H
-#define Kitron_CHATCOMMANDTAGS_H
+#ifndef KITRON_CHATCOMMANDTAGS_H
+#define KITRON_CHATCOMMANDTAGS_H
 
 #include "advstd.h"
 #include "ChatCommandHelpers.h"

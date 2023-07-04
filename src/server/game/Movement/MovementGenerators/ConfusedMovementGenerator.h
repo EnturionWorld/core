@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_CONFUSEDGENERATOR_H
-#define Kitron_CONFUSEDGENERATOR_H
+#ifndef KITRON_CONFUSEDGENERATOR_H
+#define KITRON_CONFUSEDGENERATOR_H
 
 #include "MovementGenerator.h"
 #include "Timer.h"

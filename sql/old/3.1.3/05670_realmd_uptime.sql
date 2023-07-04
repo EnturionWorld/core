@@ -1,1 +1,1 @@
-ALTER TABLE `uptime` ADD COLUMN `revision` VARCHAR(255) NOT NULL DEFAULT 'Kitroncore' AFTER `maxplayers`;
+ALTER TABLE `uptime` ADD COLUMN `revision` VARCHAR(255) NOT NULL DEFAULT 'kitroncore' AFTER `maxplayers`;

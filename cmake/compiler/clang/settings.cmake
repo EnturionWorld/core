@@ -33,7 +33,7 @@ if (NOT CLANG_HAVE_PROPER_CHARCONV)
   message(STATUS "Clang: Detected from_chars bug for 64-bit integers, workaround enabled")
   target_compile_definitions(Kitron-compile-option-interface
   INTERFACE
-    -DKitron_NEED_CHARCONV_WORKAROUND)
+    -DKITRON_NEED_CHARCONV_WORKAROUND)
 endif()
 
 if(WITH_WARNINGS)
@@ -143,7 +143,7 @@ if(BUILD_SHARED_LIBS)
       -fvisibility=hidden)
 
   # --no-undefined to throw errors when there are undefined symbols
-  # (caused through missing Kitron_*_API macros).
+  # (caused through missing KITRON_*_API macros).
   set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --no-undefined")
 
   message(STATUS "Clang: Disallow undefined symbols")

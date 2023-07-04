@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_IDLEMOVEMENTGENERATOR_H
-#define Kitron_IDLEMOVEMENTGENERATOR_H
+#ifndef KITRON_IDLEMOVEMENTGENERATOR_H
+#define KITRON_IDLEMOVEMENTGENERATOR_H
 
 #include "MovementGenerator.h"
 #include "Timer.h"

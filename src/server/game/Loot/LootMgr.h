@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_LOOTMGR_H
-#define Kitron_LOOTMGR_H
+#ifndef KITRON_LOOTMGR_H
+#define KITRON_LOOTMGR_H
 
 #include "Define.h"
 #include "ConditionMgr.h"

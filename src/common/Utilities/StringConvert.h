@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_STRINGCONVERT_H
-#define Kitron_STRINGCONVERT_H
+#ifndef KITRON_STRINGCONVERT_H
+#define KITRON_STRINGCONVERT_H
 
 #include "Define.h"
 #include "Errors.h"
@@ -86,7 +86,7 @@ namespace Kitron::Impl::StringConvertImpl
         }
     };
 
-#ifdef Kitron_NEED_CHARCONV_WORKAROUND
+#ifdef KITRON_NEED_CHARCONV_WORKAROUND
     /*
         If this is defined, std::from_chars will cause linkage errors for 64-bit types.
         (This is a bug in clang-7.)
@@ -171,7 +171,7 @@ namespace Kitron::Impl::StringConvertImpl
         }
     };
 
-#if Kitron_COMPILER == Kitron_COMPILER_MICROSOFT
+#if KITRON_COMPILER == KITRON_COMPILER_MICROSOFT
     template <typename T>
     struct For<T, std::enable_if_t<std::is_floating_point_v<T>>>
     {

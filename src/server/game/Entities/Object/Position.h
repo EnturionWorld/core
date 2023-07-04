@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_game_Position_h__
-#define Kitron_game_Position_h__
+#ifndef KITRON_game_Position_h__
+#define KITRON_game_Position_h__
 
 #include "Define.h"
 #include <string>
@@ -227,4 +227,4 @@ struct TaggedPosition
     Position Pos;
 };
 
-#endif // Kitron_game_Position_h__
+#endif // KITRON_game_Position_h__

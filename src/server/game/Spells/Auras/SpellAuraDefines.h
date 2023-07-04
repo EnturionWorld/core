@@ -14,8 +14,8 @@
  * You should have received a copy of the GNU General Public License along
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef Kitron_SPELLAURADEFINES_H
-#define Kitron_SPELLAURADEFINES_H
+#ifndef KITRON_SPELLAURADEFINES_H
+#define KITRON_SPELLAURADEFINES_H
 
 #include "Define.h"
 #include "ObjectGuid.h"

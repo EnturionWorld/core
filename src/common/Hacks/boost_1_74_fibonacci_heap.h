@@ -21,7 +21,7 @@
 #include "CompilerDefs.h"
 #include <boost/version.hpp>
 
-#if Kitron_COMPILER == Kitron_COMPILER_MICROSOFT && BOOST_VERSION == 107400
+#if KITRON_COMPILER == KITRON_COMPILER_MICROSOFT && BOOST_VERSION == 107400
 #define BOOST_1_74_FIBONACCI_HEAP_MSVC_COMPILE_FIX(T)                                           \
 namespace boost::heap::detail                                                                   \
 {                                                                                               \

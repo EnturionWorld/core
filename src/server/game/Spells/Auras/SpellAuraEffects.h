@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_SPELLAURAEFFECTS_H
-#define Kitron_SPELLAURAEFFECTS_H
+#ifndef KITRON_SPELLAURAEFFECTS_H
+#define KITRON_SPELLAURAEFFECTS_H
 
 #include "SpellAuras.h"
 

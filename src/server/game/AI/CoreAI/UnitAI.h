@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_UNITAI_H
-#define Kitron_UNITAI_H
+#ifndef KITRON_UNITAI_H
+#define KITRON_UNITAI_H
 
 #include "Containers.h"
 #include "Errors.h"
