@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KitronCORE_ITEM_H
-#define KitronCORE_ITEM_H
+#ifndef KITRONCORE_ITEM_H
+#define KITRONCORE_ITEM_H
 
 #include "Object.h"
 #include "Common.h"

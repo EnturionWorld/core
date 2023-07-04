@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_HOMEMOVEMENTGENERATOR_H
-#define Kitron_HOMEMOVEMENTGENERATOR_H
+#ifndef KITRON_HOMEMOVEMENTGENERATOR_H
+#define KITRON_HOMEMOVEMENTGENERATOR_H
 
 #include "MovementGenerator.h"
 

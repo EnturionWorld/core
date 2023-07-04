@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KitronCORE_CREATURE_H
-#define KitronCORE_CREATURE_H
+#ifndef KITRONCORE_CREATURE_H
+#define KITRONCORE_CREATURE_H
 
 #include "Unit.h"
 #include "Common.h"

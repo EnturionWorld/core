@@ -1,5 +1,5 @@
 --
--- Kitron_script_texts.sql Contains data for table `script_texts` mainly used in C++ parts.
+-- trinity_script_texts.sql Contains data for table `script_texts` mainly used in C++ parts.
 -- valid entries for table are between -1000000 and -1999999
 --
 

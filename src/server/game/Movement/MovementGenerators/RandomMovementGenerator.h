@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_RANDOMMOTIONGENERATOR_H
-#define Kitron_RANDOMMOTIONGENERATOR_H
+#ifndef KITRON_RANDOMMOTIONGENERATOR_H
+#define KITRON_RANDOMMOTIONGENERATOR_H
 
 #include "MovementGenerator.h"
 #include "Position.h"

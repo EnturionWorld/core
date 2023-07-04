@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_ARENA_H
-#define Kitron_ARENA_H
+#ifndef KITRON_ARENA_H
+#define KITRON_ARENA_H
 
 #include "Battleground.h"
 
@@ -63,4 +63,4 @@ class TC_GAME_API Arena : public Battleground
         void EndBattleground(uint32 winner) override;
 };
 
-#endif // Kitron_ARENA_H
+#endif // KITRON_ARENA_H

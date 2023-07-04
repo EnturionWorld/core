@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_FACTORY_HOLDER
-#define Kitron_FACTORY_HOLDER
+#ifndef KITRON_FACTORY_HOLDER
+#define KITRON_FACTORY_HOLDER
 
 #include "Define.h"
 #include "ObjectRegistry.h"

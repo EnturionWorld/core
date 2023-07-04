@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_GRIDNOTIFIERSIMPL_H
-#define Kitron_GRIDNOTIFIERSIMPL_H
+#ifndef KITRON_GRIDNOTIFIERSIMPL_H
+#define KITRON_GRIDNOTIFIERSIMPL_H
 
 #include "GridNotifiers.h"
 #include "Corpse.h"
@@ -556,4 +556,4 @@ void Kitron::LocalizedPacketListDo<Builder>::operator()(Player* p)
         p->SendDirectMessage((*data_list)[i]);
 }
 
-#endif                                                      // Kitron_GRIDNOTIFIERSIMPL_H
+#endif                                                      // KITRON_GRIDNOTIFIERSIMPL_H

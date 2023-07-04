@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_GRIDSTATES_H
-#define Kitron_GRIDSTATES_H
+#ifndef KITRON_GRIDSTATES_H
+#define KITRON_GRIDSTATES_H
 
 #include "GridDefines.h"
 #include "NGrid.h"

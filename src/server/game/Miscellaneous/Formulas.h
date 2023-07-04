@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_FORMULAS_H
-#define Kitron_FORMULAS_H
+#ifndef KITRON_FORMULAS_H
+#define KITRON_FORMULAS_H
 
 #include "DBCStores.h"
 #include "Creature.h"

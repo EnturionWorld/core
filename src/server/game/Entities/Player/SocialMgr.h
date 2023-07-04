@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __Kitron_SOCIALMGR_H
-#define __Kitron_SOCIALMGR_H
+#ifndef __KITRON_SOCIALMGR_H
+#define __KITRON_SOCIALMGR_H
 
 #include "DatabaseEnvFwd.h"
 #include "Common.h"

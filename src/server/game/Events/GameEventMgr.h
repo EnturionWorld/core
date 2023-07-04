@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_GAMEEVENT_MGR_H
-#define Kitron_GAMEEVENT_MGR_H
+#ifndef KITRON_GAMEEVENT_MGR_H
+#define KITRON_GAMEEVENT_MGR_H
 
 #include "Common.h"
 #include "ObjectGuid.h"

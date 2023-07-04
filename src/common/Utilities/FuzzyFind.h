@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_FUZZYFIND_H
-#define Kitron_FUZZYFIND_H
+#ifndef KITRON_FUZZYFIND_H
+#define KITRON_FUZZYFIND_H
 
 #include <map>
 #include <string>

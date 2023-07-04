@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __Kitron_SECRETMGR_H__
-#define __Kitron_SECRETMGR_H__
+#ifndef __KITRON_SECRETMGR_H__
+#define __KITRON_SECRETMGR_H__
 
 #include "BigNumber.h"
 #include "Common.h"

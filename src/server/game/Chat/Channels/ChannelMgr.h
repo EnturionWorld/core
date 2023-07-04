@@ -14,8 +14,8 @@
  * You should have received a copy of the GNU General Public License along
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef __Kitron_CHANNELMGR_H
-#define __Kitron_CHANNELMGR_H
+#ifndef __KITRON_CHANNELMGR_H
+#define __KITRON_CHANNELMGR_H
 
 #include "Define.h"
 #include "Hash.h"

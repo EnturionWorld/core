@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_FLIGHTPATHMOVEMENTGENERATOR_H
-#define Kitron_FLIGHTPATHMOVEMENTGENERATOR_H
+#ifndef KITRON_FLIGHTPATHMOVEMENTGENERATOR_H
+#define KITRON_FLIGHTPATHMOVEMENTGENERATOR_H
 
 #include "DBCStructure.h"
 #include "MovementGenerator.h"
@@ -71,4 +71,4 @@ class FlightPathMovementGenerator : public MovementGeneratorMedium<Player, Fligh
         std::deque<TaxiNodeChangeInfo> _pointsForPathSwitch; //! node indexes and costs where TaxiPath changes
 };
 
-#endif // Kitron_FLIGHTPATHMOVEMENTGENERATOR_H
+#endif // KITRON_FLIGHTPATHMOVEMENTGENERATOR_H

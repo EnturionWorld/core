@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __Kitron_LANGUAGE_H
-#define __Kitron_LANGUAGE_H
+#ifndef __KITRON_LANGUAGE_H
+#define __KITRON_LANGUAGE_H
 
 enum BroadcastTextIds
 {

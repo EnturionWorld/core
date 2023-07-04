@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_CREATUREAIFACTORY_H
-#define Kitron_CREATUREAIFACTORY_H
+#ifndef KITRON_CREATUREAIFACTORY_H
+#define KITRON_CREATUREAIFACTORY_H
 
 #include "ObjectRegistry.h"
 #include "SelectableAI.h"

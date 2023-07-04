@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_AES_h__
-#define Kitron_AES_h__
+#ifndef KITRON_AES_h__
+#define KITRON_AES_h__
 
 #include "Define.h"
 #include <array>
@@ -48,4 +48,4 @@ namespace Kitron::Crypto
     };
 }
 
-#endif // Kitron_AES_h__
+#endif // KITRON_AES_h__

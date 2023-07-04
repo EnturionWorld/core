@@ -292,7 +292,7 @@ TC_COMMON_API void utf8printf(FILE* out, const char *str, ...);
 TC_COMMON_API void vutf8printf(FILE* out, const char *str, va_list* ap);
 TC_COMMON_API bool Utf8ToUpperOnlyLatin(std::string& utf8String);
 
-#if Kitron_PLATFORM == Kitron_PLATFORM_WINDOWS
+#if KITRON_PLATFORM == KITRON_PLATFORM_WINDOWS
 TC_COMMON_API bool ReadWinConsole(std::string& str, size_t size = 256);
 TC_COMMON_API bool WriteWinConsole(std::string_view str, bool error = false);
 #endif

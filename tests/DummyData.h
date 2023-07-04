@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_DUMMYDATA_H
-#define Kitron_DUMMYDATA_H
+#ifndef KITRON_DUMMYDATA_H
+#define KITRON_DUMMYDATA_H
 
 #include "Common.h"
 #include "Define.h"

@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KitronCORE_WORLDPACKET_H
-#define KitronCORE_WORLDPACKET_H
+#ifndef KITRONCORE_WORLDPACKET_H
+#define KITRONCORE_WORLDPACKET_H
 
 #include "Common.h"
 #include "Opcodes.h"

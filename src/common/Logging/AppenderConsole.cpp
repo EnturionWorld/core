@@ -23,7 +23,7 @@
 #include "Util.h"
 #include <sstream>
 
-#if Kitron_PLATFORM == Kitron_PLATFORM_WINDOWS
+#if KITRON_PLATFORM == KITRON_PLATFORM_WINDOWS
   #include <Windows.h>
 #endif
 
@@ -68,7 +68,7 @@ void AppenderConsole::InitColors(std::string const& name, std::string_view str)
 
 void AppenderConsole::SetColor(bool stdout_stream, ColorTypes color)
 {
-#if Kitron_PLATFORM == Kitron_PLATFORM_WINDOWS
+#if KITRON_PLATFORM == KITRON_PLATFORM_WINDOWS
     static WORD WinColorFG[NUM_COLOR_TYPES] =
     {
         0,                                                  // BLACK
@@ -155,7 +155,7 @@ void AppenderConsole::SetColor(bool stdout_stream, ColorTypes color)
 
 void AppenderConsole::ResetColor(bool stdout_stream)
 {
-    #if Kitron_PLATFORM == Kitron_PLATFORM_WINDOWS
+    #if KITRON_PLATFORM == KITRON_PLATFORM_WINDOWS
     HANDLE hConsole = GetStdHandle(stdout_stream ? STD_OUTPUT_HANDLE : STD_ERROR_HANDLE);
     SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED);
     #else
@@ -165,7 +165,7 @@ void AppenderConsole::ResetColor(bool stdout_stream)
 
 void AppenderConsole::Print(std::string const& str, bool error)
 {
-#if Kitron_PLATFORM == Kitron_PLATFORM_WINDOWS
+#if KITRON_PLATFORM == KITRON_PLATFORM_WINDOWS
     WriteWinConsole(str + "\n", error);
 #else
     utf8printf(error ? stderr : stdout, "%s\n", str.c_str());

@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_SPLINECHAINMOVEMENTGENERATOR_H
-#define Kitron_SPLINECHAINMOVEMENTGENERATOR_H
+#ifndef KITRON_SPLINECHAINMOVEMENTGENERATOR_H
+#define KITRON_SPLINECHAINMOVEMENTGENERATOR_H
 
 #include "SplineChain.h"
 #include "MovementGenerator.h"

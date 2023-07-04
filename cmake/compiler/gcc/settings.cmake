@@ -76,7 +76,7 @@ if(BUILD_SHARED_LIBS)
     INTERFACE
       -fvisibility=hidden)
 
-  # Should break the build when there are Kitron_*_API macros missing
+  # Should break the build when there are KITRON_*_API macros missing
   # but it complains about missing references in precompiled headers.
   # set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wl,--no-undefined")
   # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wl,--no-undefined")

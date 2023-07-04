@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KitronCORE_GAMEOBJECT_H
-#define KitronCORE_GAMEOBJECT_H
+#ifndef KITRONCORE_GAMEOBJECT_H
+#define KITRONCORE_GAMEOBJECT_H
 
 #include "Object.h"
 #include "GridObject.h"

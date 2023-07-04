@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_GRIDDEFINES_H
-#define Kitron_GRIDDEFINES_H
+#ifndef KITRON_GRIDDEFINES_H
+#define KITRON_GRIDDEFINES_H
 
 #include "Common.h"
 #include "ObjectGuid.h"

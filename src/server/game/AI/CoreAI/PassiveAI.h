@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_PASSIVEAI_H
-#define Kitron_PASSIVEAI_H
+#ifndef KITRON_PASSIVEAI_H
+#define KITRON_PASSIVEAI_H
 
 #include "CreatureAI.h"
 

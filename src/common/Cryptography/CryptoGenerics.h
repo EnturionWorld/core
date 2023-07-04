@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_CRYPTO_GENERICS_HPP
-#define Kitron_CRYPTO_GENERICS_HPP
+#ifndef KITRON_CRYPTO_GENERICS_HPP
+#define KITRON_CRYPTO_GENERICS_HPP
 
 #include "BigNumber.h"
 #include "CryptoRandom.h"

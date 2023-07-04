@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_COMMONPREDICATES_H
-#define Kitron_COMMONPREDICATES_H
+#ifndef KITRON_COMMONPREDICATES_H
+#define KITRON_COMMONPREDICATES_H
 
 #include "Define.h"
 #include <utility>
@@ -66,4 +66,4 @@ namespace Kitron
     }
 }
 
-#endif //Kitron_COMMONPREDICATES_H
+#endif //KITRON_COMMONPREDICATES_H

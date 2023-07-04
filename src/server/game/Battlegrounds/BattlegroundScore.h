@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_BATTLEGROUND_SCORE_H
-#define Kitron_BATTLEGROUND_SCORE_H
+#ifndef KITRON_BATTLEGROUND_SCORE_H
+#define KITRON_BATTLEGROUND_SCORE_H
 
 #include "Errors.h"
 #include "ObjectGuid.h"
@@ -122,4 +122,4 @@ struct BattlegroundScore
         uint32 HealingDone;
 };
 
-#endif // Kitron_BATTLEGROUND_SCORE_H
+#endif // KITRON_BATTLEGROUND_SCORE_H

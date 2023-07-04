@@ -22457,7 +22457,7 @@ void Player::UpdateVisibilityOf(WorldObject* target)
             target->DestroyForPlayer(this);
             m_clientGUIDs.erase(target->GetGUID());
 
-            #ifdef Kitron_DEBUG
+            #ifdef KITRON_DEBUG
                 TC_LOG_DEBUG("maps", "Object %s out of range for player %s. Distance = %f", target->GetGUID().ToString().c_str(), GetGUID().ToString().c_str(), GetDistance(target));
             #endif
         }
@@ -22469,7 +22469,7 @@ void Player::UpdateVisibilityOf(WorldObject* target)
             target->SendUpdateToPlayer(this);
             m_clientGUIDs.insert(target->GetGUID());
 
-            #ifdef Kitron_DEBUG
+            #ifdef KITRON_DEBUG
                 TC_LOG_DEBUG("maps", "Object %s is visible now for player %s. Distance = %f", target->GetGUID().ToString().c_str(), GetGUID().ToString().c_str(), GetDistance(target));
             #endif
 
@@ -22545,7 +22545,7 @@ void Player::UpdateVisibilityOf(T* target, UpdateData& data, std::set<Unit*>& vi
             target->BuildOutOfRangeUpdateBlock(&data);
             m_clientGUIDs.erase(target->GetGUID());
 
-            #ifdef Kitron_DEBUG
+            #ifdef KITRON_DEBUG
                 TC_LOG_DEBUG("maps", "Object %s is out of range for player %s. Distance = %f", target->GetGUID().ToString().c_str(), GetGUID().ToString().c_str(), GetDistance(target));
             #endif
         }
@@ -22557,7 +22557,7 @@ void Player::UpdateVisibilityOf(T* target, UpdateData& data, std::set<Unit*>& vi
             target->BuildCreateUpdateBlockForPlayer(&data, this);
             UpdateVisibilityOf_helper(m_clientGUIDs, target, visibleNow);
 
-            #ifdef Kitron_DEBUG
+            #ifdef KITRON_DEBUG
                 TC_LOG_DEBUG("maps", "Object %s is visible now for player %s. Distance = %f", target->GetGUID().ToString().c_str(), GetGUID().ToString().c_str(), GetDistance(target));
             #endif
         }

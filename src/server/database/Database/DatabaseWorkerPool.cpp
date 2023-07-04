@@ -33,7 +33,7 @@
 #include "Transaction.h"
 #include "MySQLWorkaround.h"
 #include <mysqld_error.h>
-#ifdef Kitron_DEBUG
+#ifdef KITRON_DEBUG
 #include <sstream>
 #include <boost/stacktrace.hpp>
 #endif
@@ -256,7 +256,7 @@ SQLTransaction<T> DatabaseWorkerPool<T>::BeginTransaction()
 template <class T>
 void DatabaseWorkerPool<T>::CommitTransaction(SQLTransaction<T> transaction)
 {
-#ifdef Kitron_DEBUG
+#ifdef KITRON_DEBUG
     //! Only analyze transaction weaknesses in Debug mode.
     //! Ideally we catch the faults in Debug mode and then correct them,
     //! so there's no need to waste these CPU cycles in Release mode.
@@ -271,7 +271,7 @@ void DatabaseWorkerPool<T>::CommitTransaction(SQLTransaction<T> transaction)
     default:
         break;
     }
-#endif // Kitron_DEBUG
+#endif // KITRON_DEBUG
 
     Enqueue(new TransactionTask(transaction));
 }
@@ -279,7 +279,7 @@ void DatabaseWorkerPool<T>::CommitTransaction(SQLTransaction<T> transaction)
 template <class T>
 TransactionCallback DatabaseWorkerPool<T>::AsyncCommitTransaction(SQLTransaction<T> transaction)
 {
-#ifdef Kitron_DEBUG
+#ifdef KITRON_DEBUG
     //! Only analyze transaction weaknesses in Debug mode.
     //! Ideally we catch the faults in Debug mode and then correct them,
     //! so there's no need to waste these CPU cycles in Release mode.
@@ -294,7 +294,7 @@ TransactionCallback DatabaseWorkerPool<T>::AsyncCommitTransaction(SQLTransaction
         default:
             break;
     }
-#endif // Kitron_DEBUG
+#endif // KITRON_DEBUG
 
     TransactionWithResultTask* task = new TransactionWithResultTask(transaction);
     TransactionFuture result = task->GetFuture();
@@ -443,7 +443,7 @@ size_t DatabaseWorkerPool<T>::QueueSize() const
 template <class T>
 T* DatabaseWorkerPool<T>::GetFreeConnection()
 {
-#ifdef Kitron_DEBUG
+#ifdef KITRON_DEBUG
     if (_warnSyncQueries)
     {
         std::ostringstream ss;

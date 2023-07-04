@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
- #ifndef Kitron_THREATMANAGER_H
- #define Kitron_THREATMANAGER_H
+ #ifndef KITRON_THREATMANAGER_H
+ #define KITRON_THREATMANAGER_H
 
 #include "Common.h"
 #include "IteratorPair.h"

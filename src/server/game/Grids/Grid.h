@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_GRID_H
-#define Kitron_GRID_H
+#ifndef KITRON_GRID_H
+#define KITRON_GRID_H
 
 /*
   @class Grid

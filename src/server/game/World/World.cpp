@@ -1376,7 +1376,7 @@ void World::LoadConfigSettings(bool reload)
     if (dataPath.empty() || (dataPath.at(dataPath.length()-1) != '/' && dataPath.at(dataPath.length()-1) != '\\'))
         dataPath.push_back('/');
 
-#if Kitron_PLATFORM == Kitron_PLATFORM_UNIX || Kitron_PLATFORM == Kitron_PLATFORM_APPLE
+#if KITRON_PLATFORM == KITRON_PLATFORM_UNIX || KITRON_PLATFORM == KITRON_PLATFORM_APPLE
     if (dataPath[0] == '~')
     {
         char const* home = getenv("HOME");

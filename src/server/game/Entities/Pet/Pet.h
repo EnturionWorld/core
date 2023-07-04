@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KitronCORE_PET_H
-#define KitronCORE_PET_H
+#ifndef KITRONCORE_PET_H
+#define KITRONCORE_PET_H
 
 #include "PetDefines.h"
 #include "TemporarySummon.h"

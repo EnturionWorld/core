@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KitronCORE_COMMON_H
-#define KitronCORE_COMMON_H
+#ifndef KITRONCORE_COMMON_H
+#define KITRONCORE_COMMON_H
 
 #include "Define.h"
 #include <array>
@@ -24,14 +24,14 @@
 #include <string>
 #include <utility>
 
-#if Kitron_PLATFORM == Kitron_PLATFORM_WINDOWS
+#if KITRON_PLATFORM == KITRON_PLATFORM_WINDOWS
 #  include <ws2tcpip.h>
 
-#  if Kitron_COMPILER == Kitron_COMPILER_INTEL
+#  if KITRON_COMPILER == KITRON_COMPILER_INTEL
 #    if !defined(BOOST_ASIO_HAS_MOVE)
 #      define BOOST_ASIO_HAS_MOVE
 #    endif // !defined(BOOST_ASIO_HAS_MOVE)
-#  endif // if Kitron_COMPILER == Kitron_COMPILER_INTEL
+#  endif // if KITRON_COMPILER == KITRON_COMPILER_INTEL
 #else
 #  include <sys/types.h>
 #  include <sys/ioctl.h>
@@ -42,7 +42,7 @@
 #  include <cstdlib>
 #endif
 
-#if Kitron_COMPILER == Kitron_COMPILER_MICROSOFT
+#if KITRON_COMPILER == KITRON_COMPILER_MICROSOFT
 
 #define atoll _atoi64
 #define llabs _abs64

@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_BASE_ENCODING_HPP
-#define Kitron_BASE_ENCODING_HPP
+#ifndef KITRON_BASE_ENCODING_HPP
+#define KITRON_BASE_ENCODING_HPP
 
 #include "Define.h"
 #include "Optional.h"

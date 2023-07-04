@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_DBCSFRM_H
-#define Kitron_DBCSFRM_H
+#ifndef KITRON_DBCSFRM_H
+#define KITRON_DBCSFRM_H
 
 char constexpr Achievementfmt[] = "niixssssssssssssssssxxxxxxxxxxxxxxxxxxiixixxxxxxxxxxxxxxxxxxii";
 char constexpr CustomAchievementfmt[] = "pppaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaapapaaaaaaaaaaaaaaaaaapp";

@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_GRIDLOADER_H
-#define Kitron_GRIDLOADER_H
+#ifndef KITRON_GRIDLOADER_H
+#define KITRON_GRIDLOADER_H
 
 /**
   @class GridLoader

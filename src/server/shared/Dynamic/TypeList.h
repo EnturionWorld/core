@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_TYPELIST_H
-#define Kitron_TYPELIST_H
+#ifndef KITRON_TYPELIST_H
+#define KITRON_TYPELIST_H
 
 /*
   @struct TypeList

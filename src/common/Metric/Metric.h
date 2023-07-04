@@ -180,7 +180,7 @@ Optional<MetricStopWatch<LoggerType>> MakeMetricStopWatch(LoggerType&& loggerFun
 #define TC_METRIC_DETAILED_TIMER(category, ...) ((void)0)
 #define TC_METRIC_DETAILED_NO_THRESHOLD_TIMER(category, ...) ((void)0)
 #else
-#  if Kitron_PLATFORM != Kitron_PLATFORM_WINDOWS
+#  if KITRON_PLATFORM != KITRON_PLATFORM_WINDOWS
 #define TC_METRIC_EVENT(category, title, description)                  \
         do {                                                           \
             if (sMetric->IsEnabled())                                  \

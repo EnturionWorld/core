@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KitronCORE_GROUP_H
-#define KitronCORE_GROUP_H
+#ifndef KITRONCORE_GROUP_H
+#define KITRONCORE_GROUP_H
 
 #include "DBCEnums.h"
 #include "DatabaseEnvFwd.h"

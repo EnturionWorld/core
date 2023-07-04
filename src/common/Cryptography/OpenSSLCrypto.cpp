@@ -59,7 +59,7 @@ void OpenSSLCrypto::threadsSetup([[maybe_unused]] boost::filesystem::path const&
     (void)&lockingCallback;
     CRYPTO_set_locking_callback(lockingCallback);
 #elif OPENSSL_VERSION_NUMBER >= 0x30000000L
-#if Kitron_PLATFORM == Kitron_PLATFORM_WINDOWS
+#if KITRON_PLATFORM == KITRON_PLATFORM_WINDOWS
     OSSL_PROVIDER_set_default_search_path(nullptr, providerModulePath.string().c_str());
 #endif
     LegacyProvider = OSSL_PROVIDER_load(nullptr, "legacy");

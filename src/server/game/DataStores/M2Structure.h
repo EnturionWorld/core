@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_M2STRUCTURE_H
-#define Kitron_M2STRUCTURE_H
+#ifndef KITRON_M2STRUCTURE_H
+#define KITRON_M2STRUCTURE_H
 
 #include <G3D/Vector3.h>
 #include <G3D/AABox.h>

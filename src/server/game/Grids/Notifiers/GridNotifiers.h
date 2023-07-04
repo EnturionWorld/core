@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_GRIDNOTIFIERS_H
-#define Kitron_GRIDNOTIFIERS_H
+#ifndef KITRON_GRIDNOTIFIERS_H
+#define KITRON_GRIDNOTIFIERS_H
 
 #include "Creature.h"
 #include "Corpse.h"

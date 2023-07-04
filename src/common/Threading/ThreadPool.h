@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_THREAD_POOL_H
-#define Kitron_THREAD_POOL_H
+#ifndef KITRON_THREAD_POOL_H
+#define KITRON_THREAD_POOL_H
 
 #include <boost/asio/post.hpp>
 #include <boost/asio/thread_pool.hpp>
@@ -45,4 +45,4 @@ private:
 };
 }
 
-#endif // Kitron_THREAD_POOL_H
+#endif // KITRON_THREAD_POOL_H

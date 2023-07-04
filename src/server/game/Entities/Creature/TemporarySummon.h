@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KitronCORE_TEMPSUMMON_H
-#define KitronCORE_TEMPSUMMON_H
+#ifndef KITRONCORE_TEMPSUMMON_H
+#define KITRONCORE_TEMPSUMMON_H
 
 #include "Creature.h"
 

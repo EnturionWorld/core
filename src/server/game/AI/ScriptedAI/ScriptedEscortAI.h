@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_SCRIPTEDESCORTAI_H
-#define Kitron_SCRIPTEDESCORTAI_H
+#ifndef KITRON_SCRIPTEDESCORTAI_H
+#define KITRON_SCRIPTEDESCORTAI_H
 
 #include "ScriptedCreature.h"
 #include "WaypointDefines.h"

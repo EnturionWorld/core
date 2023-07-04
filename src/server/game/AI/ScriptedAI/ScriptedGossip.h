@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_SCRIPTEDGOSSIP_H
-#define Kitron_SCRIPTEDGOSSIP_H
+#ifndef KITRON_SCRIPTEDGOSSIP_H
+#define KITRON_SCRIPTEDGOSSIP_H
 
 #include "GossipDef.h"
 #include "QuestDef.h"

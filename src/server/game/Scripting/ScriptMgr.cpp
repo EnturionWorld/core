@@ -1103,7 +1103,7 @@ void ScriptMgr::ReleaseScriptContext(std::string const& context)
 std::shared_ptr<ModuleReference>
     ScriptMgr::AcquireModuleReferenceOfScriptName(std::string const& scriptname) const
 {
-#ifdef Kitron_API_USE_DYNAMIC_LINKING
+#ifdef KITRON_API_USE_DYNAMIC_LINKING
     // Returns the reference to the module of the given scriptname
     return ScriptReloadMgr::AcquireModuleReferenceOfContext(
         sScriptRegistryCompositum->GetScriptContextOfScriptName(scriptname));
@@ -1112,7 +1112,7 @@ std::shared_ptr<ModuleReference>
     // Something went wrong when this function is used in
     // a static linked context.
     WPAbort();
-#endif // #ifndef Kitron_API_USE_DYNAMIC_LINKING
+#endif // #ifndef KITRON_API_USE_DYNAMIC_LINKING
 }
 
 void ScriptMgr::Unload()

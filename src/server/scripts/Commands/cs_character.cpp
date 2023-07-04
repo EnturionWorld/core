@@ -868,7 +868,7 @@ public:
                 return false;
         }
 
-        // ToDo: use a new Kitron_string for this commands
+        // ToDo: use a new trinity_string for this commands
         handler->PSendSysMessage(LANG_COMMAND_IMPORT_SUCCESS);
 
         return true;

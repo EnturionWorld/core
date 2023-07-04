@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_CRYPTORANDOM_H
-#define Kitron_CRYPTORANDOM_H
+#ifndef KITRON_CRYPTORANDOM_H
+#define KITRON_CRYPTORANDOM_H
 
 #include "Define.h"
 #include <array>

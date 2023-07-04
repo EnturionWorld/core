@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_SPELLAURAS_H
-#define Kitron_SPELLAURAS_H
+#ifndef KITRON_SPELLAURAS_H
+#define KITRON_SPELLAURAS_H
 
 #include "SpellAuraDefines.h"
 #include "SpellInfo.h"

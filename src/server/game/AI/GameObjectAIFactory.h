@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_GAMEOBJECTAIFACTORY_H
-#define Kitron_GAMEOBJECTAIFACTORY_H
+#ifndef KITRON_GAMEOBJECTAIFACTORY_H
+#define KITRON_GAMEOBJECTAIFACTORY_H
 
 #include "ObjectRegistry.h"
 #include "SelectableAI.h"

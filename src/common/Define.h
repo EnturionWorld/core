@@ -15,12 +15,12 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_DEFINE_H
-#define Kitron_DEFINE_H
+#ifndef KITRON_DEFINE_H
+#define KITRON_DEFINE_H
 
 #include "CompilerDefs.h"
 
-#if Kitron_COMPILER == Kitron_COMPILER_GNU
+#if KITRON_COMPILER == KITRON_COMPILER_GNU
 #  if !defined(__STDC_FORMAT_MACROS)
 #    define __STDC_FORMAT_MACROS
 #  endif
@@ -43,44 +43,44 @@
 #include <cinttypes>
 #include <climits>
 
-#define Kitron_LITTLEENDIAN 0
-#define Kitron_BIGENDIAN    1
+#define KITRON_LITTLEENDIAN 0
+#define KITRON_BIGENDIAN    1
 
-#if !defined(Kitron_ENDIAN)
+#if !defined(KITRON_ENDIAN)
 #  if defined (BOOST_BIG_ENDIAN)
-#    define Kitron_ENDIAN Kitron_BIGENDIAN
+#    define KITRON_ENDIAN KITRON_BIGENDIAN
 #  else
-#    define Kitron_ENDIAN Kitron_LITTLEENDIAN
+#    define KITRON_ENDIAN KITRON_LITTLEENDIAN
 #  endif
 #endif
 
-#if Kitron_PLATFORM == Kitron_PLATFORM_WINDOWS
-#  define Kitron_PATH_MAX 260
+#if KITRON_PLATFORM == KITRON_PLATFORM_WINDOWS
+#  define KITRON_PATH_MAX 260
 #  define _USE_MATH_DEFINES
-#else // Kitron_PLATFORM != Kitron_PLATFORM_WINDOWS
-#  define Kitron_PATH_MAX PATH_MAX
-#endif // Kitron_PLATFORM
+#else // KITRON_PLATFORM != KITRON_PLATFORM_WINDOWS
+#  define KITRON_PATH_MAX PATH_MAX
+#endif // KITRON_PLATFORM
 
 #if !defined(COREDEBUG)
-#  define Kitron_INLINE inline
+#  define KITRON_INLINE inline
 #else //COREDEBUG
-#  if !defined(Kitron_DEBUG)
-#    define Kitron_DEBUG
-#  endif //Kitron_DEBUG
-#  define Kitron_INLINE
+#  if !defined(KITRON_DEBUG)
+#    define KITRON_DEBUG
+#  endif //KITRON_DEBUG
+#  define KITRON_INLINE
 #endif //!COREDEBUG
 
-#if Kitron_COMPILER == Kitron_COMPILER_GNU
+#if KITRON_COMPILER == KITRON_COMPILER_GNU
 #  define ATTR_PRINTF(F, V) __attribute__ ((__format__ (__printf__, F, V)))
-#else //Kitron_COMPILER != Kitron_COMPILER_GNU
+#else //KITRON_COMPILER != KITRON_COMPILER_GNU
 #  define ATTR_PRINTF(F, V)
-#endif //Kitron_COMPILER == Kitron_COMPILER_GNU
+#endif //KITRON_COMPILER == KITRON_COMPILER_GNU
 
-#ifdef Kitron_API_USE_DYNAMIC_LINKING
-#  if Kitron_COMPILER == Kitron_COMPILER_MICROSOFT
+#ifdef KITRON_API_USE_DYNAMIC_LINKING
+#  if KITRON_COMPILER == KITRON_COMPILER_MICROSOFT
 #    define TC_API_EXPORT __declspec(dllexport)
 #    define TC_API_IMPORT __declspec(dllimport)
-#  elif Kitron_COMPILER == Kitron_COMPILER_GNU
+#  elif KITRON_COMPILER == KITRON_COMPILER_GNU
 #    define TC_API_EXPORT __attribute__((visibility("default")))
 #    define TC_API_IMPORT
 #  else
@@ -91,25 +91,25 @@
 #  define TC_API_IMPORT
 #endif
 
-#ifdef Kitron_API_EXPORT_COMMON
+#ifdef KITRON_API_EXPORT_COMMON
 #  define TC_COMMON_API TC_API_EXPORT
 #else
 #  define TC_COMMON_API TC_API_IMPORT
 #endif
 
-#ifdef Kitron_API_EXPORT_DATABASE
+#ifdef KITRON_API_EXPORT_DATABASE
 #  define TC_DATABASE_API TC_API_EXPORT
 #else
 #  define TC_DATABASE_API TC_API_IMPORT
 #endif
 
-#ifdef Kitron_API_EXPORT_SHARED
+#ifdef KITRON_API_EXPORT_SHARED
 #  define TC_SHARED_API TC_API_EXPORT
 #else
 #  define TC_SHARED_API TC_API_IMPORT
 #endif
 
-#ifdef Kitron_API_EXPORT_GAME
+#ifdef KITRON_API_EXPORT_GAME
 #  define TC_GAME_API TC_API_EXPORT
 #else
 #  define TC_GAME_API TC_API_IMPORT
@@ -135,4 +135,4 @@ typedef uint32_t uint32;
 typedef uint16_t uint16;
 typedef uint8_t uint8;
 
-#endif //Kitron_DEFINE_H
+#endif //KITRON_DEFINE_H

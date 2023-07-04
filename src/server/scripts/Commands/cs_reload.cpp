@@ -47,7 +47,7 @@ EndScriptData */
 #include "WaypointManager.h"
 #include "World.h"
 
-#if Kitron_COMPILER == Kitron_COMPILER_GNU
+#if KITRON_COMPILER == KITRON_COMPILER_GNU
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 #endif
 
@@ -160,7 +160,7 @@ public:
             { "spell_threats",                 rbac::RBAC_PERM_COMMAND_RELOAD_SPELL_THREATS,                    true,  &HandleReloadSpellThreatsCommand,               "" },
             { "spell_group_stack_rules",       rbac::RBAC_PERM_COMMAND_RELOAD_SPELL_GROUP_STACK_RULES,          true,  &HandleReloadSpellGroupStackRulesCommand,       "" },
             { "trainer",                       rbac::RBAC_PERM_COMMAND_RELOAD_TRAINER,                          true,  &HandleReloadTrainerCommand,                    "" },
-            { "Kitron_string",                rbac::RBAC_PERM_COMMAND_RELOAD_Kitron_STRING,                   true,  &HandleReloadKitronStringCommand,              "" },
+            { "trinity_string",                rbac::RBAC_PERM_COMMAND_RELOAD_KITRON_STRING,                    true,  &HandleReloadKitronStringCommand,               "" },
             { "waypoint_scripts",              rbac::RBAC_PERM_COMMAND_RELOAD_WAYPOINT_SCRIPTS,                 true,  &HandleReloadWpScriptsCommand,                  "" },
             { "waypoint_data",                 rbac::RBAC_PERM_COMMAND_RELOAD_WAYPOINT_DATA,                    true,  &HandleReloadWpCommand,                         "" },
             { "vehicle_template",              rbac::RBAC_PERM_COMMAND_RELOAD_VEHICLE_TEMPLATE,                 true,  &HandleReloadVehicleTemplateCommand,            "" },
@@ -683,9 +683,9 @@ public:
 
     static bool HandleReloadKitronStringCommand(ChatHandler* handler, char const* /*args*/)
     {
-        TC_LOG_INFO("misc", "Re-Loading Kitron_string Table!");
+        TC_LOG_INFO("misc", "Re-Loading trinity_string Table!");
         sObjectMgr->LoadKitronStrings();
-        handler->SendGlobalGMSysMessage("DB table `Kitron_string` reloaded.");
+        handler->SendGlobalGMSysMessage("DB table `trinity_string` reloaded.");
         return true;
     }
 

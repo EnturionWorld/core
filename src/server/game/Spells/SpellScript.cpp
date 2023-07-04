@@ -66,11 +66,11 @@ void _SpellScript::_Init(std::string const* scriptname, uint32 spellId)
     m_scriptName = scriptname;
     m_scriptSpellId = spellId;
 
-#ifdef Kitron_API_USE_DYNAMIC_LINKING
+#ifdef KITRON_API_USE_DYNAMIC_LINKING
     // Acquire a strong reference to the binary code
     // to keep it loaded until all spells are destroyed.
     m_moduleReference = sScriptMgr->AcquireModuleReferenceOfScriptName(*scriptname);
-#endif // #ifndef Kitron_API_USE_DYNAMIC_LINKING
+#endif // #ifndef KITRON_API_USE_DYNAMIC_LINKING
 }
 
 std::string const* _SpellScript::_GetScriptName() const

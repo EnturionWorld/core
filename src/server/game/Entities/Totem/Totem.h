@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KitronCORE_TOTEM_H
-#define KitronCORE_TOTEM_H
+#ifndef KITRONCORE_TOTEM_H
+#define KITRONCORE_TOTEM_H
 
 #include "TemporarySummon.h"
 

@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_HMAC_H
-#define Kitron_HMAC_H
+#ifndef KITRON_HMAC_H
+#define KITRON_HMAC_H
 
 #include "CryptoConstants.h"
 #include "CryptoHash.h"

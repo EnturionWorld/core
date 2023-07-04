@@ -569,7 +569,7 @@ enum RBACPermissions
     RBAC_PERM_COMMAND_RELOAD_SPELL_TARGET_POSITION           = 701,
     RBAC_PERM_COMMAND_RELOAD_SPELL_THREATS                   = 702,
     RBAC_PERM_COMMAND_RELOAD_SPELL_GROUP_STACK_RULES         = 703,
-    RBAC_PERM_COMMAND_RELOAD_Kitron_STRING                  = 704,
+    RBAC_PERM_COMMAND_RELOAD_KITRON_STRING                  = 704,
     // 705 previously used, do not reuse
     RBAC_PERM_COMMAND_RELOAD_WAYPOINT_SCRIPTS                = 706,
     RBAC_PERM_COMMAND_RELOAD_WAYPOINT_DATA                   = 707,

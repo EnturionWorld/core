@@ -65,8 +65,8 @@
 using namespace boost::program_options;
 namespace fs = boost::filesystem;
 
-#ifndef _Kitron_CORE_CONFIG
-    #define _Kitron_CORE_CONFIG  "worldserver.conf"
+#ifndef _KITRON_CORE_CONFIG
+    #define _KITRON_CORE_CONFIG  "worldserver.conf"
 #endif
 
 #ifdef _WIN32
@@ -126,7 +126,7 @@ extern int main(int argc, char** argv)
     Kitron::Impl::CurrentServerProcessHolder::_type = SERVER_PROCESS_WORLDSERVER;
     signal(SIGABRT, &Kitron::AbortHandler);
 
-    auto configFile = fs::absolute(_Kitron_CORE_CONFIG);
+    auto configFile = fs::absolute(_KITRON_CORE_CONFIG);
     std::string configService;
 
     auto vm = GetConsoleArguments(argc, argv, configFile, configService);
@@ -222,7 +222,7 @@ extern int main(int argc, char** argv)
 
     // Set signal handlers (this must be done before starting IoContext threads, because otherwise they would unblock and exit)
     boost::asio::signal_set signals(*ioContext, SIGINT, SIGTERM);
-#if Kitron_PLATFORM == Kitron_PLATFORM_WINDOWS
+#if KITRON_PLATFORM == KITRON_PLATFORM_WINDOWS
     signals.add(SIGBREAK);
 #endif
     signals.async_wait(SignalHandler);
@@ -677,7 +677,7 @@ variables_map GetConsoleArguments(int argc, char** argv, fs::path& configFile, s
     all.add_options()
         ("help,h", "print usage message")
         ("version,v", "print version build info")
-        ("config,c", value<fs::path>(&configFile)->default_value(fs::absolute(_Kitron_CORE_CONFIG)),
+        ("config,c", value<fs::path>(&configFile)->default_value(fs::absolute(_KITRON_CORE_CONFIG)),
                      "use <arg> as configuration file")
         ("update-databases-only,u", "updates databases only")
         ;

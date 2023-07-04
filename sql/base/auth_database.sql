@@ -1664,7 +1664,7 @@ INSERT INTO `rbac_permissions` VALUES
 (701,'Command: reload spell_target_position'),
 (702,'Command: reload spell_threats'),
 (703,'Command: reload spell_group_stack_rules'),
-(704,'Command: reload Kitron_string'),
+(704,'Command: reload trinity_string'),
 (706,'Command: reload waypoint_scripts'),
 (707,'Command: reload waypoint_data'),
 (708,'Command: reload vehicle_accessory'),
@@ -2050,7 +2050,7 @@ CREATE TABLE `uptime` (
   `starttime` int unsigned NOT NULL DEFAULT '0',
   `uptime` int unsigned NOT NULL DEFAULT '0',
   `maxplayers` smallint unsigned NOT NULL DEFAULT '0',
-  `revision` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Kitroncore',
+  `revision` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'kitroncore',
   PRIMARY KEY (`realmid`,`starttime`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Uptime system';
 /*!40101 SET character_set_client = @saved_cs_client */;

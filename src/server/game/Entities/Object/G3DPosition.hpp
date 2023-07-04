@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_G3DPOSITION_HPP
-#define Kitron_G3DPOSITION_HPP
+#ifndef KITRON_G3DPOSITION_HPP
+#define KITRON_G3DPOSITION_HPP
 
 #include "Position.h"
 #include <G3D/Vector3.h>

@@ -30,7 +30,7 @@ void TCSoapThread(const std::string& host, uint16 port)
     soap_set_imode(&soap, SOAP_C_UTFSTRING);
     soap_set_omode(&soap, SOAP_C_UTFSTRING);
 
-#if Kitron_PLATFORM != Kitron_PLATFORM_WINDOWS
+#if KITRON_PLATFORM != KITRON_PLATFORM_WINDOWS
     soap.bind_flags = SO_REUSEADDR;
 #endif
 

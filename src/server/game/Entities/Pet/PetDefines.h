@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KitronCORE_PET_DEFINES_H
-#define KitronCORE_PET_DEFINES_H
+#ifndef KITRONCORE_PET_DEFINES_H
+#define KITRONCORE_PET_DEFINES_H
 
 #include "Define.h"
 #include "Optional.h"

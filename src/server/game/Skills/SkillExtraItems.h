@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_SKILL_EXTRA_ITEMS_H
-#define Kitron_SKILL_EXTRA_ITEMS_H
+#ifndef KITRON_SKILL_EXTRA_ITEMS_H
+#define KITRON_SKILL_EXTRA_ITEMS_H
 
 #include "Common.h"
 

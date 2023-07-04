@@ -20,7 +20,7 @@ endif()
 
 GroupSources(${CMAKE_CURRENT_SOURCE_DIR})
 
-add_definitions(-DKitron_API_EXPORT_GAME)
+add_definitions(-DKITRON_API_EXPORT_GAME)
 
 CollectIncludeDirectories(
   ${CMAKE_CURRENT_SOURCE_DIR}

@@ -68,30 +68,30 @@ char const* GitRevision::GetFullDatabase()
     return _FULL_DATABASE;
 }
 
-#if Kitron_PLATFORM == Kitron_PLATFORM_WINDOWS
+#if KITRON_PLATFORM == KITRON_PLATFORM_WINDOWS
 #  ifdef _WIN64
-#    define Kitron_PLATFORM_STR "Win64"
+#    define KITRON_PLATFORM_STR "Win64"
 #  else
-#    define Kitron_PLATFORM_STR "Win32"
+#    define KITRON_PLATFORM_STR "Win32"
 #  endif
-#elif Kitron_PLATFORM == Kitron_PLATFORM_APPLE
-#  define Kitron_PLATFORM_STR "MacOSX"
-#elif Kitron_PLATFORM == Kitron_PLATFORM_INTEL
-#  define Kitron_PLATFORM_STR "Intel"
-#else // Kitron_PLATFORM_UNIX
-#  define Kitron_PLATFORM_STR "Unix"
+#elif KITRON_PLATFORM == KITRON_PLATFORM_APPLE
+#  define KITRON_PLATFORM_STR "MacOSX"
+#elif KITRON_PLATFORM == KITRON_PLATFORM_INTEL
+#  define KITRON_PLATFORM_STR "Intel"
+#else // KITRON_PLATFORM_UNIX
+#  define KITRON_PLATFORM_STR "Unix"
 #endif
 
-#ifndef Kitron_API_USE_DYNAMIC_LINKING
-#  define Kitron_LINKAGE_TYPE_STR "Static"
+#ifndef KITRON_API_USE_DYNAMIC_LINKING
+#  define KITRON_LINKAGE_TYPE_STR "Static"
 #else
-#  define Kitron_LINKAGE_TYPE_STR "Dynamic"
+#  define KITRON_LINKAGE_TYPE_STR "Dynamic"
 #endif
 
 char const* GitRevision::GetFullVersion()
 {
   return "KitronCore rev. " VER_PRODUCTVERSION_STR
-    " (" Kitron_PLATFORM_STR ", " _BUILD_DIRECTIVE ", " Kitron_LINKAGE_TYPE_STR ")";
+    " (" KITRON_PLATFORM_STR ", " _BUILD_DIRECTIVE ", " KITRON_LINKAGE_TYPE_STR ")";
 }
 
 char const* GitRevision::GetCompanyNameStr()

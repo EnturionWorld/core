@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_CREATURE_TEXT_MGR_H
-#define Kitron_CREATURE_TEXT_MGR_H
+#ifndef KITRON_CREATURE_TEXT_MGR_H
+#define KITRON_CREATURE_TEXT_MGR_H
 
 #include "Common.h"
 #include "SharedDefines.h"

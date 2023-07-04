@@ -52,11 +52,11 @@ using boost::asio::ip::tcp;
 using namespace boost::program_options;
 namespace fs = boost::filesystem;
 
-#ifndef _Kitron_REALM_CONFIG
-# define _Kitron_REALM_CONFIG  "authserver.conf"
+#ifndef _KITRON_REALM_CONFIG
+# define _KITRON_REALM_CONFIG  "authserver.conf"
 #endif
 
-#if Kitron_PLATFORM == Kitron_PLATFORM_WINDOWS
+#if KITRON_PLATFORM == KITRON_PLATFORM_WINDOWS
 #include "ServiceWin32.h"
 char serviceName[] = "authserver";
 char serviceLongName[] = "KitronCore auth service";
@@ -87,14 +87,14 @@ int main(int argc, char** argv)
 
     Kitron::Impl::CurrentServerProcessHolder::_type = SERVER_PROCESS_AUTHSERVER;
 
-    auto configFile = fs::absolute(_Kitron_REALM_CONFIG);
+    auto configFile = fs::absolute(_KITRON_REALM_CONFIG);
     std::string configService;
     auto vm = GetConsoleArguments(argc, argv, configFile, configService);
     // exit if help or version is enabled
     if (vm.count("help") || vm.count("version"))
         return 0;
 
-#if Kitron_PLATFORM == Kitron_PLATFORM_WINDOWS
+#if KITRON_PLATFORM == KITRON_PLATFORM_WINDOWS
     if (configService.compare("install") == 0)
         return WinServiceInstall() == true ? 0 : 1;
     else if (configService.compare("uninstall") == 0)
@@ -187,7 +187,7 @@ int main(int argc, char** argv)
     int32 banExpiryCheckInterval = sConfigMgr->GetIntDefault("BanExpiryCheckInterval", 60);
     CreateTimer(banExpiryCheckInterval * 60, &BanExpiryHandler);
 
-#if Kitron_PLATFORM == Kitron_PLATFORM_WINDOWS
+#if KITRON_PLATFORM == KITRON_PLATFORM_WINDOWS
     std::shared_ptr<Kitron::Asio::DeadlineTimer> serviceStatusWatchTimer;
     if (m_ServiceStatus != -1)
     {
@@ -254,7 +254,7 @@ void BanExpiryHandler()
     LoginDatabase.Execute(LoginDatabase.GetPreparedStatement(LOGIN_UPD_EXPIRED_ACCOUNT_BANS));
 }
 
-#if Kitron_PLATFORM == Kitron_PLATFORM_WINDOWS
+#if KITRON_PLATFORM == KITRON_PLATFORM_WINDOWS
 void ServiceStatusWatcher(std::weak_ptr<Kitron::Asio::DeadlineTimer> serviceStatusWatchTimerRef, std::weak_ptr<Kitron::Asio::IoContext> ioContextRef, boost::system::error_code const& error)
 {
     if (!error)
@@ -279,10 +279,10 @@ variables_map GetConsoleArguments(int argc, char** argv, fs::path& configFile, s
     all.add_options()
         ("help,h", "print usage message")
         ("version,v", "print version build info")
-        ("config,c", value<fs::path>(&configFile)->default_value(fs::absolute(_Kitron_REALM_CONFIG)),
+        ("config,c", value<fs::path>(&configFile)->default_value(fs::absolute(_KITRON_REALM_CONFIG)),
                      "use <arg> as configuration file")
         ;
-#if Kitron_PLATFORM == Kitron_PLATFORM_WINDOWS
+#if KITRON_PLATFORM == KITRON_PLATFORM_WINDOWS
     options_description win("Windows platform specific options");
     win.add_options()
         ("service,s", value<std::string>(&configService)->default_value(""), "Windows service options: [install | uninstall]")

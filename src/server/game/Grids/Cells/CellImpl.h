@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Kitron_CELLIMPL_H
-#define Kitron_CELLIMPL_H
+#ifndef KITRON_CELLIMPL_H
+#define KITRON_CELLIMPL_H
 
 #include <cmath>
 
