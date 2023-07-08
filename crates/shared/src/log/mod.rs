@@ -113,8 +113,8 @@ impl LogMgr {
             _ => return,
         };
 
-        let target = CStr::from_ptr(target).to_str().unwrap();
-        let metadata = Metadata::builder().target(target).level(level).build();
+        let target = CStr::from_ptr(target).to_str().unwrap().replace('.', "::");
+        let metadata = Metadata::builder().target(&target).level(level).build();
 
         if !self.enabled(&metadata) {
             return;
@@ -126,7 +126,12 @@ impl LogMgr {
                 .metadata(metadata)
                 .args(format_args!("{}", message))
                 .build(),
-        )
+        );
+
+        if target == "server::loading" {
+            // Show startup logs
+            self.flush();
+        }
     }
 }
 

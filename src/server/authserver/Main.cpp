@@ -24,7 +24,6 @@
 */
 
 #include "AuthSocketMgr.h"
-#include "Banner.h"
 #include "Config.h"
 #include "DatabaseEnv.h"
 #include "DatabaseLoader.h"

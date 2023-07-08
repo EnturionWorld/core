@@ -17,4 +17,5 @@ members = [
     "authserver",
     "libmpq-rs",
     "shared",
+    "worldserver",
 ]

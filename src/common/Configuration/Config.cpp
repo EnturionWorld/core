@@ -15,6 +15,10 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#if KITRON_PLATFORM == KITRON_PLATFORM_WINDOWS
+#include <string.h>
+#endif
+
 #include "Config.h"
 #include "Log.h"
 
@@ -97,9 +101,8 @@ std::vector<std::string> ConfigMgr::GetKeysByString(std::string const& name)
     const char* const* keys;
     auto length = Config_GetKeys(&_config, &keys);
     for (uintptr_t i = 0; i < length; ++i) {
-        auto res = strcasestr(keys[i], name_cstr);
-        if (res != nullptr && keys[i] - res == 0) {
-            matchingKeys.emplace_back(res);
+        if (stricmp(keys[i], name_cstr) == 0) {
+            matchingKeys.emplace_back(keys[i]);
         }
     }
 

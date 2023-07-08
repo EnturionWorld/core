@@ -33,9 +33,9 @@ impl encode::Write for BufWriter {}
 
 #[cfg(test)]
 mod tests {
-    use std::io::Write;
-    use anyhow::Result;
     use crate::log::util::BufWriter;
+    use anyhow::Result;
+    use std::io::Write;
 
     #[test]
     pub fn buffer_is_empty_on_creation() {

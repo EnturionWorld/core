@@ -47,6 +47,7 @@ set_target_properties(worldserver PROPERTIES LINK_FLAGS "${worldserver_LINK_FLAG
 target_link_libraries(worldserver
   PRIVATE
     Kitron-core-interface
+    enturion_worldserver
   PUBLIC
     scripts
     game
@@ -62,6 +63,7 @@ CollectIncludeDirectories(
 target_include_directories(worldserver
   PUBLIC
     ${PUBLIC_INCLUDES}
+    ${CMAKE_SOURCE_DIR}/crates/worldserver
   PRIVATE
     ${CMAKE_CURRENT_BINARY_DIR})
 

@@ -21,7 +21,6 @@
 
 #include "Common.h"
 #include "AsyncAcceptor.h"
-#include "Banner.h"
 #include "BattlegroundMgr.h"
 #include "BigNumber.h"
 #include "CliRunnable.h"
@@ -60,6 +59,8 @@
 #include <boost/program_options.hpp>
 #include <csignal>
 #include <iostream>
+#include "libenturion_shared.h"
+#include "libenturion_worldserver.h"
 
 using namespace boost::program_options;
 namespace fs = boost::filesystem;
@@ -109,7 +110,6 @@ class FreezeDetector
         uint32 _maxCoreStuckTimeInMs;
 };
 
-void SignalHandler(boost::system::error_code const& error, int signalNumber);
 AsyncAcceptor* StartRaSocketAcceptor(Kitron::Asio::IoContext& ioContext);
 bool StartDB();
 void StopDB();
@@ -119,11 +119,16 @@ void ShutdownCLIThread(std::thread* cliThread);
 bool LoadRealmInfo(Kitron::Asio::IoContext& ioContext);
 variables_map GetConsoleArguments(int argc, char** argv, fs::path& configFile, std::string& configService);
 
+extern "C" int World_IsStopped() {
+    return World::IsStopped() ? 1 : 0;
+}
+
 /// Launch the Kitron server
 extern int main(int argc, char** argv)
 {
+    WorldServerRsInit();
+
     Kitron::Impl::CurrentServerProcessHolder::_type = SERVER_PROCESS_WORLDSERVER;
-    signal(SIGABRT, &Kitron::AbortHandler);
 
     auto configFile = fs::absolute(_KITRON_CORE_CONFIG);
     std::string configService;
@@ -216,14 +221,7 @@ extern int main(int argc, char** argv)
             TC_LOG_ERROR("server.worldserver", "Cannot create PID file %s.\n", pidFile.c_str());
             return 1;
         }
-    }
-
-    // Set signal handlers (this must be done before starting IoContext threads, because otherwise they would unblock and exit)
-    boost::asio::signal_set signals(*ioContext, SIGINT, SIGTERM);
-#if KITRON_PLATFORM == KITRON_PLATFORM_WINDOWS
-    signals.add(SIGBREAK);
-#endif
-    signals.async_wait(SignalHandler);
+    };
 
     // Start the Boost based thread pool
     int numThreads = sConfigMgr->GetIntDefault("ThreadPool", 1);
@@ -449,14 +447,44 @@ void ShutdownCLIThread(std::thread* cliThread)
     }
 }
 
+uint32 realPrevTime, realCurrTime, minUpdateDiff;
+uint32 maxCoreStuckTime, halfMaxCoreStuckTime;
+
+void MainLoopCallback() {
+    ++World::m_worldLoopCounter;
+    realCurrTime = getMSTime();
+
+    uint32 diff = getMSTimeDiff(realPrevTime, realCurrTime);
+    if (diff < minUpdateDiff)
+    {
+        uint32 sleepTime = minUpdateDiff - diff;
+        if (sleepTime >= halfMaxCoreStuckTime)
+            TC_LOG_ERROR("server.worldserver", "WorldUpdateLoop() waiting for %u ms with MaxCoreStuckTime set to %u ms", sleepTime, maxCoreStuckTime);
+        // sleep until enough time passes that we can update all timers
+        std::this_thread::sleep_for(Milliseconds(sleepTime));
+        return;
+    }
+
+    sWorld->Update(diff);
+    realPrevTime = realCurrTime;
+
+#ifdef _WIN32
+    if (m_ServiceStatus == 0)
+        World::StopNow(SHUTDOWN_EXIT_CODE);
+
+    while (m_ServiceStatus == 2)
+        Sleep(1000);
+#endif
+}
+
 void WorldUpdateLoop()
 {
-    uint32 minUpdateDiff = uint32(sConfigMgr->GetIntDefault("MinWorldUpdateTime", 1));
-    uint32 realCurrTime = 0;
-    uint32 realPrevTime = getMSTime();
+    minUpdateDiff = uint32(sConfigMgr->GetIntDefault("MinWorldUpdateTime", 1));
+    realCurrTime = 0;
+    realPrevTime = getMSTime();
 
-    uint32 maxCoreStuckTime = uint32(sConfigMgr->GetIntDefault("MaxCoreStuckTime", 60)) * 1000;
-    uint32 halfMaxCoreStuckTime = maxCoreStuckTime / 2;
+    maxCoreStuckTime = uint32(sConfigMgr->GetIntDefault("MaxCoreStuckTime", 60)) * 1000;
+    halfMaxCoreStuckTime = maxCoreStuckTime / 2;
     if (!halfMaxCoreStuckTime)
         halfMaxCoreStuckTime = std::numeric_limits<uint32>::max();
 
@@ -464,44 +492,12 @@ void WorldUpdateLoop()
     CharacterDatabase.WarnAboutSyncQueries(true);
     WorldDatabase.WarnAboutSyncQueries(true);
 
-    ///- While we have not World::m_stopEvent, update the world
-    while (!World::IsStopped())
-    {
-        ++World::m_worldLoopCounter;
-        realCurrTime = getMSTime();
-
-        uint32 diff = getMSTimeDiff(realPrevTime, realCurrTime);
-        if (diff < minUpdateDiff)
-        {
-            uint32 sleepTime = minUpdateDiff - diff;
-            if (sleepTime >= halfMaxCoreStuckTime)
-                TC_LOG_ERROR("server.worldserver", "WorldUpdateLoop() waiting for %u ms with MaxCoreStuckTime set to %u ms", sleepTime, maxCoreStuckTime);
-            // sleep until enough time passes that we can update all timers
-            std::this_thread::sleep_for(Milliseconds(sleepTime));
-            continue;
-        }
-
-        sWorld->Update(diff);
-        realPrevTime = realCurrTime;
-
-#ifdef _WIN32
-        if (m_ServiceStatus == 0)
-            World::StopNow(SHUTDOWN_EXIT_CODE);
-
-        while (m_ServiceStatus == 2)
-            Sleep(1000);
-#endif
-    }
+    WorldServerRsMain(MainLoopCallback);
+    World::StopNow(SHUTDOWN_EXIT_CODE);
 
     LoginDatabase.WarnAboutSyncQueries(false);
     CharacterDatabase.WarnAboutSyncQueries(false);
     WorldDatabase.WarnAboutSyncQueries(false);
-}
-
-void SignalHandler(boost::system::error_code const& error, int /*signalNumber*/)
-{
-    if (!error)
-        World::StopNow(SHUTDOWN_EXIT_CODE);
 }
 
 void FreezeDetector::Handler(std::weak_ptr<FreezeDetector> freezeDetectorRef, boost::system::error_code const& error)

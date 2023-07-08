@@ -7,11 +7,11 @@ use std::io::Write;
 use std::ops::DerefMut;
 use std::sync::Mutex;
 
+use crate::log::util::BufWriter;
 use log4rs::append::Append;
 use log4rs::encode;
 use log4rs::encode::pattern::PatternEncoder;
 use log4rs::encode::Encode;
-use crate::log::util::BufWriter;
 
 #[derive(Debug)]
 struct TermWriter(Term);

@@ -1,0 +1,1966 @@
+# ID of the Realm using this config.
+RealmID: 1
+# Data directory setting.
+DataDir: "."
+# Logs directory setting.
+LogsDir: ""
+
+# World daemon PID file.
+PidFile: ~
+# Binary packet logging file for the world server.
+# Filename extension must be .pkt to be parsable with WowPacketParser.
+PacketLogFile: ~
+
+# LoginDatabaseInfo
+# WorldDatabaseInfo
+# CharacterDatabaseInfo
+#     Description: Database connection settings for the world server.
+#     Example:     "hostname;port;username;password;database;ssl"
+#                  ".;some_number;username;password;database" - (Use named pipes on Windows
+#                                                              "enable-named-pipe" to [mysqld]
+#                                                              section my.ini)
+#                  ".;/path/to/unix_socket;username;password;database" - (use Unix sockets on
+#                                                                        Unix/Linux)
+#     Default:     "127.0.0.1;3306;Kitron;Kitron;auth"       - (LoginDatabaseInfo)
+#                  "127.0.0.1;3306;Kitron;Kitron;world"      - (WorldDatabaseInfo)
+#                  "127.0.0.1;3306;Kitron;Kitron;characters" - (CharacterDatabaseInfo)
+#
+# Don't change hostname unless you are hosting MySQL on a different machine, if you need help
+# with configuration allowing to connect from different machine than the one running server
+# search for TCE00016 on forum.
+# Don't open port on firewall to external connections (it belongs to MySQL, not to wow server).
+# The username you choose must have permissions to create/alter/rename tables.
+# The SSL option will enable TLS when connecting to the specified database. If not provided or
+# any value other than 'ssl' is set, TLS will not be used.
+
+LoginDatabaseInfo: "127.0.0.1;3306;Kitron;Kitron;auth"
+WorldDatabaseInfo: "127.0.0.1;3306;Kitron;Kitron;world"
+CharacterDatabaseInfo: "127.0.0.1;3306;Kitron;Kitron;characters"
+
+LoginDatabase:
+    WorkerThreads: 1
+    SynchThreads: 1
+WorldDatabase:
+    WorkerThreads: 1
+    SynchThreads: 1
+CharacterDatabase:
+    WorkerThreads: 1
+    SynchThreads: 2
+
+
+### Network
+# TCP port to reach the world server.
+WorldServerPort: 8085
+# Bind world server to IP/hostname.
+BindIP: '0.0.0.0'
+
+# The path to your IP2Location database CSV file.
+IPLocationFile: ""
+
+### Process
+ThreadPool: 2
+# Processors mask for Windows and Linux based multi-processor systems.
+UseProcessors: ~
+# Process priority setting for Windows and Linux based systems. 0 - Normal, 1 - High
+ProcessPriority: 0
+
+### Game
+# Compression level for client update packages.
+Compression: 1
+# Maximum number of players in the world. Excluding Mods, GMs and Admins.
+PlayerLimit: 0
+# Maximum overspeed ping count before character is disconnected.
+MaxOverspeedPings: 2
+
+# Unload grids to save memory. Can be disabled if enough memory is available
+# to speed up moving players to new grids.
+GridUnload: true
+
+# Load all grids for base maps upon load. Requires GridUnload to be 0.
+# This will take around 5GB of ram upon server load, and will take some time
+# to initially load the server.
+BaseMapLoadAllGrids: false
+
+# Load all grids for instance maps upon load. Requires GridUnload to be 0.
+# Upon loading an instance map, all creatures/objects in the map will be pre-loaded
+InstanceMapLoadAllGrids: false
+
+### Timeouts
+# Time (in minutes) between database pings.
+MaxPingTime: 30
+# Time (in milliseconds) after which a connection being idle on the character selection screen is disconnected.
+SocketTimeOutTime: 900000
+# Time (in milliseconds) after which an idle connection is dropped while logged into the world.
+# The client sends keepalive packets every 30 seconds. Values <= 30s are not recommended.
+SocketTimeOutTimeActive: 60000
+# Time (in microseconds) that a network thread will sleep after authentication
+# protocol handling before adding a connection to the world session map.
+SessionAddDelay: 10000
+# Time (in milliseconds) grid clean up delay.
+GridCleanUpDelay: 300000
+# Minimum time (milliseconds) between world update ticks (for mostly idle servers).
+MinWorldUpdateTime: 5
+# Time (milliseconds) for map update interval.
+MapUpdateInterval: 10
+# Time (in milliseconds) for weather update interval.
+ChangeWeatherInterval: 600000
+# Tolerance (in seconds) for disconnected players before reentering the queue.
+DisconnectToleranceInterval: 0
+# Update realm uptime period (in minutes).
+UpdateUptimeInterval: 10
+# Time (in seconds) before the server is forced to crash if it is frozen.
+MaxCoreStuckTime: 60
+# Time (in seconds) mail delivery is delayed when sending items.
+MailDeliveryDelay: 3600
+
+PlayerSave:
+    # Time (in milliseconds) for player save interval.
+    Interval: 90000
+    Stats:
+        # Minimum level for saving character stats in the database for external usage.
+        MinLevel: ~
+        # Save player stats only on logout.
+        SaveOnlyOnLogout: true
+
+mmap:
+    # Enable/Disable pathfinding using mmaps - recommended.
+    enablePathFinding: true
+
+vmap:
+    # Enable line of sight
+    enableLOS: true
+    # Enable height
+    enableHeight: true
+    # VMap based indoor check to remove outdoor-only auras (mounts etc.).
+    enableIndoorCheck: true
+
+# Check final move position, summon position, etc for visible collision with
+# other objects or walls (walls only if vmaps are enabled).
+DetectPosCollision: true
+# Include dynamic game objects (doors, chests etc.) in line of sight checks.
+# This increases CPU usage somewhat.
+# Disabling it could break some boss encounters.
+CheckGameObjectLoS: true
+
+# Configure the use of the addon channel through the server (some client side
+# addons will not work correctly with disabled addon channel)
+AddonChannel: true
+
+MapUpdate:
+    # Number of threads to update maps.
+    Threads: 1
+
+# Clean out deprecated achievements, skills, spells and talents from the db.
+CleanCharacterDB: false
+
+# Determines the character clean flags that remain set after cleanups.
+# This is a bitmask value, check /doc/CharacterDBCleanup.txt for more information.
+# 14 - (Cleaning up skills, talents and spells will remain enabled after the next cleanup)
+# 0  - (All cleanup methods will be disabled after the next cleanup)
+PersistentCharacterCleanFlags: 0
+
+Auction:
+    # Sets the minimum time in seconds, a single player character can perform a GetAll scan.
+    # The value is only held in memory so a server restart will clear it.
+    # Setting this to zero, will disable GetAll functions completely.
+    GetAllScanDelay: 900
+    # Sets the minimum time in milliseconds (seconds x 1000), that the client must wait between
+    # auction search operations. This can be increased if somehow Auction House activity is causing
+    # too much load.
+    SearchDelay: 300
+
+# Server realm type. 0: NORMAL, 1 PVP, 4 NORMAL, 6 RP, 8 RPPVP, 16 FFA_PVP - Free for all PvP mode like arena PvP in all zones except rest activated places and sanctuaries)
+GameType: 0
+
+# Server realm zone. Set allowed alphabet in character, etc. names.
+#  1  - (Development   - any language)
+#  2  - (United States - extended-Latin)
+#  3  - (Oceanic       - extended-Latin)
+#  4  - (Latin America - extended-Latin)
+#  5  - (Tournament    - basic-Latin at create, any at login)
+#  6  - (Korea         - East-Asian)
+#  7  - (Tournament    - basic-Latin at create, any at login)
+#  8  - (English       - extended-Latin)
+#  9  - (German        - extended-Latin)
+#  10 - (French        - extended-Latin)
+#  11 - (Spanish       - extended-Latin)
+#  12 - (Russian       - Cyrillic)
+#  13 - (Tournament    - basic-Latin at create, any at login)
+#  14 - (Taiwan        - East-Asian)
+#  15 - (Tournament    - basic-Latin at create, any at login)
+#  16 - (China         - East-Asian)
+#  17 - (CN1           - basic-Latin at create, any at login)
+#  18 - (CN2           - basic-Latin at create, any at login)
+#  19 - (CN3           - basic-Latin at create, any at login)
+#  20 - (CN4           - basic-Latin at create, any at login)
+#  21 - (CN5           - basic-Latin at create, any at login)
+#  22 - (CN6           - basic-Latin at create, any at login)
+#  23 - (CN7           - basic-Latin at create, any at login)
+#  24 - (CN8           - basic-Latin at create, any at login)
+#  25 - (Tournament    - basic-Latin at create, any at login)
+#  26 - (Test Server   - any language)
+#  27 - (Tournament    - basic-Latin at create, any at login)
+#  28 - (QA Server     - any language)
+#  29 - (CN9           - basic-Latin at create, any at login)
+RealmZone: 1
+
+# Limit player name to language specific symbol set. Prevents character
+# creation and forces rename request if not allowed symbols are used
+#   0 - (Disable, Limited server timezone dependent client check)
+#   1 - (Enabled, Strictly basic Latin characters)
+#   2 - (Enabled, Strictly realm zone specific, See RealmZone setting,
+#       Note: Client needs to have the appropriate fonts installed which support
+#       the charset. For non-official localization, custom fonts need to be
+#       placed in clientdir/Fonts.
+#   3 - (Enabled, Basic Latin characters + server timezone specific)
+StrictPlayerNames: 0
+
+# Limit guild/arena team charter names to language specific symbol set.
+# Prevents charter creation if not allowed symbols are used.
+#   0 - (Disable, Limited server timezone dependent client check)
+#   1 - (Enabled, Strictly basic Latin characters)
+#   2 - (Enabled, Strictly realm zone specific, See RealmZone setting,
+#       Note: Client needs to have the appropriate fonts installed which support
+#       the charset. For non-official localization, custom fonts need to be
+#       placed in clientdir/Fonts.
+#   3 - (Enabled, Basic Latin characters + server timezone specific)
+StrictCharterNames: 0
+
+# Limit pet names to language specific symbol set.
+# Prevents pet naming if not allowed symbols are used.
+#   0 - (Disable, Limited server timezone dependent client check)
+#   1 - (Enabled, Strictly basic Latin characters)
+#   2 - (Enabled, Strictly realm zone specific, See RealmZone setting,
+#       Note: Client needs to have the appropriate fonts installed which support
+#       the charset. For non-official localization, custom fonts need to be
+#       placed in clientdir/Fonts.
+#   3 - (Enabled, Basic Latin characters + server timezone specific)
+StrictPetNames: 0
+
+DBC:
+    # DBC language settings.
+    #   255 - (Auto Detect)
+    #   0   - (English)
+    #   1   - (Korean)
+    #   2   - (French)
+    #   3   - (German)
+    #   4   - (Chinese)
+    #   5   - (Taiwanese)
+    #   6   - (Spanish)
+    #   7   - (Spanish Mexico)
+    #   8   - (Russian)
+    Locale: 255
+    # Disallow overriding item attributes stored in DBC files with values from the database.
+    EnforceItemAttributes: true
+
+# Allow Russian clients to set and use declined names.
+DeclinedNames: false
+# Allow server to use content from expansions. Checks for expansion-related
+# map files, client compatibility and class/race character creation.
+Expansion: 2
+# Minimal player name length. (Range: 1-12)
+MinPlayerName: 2
+# Minimal charter name length. (Range: 1-24)
+MinCharterName: 2
+# Minimal pet name length. (Range: 1-12)
+MinPetName: 2
+
+# Amount of money (in Copper) the petitions costs.
+#   1000 - (10 Silver)
+#   800000 - (80 Gold)
+#   1200000 - (120 Gold)
+#   2000000 - (200 Gold)
+
+ArenaTeam:
+    CharterCost:
+        2v2: 800000
+        3v3: 1200000
+        5v5: 2000000
+
+# Set the max number of players returned in the /who list and interface.
+MaxWhoListReturns: 49
+
+CharacterCreating:
+    Disabled:
+        # Disable character creation for players based on faction.
+        #   0 - (Enabled, All factions are allowed)
+        #   1 - (Disabled, Alliance)
+        #   2 - (Disabled, Horde)
+        #   3 - (Disabled, Both factions)
+        FactionMask: 0
+
+        # Mask of races which cannot be created by players.
+        #   0    - (Enabled, All races are allowed)
+        #   1    - (Disabled, Human)
+        #   2    - (Disabled, Orc)
+        #   4    - (Disabled, Dwarf)
+        #   8    - (Disabled, Night Elf)
+        #   16   - (Disabled, Undead)
+        #   32   - (Disabled, Tauren)
+        #   64   - (Disabled, Gnome)
+        #   128  - (Disabled, Troll)
+        #   512  - (Disabled, Blood Elf)
+        #   1024 - (Disabled, Draenei)
+        RaceMask: 0
+
+        # Mask of classes which cannot be created by players.
+        #    0    - (Enabled, All classes are allowed)
+        #    1    - (Disabled, Warrior)
+        #    2    - (Disabled, Paladin)
+        #    4    - (Disabled, Hunter)
+        #    8    - (Disabled, Rogue)
+        #    16   - (Disabled, Priest)
+        #    32   - (Disabled, Death Knight)
+        #    64   - (Disabled, Shaman)
+        #    128  - (Disabled, Mage)
+        #    256  - (Disabled, Warlock)
+        #    1024 - (Disabled, Druid)
+        ClassMask: 0
+
+    # Limit creating death knights only for account with another
+    # character of specific level (ignored for GM accounts).
+    MinLevelForDeathKnight: 55
+
+# Limit number of characters per account on all realms on this realmlist.
+#  Important: Number must be >= CharactersPerRealm
+CharactersPerAccount: 50
+
+# Limit number of characters per account on this realm. (10 = Client limit)
+CharactersPerRealm: 10
+
+# Limit number of death knight characters per account on this realm.
+DeathKnightsPerRealm: 1
+
+# Disable cinematic intro at first login after character creation.
+# Prevents buggy intros in case of custom start location coordinates.
+SkipCinematics: 0
+# Maximum level that can be reached by players.
+MaxPlayerLevel: 80
+# Level requirement for Dual Talent Specialization.
+MinDualSpecLevel: 40
+
+# Starting level for characters after creation.
+StartPlayerLevel: 1
+# Starting level for death knight characters after creation.
+StartDeathKnightPlayerLevel: 55
+
+# Amount of money (in Copper) that a character has after creation.
+StartPlayerMoney: 0
+# Maximum honor points a character can have.
+MaxHonorPoints: 75000
+# Amount of honor points that characters have after creation.
+StartHonorPoints: 0
+# Maximum arena points a character can have.
+MaxArenaPoints: 10000
+# Amount of arena points that characters has after creation.
+StartArenaPoints: 0
+
+RecruitAFriend:
+    # Highest level up to which a character can benefit from the Recruit-A-Friend
+    # experience multiplier.
+    MaxLevel: 60
+    # Highest level difference between linked Recruiter and Friend benefit from
+    # the Recruit-A-Friend experience multiplier.
+    MaxDifference: 4
+
+# Required security level for water breathing.
+#   4  - (Disabled)
+#   0  - (Enabled, Everyone)
+#   1  - (Enabled, Mods/GMs/Admins)
+#   2  - (Enabled, GMs/Admins)
+#   3  - (Enabled, Admins)
+DisableWaterBreath: 2
+
+# Character knows all flight paths (of both factions) after creation.
+AllFlightPaths: false
+# Flight paths will take players to their destination instantly instead
+# of making them wait while flying.
+InstantFlightPaths: false
+# Players will automatically gain max skill level when logging in or leveling up.
+AlwaysMaxSkillForLevel: false
+# Activate the weather system.
+ActivateWeather: true
+# Allow casting the Unstuck spell using .start or unstuck button in client help options.
+CastUnstuck: true
+
+Instance:
+    # Ignore level requirement when entering instances.
+    IgnoreLevel: false
+    # Ignore raid group requirement when entering instances.
+    IgnoreRaid: false
+    # Hour of the day when the global instance reset occurs.
+    ResetTimeHour: 4
+    # Time (in milliseconds) before instance maps are unloaded from memory if no characters are inside.
+    UnloadDelay: 1800000
+
+# Announce the reset of one instance to whole party.
+InstancesResetAnnounce: false
+
+Quests:
+    # Store data in the database about quest completion and abandonment to help finding bugged quests.
+    EnableQuestTracker: false
+    # Level difference between player and quest level at which quests are considered low-level and are not shown via
+    # exclamation mark (!) at quest givers. (-1 to disable)
+    LowLevelHideDiff: 10
+    # Level difference between player and quest level at which quests are considered high-level and are not shown via
+    # exclamation mark (!) at quest givers. (-1 to disable)
+    HighLevelHideDiff: 7
+    # Allow non-raid quests to be completed while in a raid group.
+    IgnoreRaid: false
+    # Ignore auto accept flag. Clients will have to manually accept all quests.
+    IgnoreAutoAccept: false
+    # Ignore auto complete flag. Clients will have to manually complete all quests.
+    IgnoreAutoComplete: 0
+    # Hour of the day when daily quest reset occurs.
+    DailyResetTime: 3
+    # Day of the week when weekly quest reset occurs.
+    WeeklyResetWDay: 3
+
+Calendar:
+    # Hour of the day when the daily deletion of old calendar events occurs.
+    DeleteOldEventsHour: 6
+
+Guild:
+    CharterCost: 1000
+    # Number of log entries for guild events that are stored per guild. Old entries
+    # will be overwritten if the number of log entries exceed the configured value.
+    # High numbers prevent this behavior but may have performance impacts.
+    EventLogRecordsCount: 100
+    # Hour of the day when the daily cap resets occur.
+    ResetHour: 6
+    # Number of log entries for guild bank events that are stored per guild. Old entries will be overwritten
+    # if the number of log entries exceed the configured value. High numbers prevent this behavior but
+    # may have performance impacts.
+    BankEventLogRecordsCount: 25
+    # Allow more than one guild master. Additional Guild Masters must be set using the ".guild rank" command.
+    AllowMultipleGuildMaster: false
+
+# Maximum number of primary professions a character can learn.
+MaxPrimaryTradeSkill: 2
+# Number of required signatures on charters to create a guild.
+MinPetitionSigns: 9
+# Max distance to creature for group member to get experience at creature death.
+MaxGroupXPDistance: 74
+# Max distance between character and group to gain the Recruit-A-Friend XP multiplier.
+MaxRecruitAFriendBonusDistance: 100
+# Min ratio of experience that a quest can grant when player level scaling is factored.
+MinQuestScaledXPRatio: 0
+
+# Min ratio of experience that a creature kill can grant when player level scaling is factored. This
+# will also allow spell procs to trigger, such as Drain Soul, if > 0 and exp is grantable.
+#   Example:  50 (No less than 50% experience granted from a lower leveled creature kill)
+#            100 (Creature kills always grant full experience upon kill)
+#              0 (Creatures too low may grant no experience)
+MinCreatureScaledXPRatio: 0
+
+# Min ratio of experience that an area discovery event will grant when player level scaling is factored.
+#   Example:  50 (No less than 50% experience granted from discovering a new section of map)
+#            100 (Map exploration always grant full experience upon discovery)
+#              0 (No experience granted when discovered area is too low level)
+MinDiscoveredScaledXPRatio: 0
+
+
+# The hour at which old mails will be returned or deleted by the server.
+# This can be any integer number from 0 to 23. 20 will be 8pm server time.
+CleanOldMailTime: 4
+
+SkillChance:
+    # Allow skill increase from prospecting.
+    Prospecting: false
+    # Allow skill increase from milling.
+    Milling: false
+
+# Unlearning certain spells can change offhand weapon restrictions for equip slots.
+OffhandCheckAtSpellUnlearn: true
+
+# Client cache version for client cache data reset. Use any value different
+# from DB and not recently been used to trigger client side cache reset.
+ClientCacheVersion: 0
+
+Event:
+    # Announce events.
+    Announce: false
+
+# Beep when the world server finished starting.
+BeepAtStart: false
+# Flashes in taskbar when the world server finished starting. (Works on Windows only)
+FlashAtStart: false
+
+# Message of the Day, displayed at login. Use '@' for a newline.
+Motd: "Welcome to a Kitron server."
+
+Server:
+    # Display core version (.server info) on login.
+    LoginInfo: false
+
+Command:
+    # Number of results being displayed using a .lookup command. 0 = unlimited.
+    LookupMaxResults: 0
+
+# Allow/disallow sending new tickets.
+AllowTickets: true
+
+# Keep trace of tickets opened by deleted characters gm_ticket.playerGuid will be 0, old GUID and character name
+# will be included in gm_ticket.comment
+DeletedCharacterTicketTrace: false
+
+#
+#     DungeonFinder.OptionsMask
+#        Description:
+#        Default:     1
+
+DungeonFinder:
+    # Dungeon and raid finder system.
+    # Value is a bitmask consisting of:
+    #  LFG_OPTION_ENABLE_DUNGEON_FINDER = 1,     Enable the dungeon finder browser
+    #  LFG_OPTION_ENABLE_RAID_BROWSER   = 2,     Enable the raid browser
+    OptionsMask: 1
+
+# Controls the max amount of different instances player can enter within hour.
+AccountInstancesPerHour: 5
+
+# Controls how secure the password changes are.
+#  0 - None (Old and new password)
+#  1 - Email (Email confirmation necessary)
+#  2 - RBAC (RBAC enable or disables email confirmation per group)
+
+Account:
+    PasswordChangeSecurity: 0
+
+# Set to date of project's birth in UNIX time. By default, the date when KitronCore was started (Tue May 30, 2023)
+BirthdayTime: 1685404800
+
+# Server caches data queries at startup. Can be disabled if not enough memory is available.
+CacheDataQueries: 1
+
+# Specifies if IP addresses can be logged to the database
+AllowLoggingIPAddressesInDatabase: true
+
+# The key used by authserver to decrypt TOTP secrets from database storage.
+# You only need to set this here if you plan to use the in-game 2FA
+# management commands (.account 2fa), otherwise this can be left blank.
+#
+# The server will auto-detect if this does not match your authserver setting,
+# in which case any commands reliant on the secret will be disabled.
+TOTPMasterSecret: ~
+
+Updates:
+    # A mask that describes which databases shall be updated.
+    # Following flags are available
+    #    DATABASE_LOGIN     = 1, // Auth database
+    #    DATABASE_CHARACTER = 2, // Character database
+    #    DATABASE_WORLD     = 4, // World database
+    EnableDatabases: 7
+    # Auto-populate empty databases.
+    AutoSetup: true
+    # Perform data redundancy checks through hashing to detect changes on sql updates and reapply it.
+    Redundancy: true
+    # Check hashes of archived updates (slows down startup).
+    ArchivedRedundancy: false
+    # Inserts the current file hash in the database if it is left empty.
+    # Useful if you want to mark a file as applied, but you don't know its hash.
+    AllowRehash: true
+    # Cleans dead/orphaned references that occur if an update was removed or renamed and edited in one step.
+    # It only starts the cleanup if the count of the missing updates is below or equal the Updates.CleanDeadRefMaxCount value.
+    # This way prevents erasing of the update history due to wrong source directory state (maybe wrong branch or bad revision).
+    # Disable this if you want to know if the database is in a possible "dirty state".
+    #    3 - (Enabled)
+    #    0 - (Disabled)
+    #    -1 - (Enabled - unlimited)
+    CleanDeadRefMaxCount: 3
+
+Warden:
+    # Enable Warden anti-cheat system.
+    Enabled: false
+    # Number of Warden checks of the respective category that are sent per cycle.
+    NumInjectionChecks: 9
+    NumLuaSandboxChecks: 1
+    NumClientModChecks: 1
+    # Time (in seconds) before client is getting disconnecting for not responding.
+    ClientResponseDelay: 600
+    # Time (in seconds) to wait before sending the next check request to the client.
+    # A low number increases traffic and load on client and server side.
+    ClientCheckHoldOff: 30
+    # Default action being taken if a client check failed. Actions can be
+    # overwritten for each single check via warden_action table in characters database.
+    #   0 - (Disabled, Logging only)
+    #   1 - (Kick)
+    #   2 - (Ban)
+    ClientCheckFailAction: 0
+    # Time (in seconds) an account will be banned if ClientCheckFailAction is set to ban.
+    BanDuration: 86400
+
+AllowTwoSide:
+    Interaction:
+        # Allow calendar invites between factions.
+        Calendar: false
+        # Allow channel chat between factions.
+        Channel: false
+        # Allow group joining between factions.
+        Group: false
+        # Allow guild joining between factions.
+        Guild: false
+        # Allow auctions between factions.
+        # This results in all auctions being handled as if placed in the neutral
+        # auction house and will intentionally lock acces to the Horde and Alliance AH.
+        # Deposit fee and auction cut values will be taken from neutral auction house.
+        # If used in combination with the AH-Bot, settings should be set for neutral
+        # auction house only.
+        #
+        # Warning: changing this in production results in players loosing access to their
+        # already placed auctions in the faction houses - these auctions will expire after
+        # their regular timings.
+        Auction: false
+
+    # Allow trading between factions.
+    Trade: false
+
+# Allow/disallow inspecting other characters' talents. Doesn't affect game master accounts.
+#   2 - (Enabled for all characters)
+#   1 - (Enabled for characters of the same faction)
+#   0 - (Talent inspecting is disabled)
+TalentsInspecting: 1
+
+# Distance for creatures to evade after being pulled away from the combat
+# starting point. If ThreatRadius is less than creature aggro radius then aggro
+# radius will be used.
+ThreatRadius: 60
+
+# Distance for fleeing creatures seeking assistance from other creatures.
+CreatureFamilyFleeAssistanceRadius: 30
+# Distance for creatures calling for assistance from other creatures without moving.
+CreatureFamilyAssistanceRadius: 10
+# Time (in milliseconds) before creature assistance call.
+CreatureFamilyAssistanceDelay: 1500
+# Time (in milliseconds) during which creature can flee if no assistance was found.
+CreatureFamilyFleeDelay: 7000
+# World boss level difference.
+WorldBossLevelDiff: 3
+
+# Time (in seconds) until creature corpse will decay if not looted or skinned.
+Corpse:
+    Decay:
+        NORMAL:    300
+        RARE:      300
+        ELITE:     300
+        RAREELITE: 300
+        WORLDBOSS: 3600
+
+Creature:
+    # Time in seconds that the server will wait before refilling the pickpocket loot for a creature
+    PickPocketRefillDelay: 600
+    # Time (in milliseconds) during which creature will not move after interaction with player.
+    MovingStopTimeForPlayer: 180000
+    # Regenerates HP for Creatures in Raids if they cannot reach the target.
+    RegenHPCannotReachTargetInRaid: true
+
+ListenRange:
+    # Distance in which players can read say messages from creatures or gameobjects.
+    Say: 40
+    # Distance in which players can read emotes from creatures or gameobjects.
+    TextEmote: 40
+    # Distance in which players can read yell messages from creatures or gameobjects.
+    Yell: 300
+
+# The maximum distance in yards that a "monster" creature can see regardless of level difference
+# (through CreatureAI::IsVisible). Increases CONFIG_SIGHT_MONSTER to 50 yards. Used to be 20 yards.
+MonsterSight: 50.000000
+
+Respawn:
+    # Minimum time that needs to pass between respawn checks for any given map.
+    MinCheckIntervalMS: 5000
+    # The point at which the highest guid for creatures or gameobjects in any map must reach
+    # before the warning logic is enabled. A restart will then be queued at the next quiet time
+    # The maximum guid per map is 16,777,216. So, it must be less than this value.
+    GuidWarnLevel: 12000000
+    # This message will be periodically shown (Frequency specified by Respawn.WarningFrequency) to
+    # all users of the server, once the Respawn.GuidWarnLevel has been passed, and a restart scheduled.
+    # It's used to warn users that there will be an out of schedule server restart soon.
+    WarningMessage: "There will be an unscheduled server restart at 03:00. The server will be available again shortly after."
+    # The frequency (in seconds) that the warning message will be sent to users after a quiet time restart is triggered.
+    # The message will repeat each time this many seconds passed until the server is restarted.
+    # If set to 0, no warnings will be sent.
+    WarningFrequency: 1800
+
+    # The point at which the highest guid for creatures or gameobjects in any map must reach
+    # before the alert logic is enabled. A restart will then be triggered for 30 min. from that
+    # point. The maximum guid per map is 16,777,216. So, it must be less than this value.
+    GuidAlertLevel: 16000000
+    # The shutdown reason given when the alert level is reached. The server will use a fixed time of 5 minutes
+    # and the reason for shutdown will be this message
+    AlertRestartReason: "Urgent Maintenance"
+    # The hour at which the server will be restarted after the Respawn.GuidWarnLevel
+    # threshold has been reached. This can be between 0 and 23. 20 will be 8pm server time
+    RestartQuietTime: 3
+
+    # Select which mode (if any) should be used to adjust respawn of creatures.
+    # This will only affect creatures that have dynamic spawn rate scaling enabled in
+    # the spawn group table (by default, gathering nodes and quest targets with respawn time <30min
+    #    1 - Use number of players in zone
+    #    0 - No dynamic respawn function
+    DynamicMode: 0
+    # This switch controls the dynamic respawn system for escort NPCs not in instanceable maps (base maps only).
+    # This will cause the respawn timer to begin when an escort event begins, and potentially
+    # allow multiple instances of the NPC to be alive at the same time (when combined with Respawn.DynamicMode > 0)
+    DynamicEscortNPC: false
+
+    # The rate at which the respawn time is adjusted for high player counts in a zone (for creatures).
+    # Up to this number of players, the respawn rate is unchanged.
+    # At double this number in players, you get twice as many respawns, at three times this number, three times the respawns, and so forth.
+    DynamicRateCreature: 10
+    # The minimum respawn time (in seconds) for a creature under dynamic scaling.
+    DynamicMinimumCreature: 10
+    # The rate at which the respawn time is adjusted for high player counts in a zone (for gameobjects).
+    # Up to this number of players, the respawn rate is unchanged.
+    # At double this number in players, you get twice as many respawns, at three times this number, three times the respawns, and so forth.
+    DynamicRateGameObject: 10
+    # The minimum respawn time for a GameObject under dynamic scaling.
+    DynamicMinimumGameObject: 10
+
+# Additional protection from creating fake chat messages using spaces.
+# Collapses multiple subsequent whitespaces into a single whitespace.
+# Not applied to the addon language, but may break old addons that use
+# "normal" chat messages for sending data to other clients.
+ChatFakeMessagePreventing: true
+
+
+ChatStrictLinkChecking:
+    # Check chat messages for in-game links to spells, items, quests, etc.
+    #   -1 - (Only verify validity of link data, but permit use of custom colors)
+    #    0 - (Only verify that link data and color are valid without checking text)
+    #    1 - (Additionally verifies that the link text matches the provided data)
+    #
+    #    Note: If this is set to '1', you must additionally provide .dbc files for all
+    #          client locales that are in use on your server.
+    #          If any files are missing, messages with links from clients using those
+    #          locales will likely be blocked by the server.
+    Severity: 0
+    # Defines if the user should be kicked if a message containing invalid control characters is received.
+    # If false, simply ignore the message.
+    Kick: false
+
+ChatFlood:
+    # Chat flood protection, number of messages before player gets muted.
+    MessageCount: 10
+    # Time (in seconds) between messages to be counted into ChatFlood.MessageCount.
+    MessageDelay: 1
+    # Chat flood protection, number of addon messages before player gets muted.
+    AddonMessageCount: 100
+    # Time (in seconds) between addon messages to be counted into ChatFlood.AddonMessageCount.
+    AddonMessageDelay: 1
+    # Time (in seconds) characters get muted for violating ChatFlood.MessageCount / ChatFlood.AddonMessageCount.
+    MuteTime: 10
+
+Channel:
+    # Restrict LookupForGroup channel to characters registered in the LFG tool.
+    RestrictedLfg: true
+
+# Level requirement for characters to be able to use chats.
+ChatLevelReq:
+    Channel: 1
+    Whisper: 1
+    Emote: 1
+    Say: 1
+    Yell: 1
+
+# Minimum level at which players can invite to group, even if they aren't on
+# the invitee friends list. (Players who are on that friend list can always
+# invite despite having lower level)
+PartyLevelReq: 1
+
+# Store custom chat channel settings like password, automatic ownership handout or ban list in the database.
+# Needs to be enabled to save custom world/trade/etc. channels that have automatic ownership handout disabled.
+# (.channel set ownership $channel off)
+PreserveCustomChannels: true
+
+# Interval (in minutes) at which custom channel data is saved to the database
+PreserveCustomChannelInterval: 5
+
+# Time (in days) that needs to pass before the customs chat channels get cleaned up from the database.
+# Only channels with ownership handout enabled (default behavior) will be cleaned.
+PreserveCustomChannelDuration: 14
+
+# Allow any user to use raid warnings when in a 5-man party.
+PartyRaidWarnings: false
+
+GM:
+    # GM mode at login: 2 - last saved state, 0 - disabled, 1 - enabled
+    LoginState: 2
+    # GM visibility at login: 2 - last saved state, 0 - disabled, 1 - enabled
+    Visible: 2
+    # GM chat mode at login: 2 - last saved state, 0 - disabled, 1 - enabled
+    Chat: 2
+    # Is GM accepting whispers from player by default or not: 2 - last saved state, 0 - disabled, 1 - enabled
+    WhisperingTo: 2
+    # Allows to set a default duration (in seconds) to the Freeze Aura applied on players when using the .freeze command
+    FreezeAuraDuration: 0
+
+    InGMList:
+        # Maximum GM level shown in GM list (if enabled) in non-GM state (.gm off). 3 = Anyone
+        Level: 3
+
+    InWhoList:
+        # Max GM level showed in who list (if visible).
+        Level: 3
+
+    # GM character starting level.
+    StartLevel: 1
+    # Allow players to invite GM characters.
+    AllowInvite: false
+    # Allow lower security levels to use commands on higher security level characters.
+    LowerSecurity: false
+    # Chance of sending a GM survey after ticket completion.
+    TicketSystem:
+        ChanceOfGMSurvey: 50
+    # Minimum shutdown time in seconds before 'force' is required if other players are connected.
+    ForceShutdownThreshold: 30
+
+Visibility:
+    # Group visibility modes. Defines which groups can always detect invisible characters of the same
+    # raid (1), group (0), faction (2) or none (3).
+    GroupMode: 1
+
+# Visibility distance to see other players or gameobjects.
+# Visibility on continents on retail ~100 yards. In BG/Arenas ~533.
+# For instances default ~170.
+# Max limited by grid size: 533.33333
+# Min limit is max aggro radius (45) * Rate.Creature.Aggro
+Distance:
+    Continents: 100
+    Instances:  170
+    BG:         533
+    Arenas:     533
+
+    # Time (in milliseconds) for visibility update period. Lower values may have performance impact.
+    Notify:
+        Period:
+            OnContinents: 1000
+            InInstances: 1000
+            InBG: 1000
+            InArenas: 1000
+
+Rate:
+    Creature:
+        # Aggro radius percentage.
+        Aggro: 1
+        Normal:
+            # Multiplier for creature melee damage.
+            Damage: 1
+            # Multiplier for creature spell damage.
+            SpellDamage: 1
+            # Multiplier for creature health.
+            HP: 1
+        Elite:
+            Elite:
+                Damage: 1
+                SpellDamage: 1
+                HP: 1
+            RARE:
+                Damage: 1
+                SpellDamage: 1
+                HP: 1
+            RAREELITE:
+                Damage: 1
+                SpellDamage: 1
+                HP: 1
+            WORLDBOSS:
+                Damage: 1
+                SpellDamage: 1
+                HP: 1
+
+    # Multiplier for Corpse.Decay.* to configure how long creature corpses stay after they have been looted.
+    Corpse:
+        Decay:
+            Looted: 0.5
+
+    Health: 1
+    Mana: 1
+    Rage:
+        Income: 1
+        Loss: 1
+    RunicPower:
+        Income: 1
+        Loss: 1
+    Focus: 1
+    Energy: 1
+    Loyalty: 1
+
+    Skill:
+        Discovery: 1
+
+    Drop:
+        Item:
+            ReferencedAmount: 1
+
+            Poor: 1
+            Normal: 1
+            Uncommon: 1
+            Rare: 1
+            Epic: 1
+            Legendary: 1
+            Artifact: 1
+            Referenced: 1
+        Money: 1
+
+    XP:
+        Kill: 1
+        Quest: 1
+        Explore: 1
+        BattlegroundKill: 1
+
+    Quest:
+        Money:
+            Reward: 1
+            Max:
+                Level:
+                    Reward: 1
+
+    RepairCost: 1
+    Rest:
+        InGame: 1
+        Offline:
+            InTavernOrCity: 1
+            InWilderness: 1
+
+    Damage:
+        Fall: 1
+
+    Auction:
+        Time: 1
+        Deposit: 1
+        Cut: 1
+
+    Honor: 1
+    ArenaPoints: 1
+    Talent: 1
+    Reputation:
+        Gain: 1
+        LowLevel:
+            Kill: 1
+            Quest: 1
+        RecruitAFriendBonus: 0.1
+    MoveSpeed: 1
+    InstanceResetTime: 1
+
+SkillGain:
+    Crafting: 1
+    Defense: 1
+    Gathering: 1
+    Weapon: 1
+    Orange: 100
+    Yellow: 75
+    Green: 25
+    Grey: 0
+    MiningSteps: 0
+    SkinningSteps: 0
+
+DurabilityLoss:
+    # Durability loss on death during PvP.
+    InPvP: false
+    # Durability loss percentage on death.
+    OnDeath: 10
+
+DurabilityLossChance:
+    # Chance to lose durability on one equipped item from damage.
+    Damage: 0.5
+    # Chance to lose durability on one equipped armor item when absorbing damage.
+    Absorb: 0.5
+    # Chance to lose durability on main weapon when parrying attacks.
+    Parry: 0.05
+    # Chance to lose durability on shield when blocking attacks.
+    Block: 0.05
+
+Death:
+    # Starting level for resurrection sickness.
+    SicknessLevel: 11
+    # Increase corpse reclaim delay at PvP/PvE deaths.
+    CorpseReclaimDelay:
+        PvP: true
+        PvE: false
+    # Create bones instead of corpses at resurrection in normal zones, instances, battleground or arenas.
+    Bones:
+        World: true
+        BattlegroundOrArena: true
+
+# Do not trigger things like loot from .die command.
+Die:
+    Command:
+        Mode: true
+
+Stats:
+    Limits:
+        # Enable or disable stats system.
+        Enable: false
+        Dodge: 95.0
+        Parry: 95.0
+        Block: 95.0
+        Crit: 95.0
+
+AutoBroadcast:
+    # Enable auto broadcast.
+    On: false
+    # Auto broadcasting display method. 0 - (Announce), 1 - (Notify), 2 - (Both)
+    Center: 0
+    # Timer (in milliseconds) for auto broadcasts.
+    Timer: 600000
+
+Battleground:
+    # Cast Deserter spell at players who leave battlegrounds in progress.
+    CastDeserter: true
+
+    QueueAnnouncer:
+        # Announce battleground queue status to chat.
+        Enable: false
+        # Battleground queue announcement type.
+        PlayerOnly: false
+
+    StoreStatistics:
+        # Store Battleground scores in the database.
+        Enable: false
+
+    TrackDeserters:
+        # Track deserters of Battlegrounds.
+        Enable: false
+
+    # Set Battleground invitation type.
+    #   0 - (Normal, Invite as many players to battlegrounds as queued, Don't bother with balance)
+    #   1 - (Experimental, Don't allow to invite much more players of one faction)
+    #   2 - (Experimental, Try to have even teams)
+    InvitationType: 0
+    # Time (in milliseconds) before battleground will end prematurely if there are
+    # not enough players on one team. (Values defined in battleground template)
+    PrematureFinishTimer: 300000
+    # Time (in milliseconds) a pre-made group has to wait for matching group of the other faction.
+    PremadeGroupWaitForMatch: 1800000
+    # Give experience for honorable kills in battlegrounds, the rate can be changed in the Rate.XP.BattlegroundKill setting.
+    GiveXPForKills: false
+    Random:
+        # Hour of the day when the global instance resets occur.
+        ResetHour: 6
+
+    RewardWinnerHonorFirst: 30
+    RewardWinnerArenaFirst: 25
+    RewardWinnerHonorLast: 15
+    RewardWinnerArenaLast: 0
+    RewardLoserHonorFirst: 5
+    RewardLoserHonorLast: 5
+
+    # Number of reports needed to kick someone AFK from Battleground.
+    ReportAFK: 3
+
+Wintergrasp:
+    # Enable the Wintergrasp battlefield.
+    Enable: false
+    #  Maximum number of players allowed in Wintergrasp.
+    PlayerMax: 100
+    # Minimum number of players required for Wintergrasp.
+    PlayerMin: 0
+    # Required character level for the Wintergrasp battle.
+    PlayerMinLvl: 77
+    # Time (in minutes) for the Wintergrasp battle to last.
+    BattleTimer: 30
+    # Time (in minutes) between Wintergrasp battles.
+    NoBattleTimer: 150
+    # Time (in minutes) to delay the restart of Wintergrasp if the world server crashed during a running battle.
+    CrashRestartTimer: 10
+
+Arena:
+    # Maximum rating difference between two teams in rated matches.
+    MaxRatingDifference: 150
+    # Time (in milliseconds) after which rating differences are ignored when setting up matches.
+    RatingDiscardTimer: 600000
+    # Time (in milliseconds) after which the previous opponents will be ignored. (2 minutes - Blizzlike)
+    PreviousOpponentsDiscardTimer: 120000
+    # Time (in milliseconds) between checks for match-ups in rated arena.
+    RatedUpdateTimer: 5000
+    # Automatically distribute arena points.
+    AutoDistributePoints: false
+    # Time (in days) how often arena points should be distributed if automatic distribution is enabled.
+    AutoDistributeInterval: 7
+    QueueAnnouncer:
+        # Announce arena queue status to chat.
+        Enable: false
+    ArenaSeason:
+        # Current arena season id shown in clients.
+        ID: 8
+        # State of current arena season.
+        InProgress: true
+    # Start rating for new arena teams.
+    ArenaStartRating: 0
+    # Start personal rating when joining a team.
+    ArenaStartPersonalRating: 0
+    # Start matchmaker rating for players.
+    ArenaStartMatchmakerRating: 1500
+    # Modifier of rating addition when winner team rating is less than 1300
+    # be aware that from 1000 to 1300 it gradually decreases automatically down to the half of it
+    # (increasing this value will give more rating)
+    ArenaWinRatingModifier1: 48
+    # Modifier of rating addition when winner team rating is equal or more than 1300
+    # (increasing this value will give more rating)
+    ArenaWinRatingModifier2: 24
+    # Modifier of rating subtraction for loser team (increasing this value will subtract more rating)
+    ArenaLoseRatingModifier: 24
+    # Modifier of matchmaker rating
+    ArenaMatchmakerRatingModifier: 24
+
+ArenaLog:
+    # Include extended info to ArenaLogFile for each player after rated arena
+    # matches (guid, name, team, IP, healing/damage done, killing blows).
+    ExtendedInfo: false
+
+Network:
+    # Number of threads for network.
+    Threads: 1
+    # Amount of memory (in bytes) used for the output kernel buffer (see SO_SNDBUF socket option, TCP manual).
+    OutKBuff: -1
+    # Amount of memory (in bytes) reserved in the user space per connection for output buffering.
+    OutUBuff: 65536
+    # TCP Nagle algorithm setting.
+    TcpNodelay: true
+
+Console:
+    Enable: true
+
+# Remote administration
+Ra:
+    Enable: false
+    IP: "0.0.0.0"
+    Port: 3443
+    MinLevel: 3
+
+SOAP:
+    Enabled: false
+    IP: "127.0.0.1"
+    Port: 7878
+
+CharDelete:
+    # Character deletion behavior. 0 = delete from DB, 1 = soft-delete, free up the name.
+    Method: 0
+    # Required level to use the unlinking method if enabled for non-heroic classes.
+    MinLevel: 0
+    # Required level to use the unlinking method if enabled for death knights.
+    DeathKnight:
+        MinLevel: 0
+    # Time (in days) before unlinked characters will be removed from the database. 0 = never delete.
+    KeepDays: 30
+
+# Allows players to track herbs and minerals at the same time (if they have the skills)
+AllowTrackBothResources: false
+
+PlayerStart:
+    # Players will start with most of the high level reputations that are needed for items, mounts etc.
+    AllReputation: false
+    # If enabled, players will start with all their class spells (not talents).
+    # You must populate playercreateinfo_spell_custom table with the spells you
+    # want, or this will not work! The table has data for all classes / races up
+    # to WoTLK expansion.
+    AllSpells: false
+    # Characters start with all maps explored.
+    MapsExplored: false
+    # String to be displayed at first login of newly created characters.
+    String: ~
+
+XP:
+    Boost:
+        # Enables experience boost during the defined days. This field is a bitmask.
+        #   0 - (Disabled)
+        #   1 - (Sunday)
+        #   2 - (Monday)
+        #   4 - (Tuesday)
+        #   8 - (Wednesday)
+        #   16 - (Thursday)
+        #   32 - (Friday)
+        #   64 - (Saturday)
+        #   65 - (Weekend only)
+        #   127 - (Always active)
+        Daymask: 0
+        # The boost multiplier for experience gain during XP boosted days.
+        Rate: 2.0
+
+
+
+# Amount of honor points the duel winner will get after a duel.
+HonorPointsAfterDuel: 0
+# Reset all cooldowns before duel starts and restore them when duel ends.
+ResetDuelCooldowns: false
+# Reset health and mana before duel starts and restore them when duel ends.
+ResetDuelHealthMana: false
+# Players will automatically gain max weapon/defense skill when logging in, or leveling.
+AlwaysMaxWeaponSkill: false
+
+PvPToken:
+    # Character will receive a token after defeating another character that yields honor.
+    Enable: false
+    # Define where characters can receive tokens.
+    #   4 - (All maps)
+    #   3 - (Battlegrounds)
+    #   2 - (FFA areas only like Gurubashi arena)
+    #   1 - (Battlegrounds and FFA areas)
+    MapAllowType: 4
+    # Item characters will receive after defeating another character if PvP Token system is enabled.
+    ItemID: 29434 # Badge of justice
+    # Number of tokens a character will receive.
+    ItemCount: 1
+
+#
+#    NoResetTalentsCost
+#        Description: Resetting talents doesn't cost anything.
+#        Default:     0 - (Disabled)
+#                     1 - (Enabled)
+
+NoResetTalentsCost: false
+
+
+# Determines whether a message is broadcast to the entire server when a player gets kicked.
+ShowKickInWorld: false
+
+# Determines whether a message is broadcast to the entire server when a player gets muted.
+ShowMuteInWorld: false
+
+# Determines whether a message is broadcast to the entire server when a player gets banned.
+ShowBanInWorld: false
+
+LevelReq:
+    # Level requirement for characters to be able to initiate a trade.
+    Trade: 1
+    # Level requirement for characters to be able to write tickets.
+    Ticket: 1
+    # Level requirement for characters to be able to use the auction house.
+    Auction: 1
+    #Level requirement for characters to be able to send and receive mails.
+    Mail: 1
+
+PlayerDump:
+    # Disallow using paths in PlayerDump output files
+    DisallowPaths: true
+    # Disallow overwriting existing files with PlayerDump
+    DisallowOverwrite: true
+
+Calculate:
+    # Calculate at loading creature zoneId / areaId and save in creature table (WARNING: SLOW WORLD SERVER STARTUP)
+    Creature:
+        Zone:
+            Area:
+                Data: false
+    # Calculate at loading gameobject zoneId / areaId and save in gameobject table (WARNING: SLOW WORLD SERVER STARTUP)
+    Gameoject:
+        Zone:
+            Area:
+                Data: false
+
+# Gray mobs will not aggro players above/below some levels
+# NoGrayAggro.Above: If player is at this level or above, gray mobs will not attack
+# NoGrayAggro.Below: If player is at this level or below, gray mobs will not attack
+# You can for example make players free from gray until they reach level 30.
+# Then gray will start to attack them, until they reach max level (80 for example):
+# NoGrayAggro.Above = 80
+# NoGrayAggro.Below = 29
+NoGrayAggro:
+    Above: 0
+    Below: 0
+
+# If option is set to true, player can not rename the character in character customization.
+# Applies to all character customization commands.
+PreventRenameCharacterOnCustomization: false
+
+AuctionHouseBot:
+    # Account ID for AHBot characters. If non-zero, all auctions and bids associated
+    # with the AHBot will randomly be assigned one of this account's characters.
+    Account: 0
+    Update:
+        # Interval in seconds for AHBot to get updated
+        Interval: 20
+    
+    Seller:
+        # General enable or disable AuctionHouseBot Seller functionality
+        Enabled: false
+    
+    Alliance:
+        Items:
+            Amount:
+                Ratio: 100
+        Price:
+            # Percentage by which the price of items sold on Alliance Auction House is incremented / decreased
+            Ratio: 100
+    Horde:
+        Items:
+            Amount:
+                Ratio: 100
+        Price:
+            Ratio: 100
+    Neutral:
+        Items:
+            Amount:
+                Ratio: 100
+        Price:
+            Ratio: 100
+    
+    # Minimum time for the new auction in hours
+    MinTime: 1
+    #  Maximum time for the new auction in hours
+    MaxTime: 72
+    
+    #
+    #    Class.CLASS.Allow.Zero = 0
+    #       Description: 
+    #       Default:     0 - (Disabled)
+    #                    1 - (Enabled)
+    
+    Class:
+        Consumable:
+            Allow:
+                # Include items without a sell or buy price.
+                Zero: false
+            Price:
+                # Percentage by which the price of items sold of each class is incremented / decreased (for all houses)
+                Ratio: 100
+            # Range: 0 - 10
+            Priority: 6
+            # Used to determine how often a stack of the class will be single or randomly-size stacked when posted
+            # Value needs to be between 0 and 100, no decimal.  Anything higher than 100 will be treated as 100
+            RandomStackRatio: 20
+        Container:
+            Allow:
+                Zero: false
+            Price:
+                Ratio: 100
+            Priority: 4
+            ItemLevel:
+                Min: 0
+                Max: 0
+            RandomStackRatio: 0
+        Weapon:
+            Allow:
+                Zero: false
+            Price:
+                Ratio: 100
+            Priority: 8
+            RandomStackRatio: 0
+        Gem:
+            Allow:
+                Zero: false
+            Price:
+                Ratio: 100
+            Priority: 3
+            RandomStackRatio: 20
+        Armor:
+            Allow:
+                Zero: false
+            Price:
+                Ratio: 100
+            Priority: 8
+            RandomStackRatio: 0
+        Reagent:
+            Allow:
+                Zero: false
+            Price:
+                Ratio: 100
+            Priority: 1
+            RandomStackRatio: 100
+        Projectile:
+            Allow:
+                Zero: false
+            Price:
+                Ratio: 100
+            Priority: 2
+            RandomStackRatio: 100
+        TradeGood:
+            Allow:
+                Zero: false
+            Price:
+                Ratio: 100
+            Priority: 10
+            ItemLevel:
+                Min: 0
+                Max: 0
+            RandomStackRatio: 50
+        Recipe:
+            Allow:
+                Zero: false
+            Price:
+                Ratio: 100
+            Priority: 6
+            RandomStackRatio: 0
+        Quiver:
+            Allow:
+                Zero: false
+            Price:
+                Ratio: 100
+            Priority: 1
+            RandomStackRatio: 0
+        Quest:
+            Allow:
+                Zero: false
+            Price:
+                Ratio: 100
+            Priority: 1
+            RandomStackRatio: 100
+        Key:
+            Allow:
+                Zero: false
+            Price:
+                Ratio: 100
+            Priority: 1
+            RandomStackRatio: 100
+        Misc:
+            Allow:
+                Zero: false
+            Price:
+                Ratio: 100
+            Priority: 1
+            Mount:
+                ReqLevel:
+                    Min: 0
+                    Max: 0
+                ReqSkill:
+                    Min: 0
+                    Max: 0
+            RandomStackRatio: 100
+        Glyph:
+            Allow:
+                Zero: false
+            Price:
+                Ratio: 100
+            Priority: 3
+            ReqLevel:
+                Min: 0
+                Max: 0
+            ItemLevel:
+                Min: 0
+                Max: 0
+            RandomStackRatio: 0
+
+    Items:
+        # Include items that can be bought from vendors.
+        Vendor: false
+        # Include items that can be looted or fished for.
+        Loot: true
+        # Include misc. items.
+        Misc: false
+
+        # Prevent seller from listing items below/above this item level
+        ItemLevel:
+            Min: 0
+            Max: 0
+
+        # Prevent seller from listing items below/above this required level
+        ReqLevel:
+            Min: 0
+            Max: 0
+
+        # Prevent seller from listing items below/above this skill level
+        ReqSkill:
+            Min: 0
+            Max: 0
+
+        Gray:
+            Amount: 0
+            Price:
+                # Percentage by which the price of items sold of each quality is incremented / decreased (for all houses)
+                Ratio: 100
+        White:
+            Amount: 2000
+            Price:
+                Ratio: 100
+        Green:
+            Amount: 2500
+            Price:
+                Ratio: 100
+        Blue:
+            Amount: 1500
+            Price:
+                Ratio: 100
+        Purple:
+            Purple: 1000
+            Price:
+                Ratio: 100
+        Orange:
+            Amount: 0
+            Price:
+                Ratio: 100
+        Yellow:
+            Amount: 0
+            Price:
+                Ratio: 100
+
+    # Indicates which bonding types to allow the bot to put up for auction
+    #   No     - Items that don't bind            Default 1 (Allowed)
+    #   Pickup - Items that bind on pickup        Default 0 (Not Allowed)
+    #   Equip  - Items that bind on equip         Default 1 (Allowed)
+    #   Use    - Items that bind on use           Default 1 (Allowed)
+    #   Quest  - Quest Items                      Default 0 (Not Allowed)
+    Bind:
+        No: true
+        Pickup: false
+        Equip: true
+        Use: true
+        Quest: false
+    
+    # Enable or disable lockboxes in the AuctionHouse.
+    LockBox:
+        Enabled: false
+    
+    ItemsPerCycle:
+        # This value is used to fill AH faster than normal when there is more than this value on missed items (not auctioned items).
+        # Usually this value is only used once on server start with empty auction table.
+        Boost: 1000
+        # This value is used to fill AH for sold and expired items. A high value will be more resource intensive
+        # Usually this value is used always when auction table is already initialised.
+        Normal: 20
+    
+    # Should the Seller use the items BuyPrice or SellPrice to determine Bid Prices
+    # 0 - (use BuyPrice - results in higher prices)
+    # 1 - (use SellPrice - results in lower prices)
+    BuyPrice:
+        Seller: 0
+    
+    # These values determine the range that the Bid Price will fall into, as a percentage of the Buy Price
+    BidPrice:
+        Min: 0.6
+        Max: 0.9
+
+    # Include these items and ignore ALL filters. List of ids with delimiter ','
+    ForceIncludeItems: ""
+    
+    # Exclude these items even if they would pass the filters. List of ids with delimiter ','
+    ForceExcludeItems: "6343,6345,6376,7192"
+
+    Buyer:
+        # General enable or disable AuctionHouseBot Buyer functionality
+        Enabled: false
+    
+        #
+        #    Buyer.FACTION.Enabled
+        #       Description: Enable or disable buyer independently by faction
+        #       Default:     0 - (Disabled)
+        #                    1 - (Enabled)
+
+        Alliance:
+            Enabled: false
+        Horde:
+            Enabled: false
+        Neutral:
+            Enabled: false
+
+        # k value in the formula used for the chance to buy an item "100^(1 + (1 - (AuctionBid / ItemPrice)) / k)"
+        # It must be a decimal number in the range of (0, +infinity). The higher the number the higher chance to buy overpriced auctions
+        ChanceFactor: 2
+
+        # Base sell prices in copper for non priced items for each quality.
+        # The default values are based on average item prices of each quality.
+        Baseprice:
+            Gray: 3504
+            White: 5429
+            Green: 21752
+            Blue: 36463
+            Purple: 87124
+            Orange: 214347
+            Yellow: 407406
+
+        # Multipliers for the buy/bid chances for each quality. 100 means the chance is 100% of the original,
+        # 1 would mean 1 % of the original and 200 would mean 200% of the original chance.
+        ChanceMultiplier:
+            Gray: 100
+            White: 100
+            Green: 100
+            Blue: 100
+            Purple: 100
+            Orange: 100
+            Yellow: 100
+        
+        # This specifies the time interval (in minutes) between two evaluations of the same sold item.
+        # The smaller this value is, the more chances you give for an item to be bought by AHBot.
+        Recheck:
+            Interval: 20
+
+Appender:
+    Console:
+        # Appender type: could be "console" or "file"
+        type: console
+        # Minimum log level
+        # One of "trace", "debug", "info", "warn" or "error"
+        level: debug
+        # Optional: when type == "console" this maps every level to a given color/style.
+        # color_map: { error: 9, warn: 11, info: 12, debug: 5, trace: 2 }
+    Server:
+        type: file
+        level: debug
+        filename: Server.log
+        append: true
+    GM:
+        type: file
+        level: debug
+        filename: GM.log
+        append: true
+    DBErrors:
+        type: file
+        level: debug
+        filename: DBErrors.log
+        append: true
+
+Logger:
+    # The root logger is the logger used if no other logger can be used.
+    root:
+        # Minimum log level
+        level: error
+        # Appenders of the log
+        appenders:
+            - Console
+            - Server
+    server:
+        level: info
+        appenders:
+            - Console
+            - Server
+    commands::gm:
+        level: info
+        appenders:
+            - Console
+            - Server
+    scripts::hotswap:
+        level: info
+        appenders:
+            - Console
+            - Server
+    sql::sql:
+        level: error
+        appenders:
+            - Console
+            - DBErrors
+    sql::updates:
+        level: info
+        appenders:
+            - Console
+            - Server
+    mmaps:
+        level: info
+        appenders:
+            - Server
+#    achievement:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    addon:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    ahbot:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    auctionHouse:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    bg::arena:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    bg::battlefield:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    bg::battleground:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    bg::reportpvpafk:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    chat::log:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    chat::system:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    calender:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    cheat:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    commands::ra:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    condition:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    entities::faction:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    entities::gameobject:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    entities::pet:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    entities::player:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    entities::player::character:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    entities::player::dump:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    entities::player::items:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    entities::player::loading:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    entities::player::skills:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    entities::unit:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    entities::unit::ai:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    entities::vehicle:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    gameevent:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    guild:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    lfg:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    loot:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    maps:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    maps::script:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    misc:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    mmaps::tiles:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    movement::flightpath:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    movement::motionmaster:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    movement::splinechain:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    network:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    network::kick:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    network::opcode:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    network::soap:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    outdoorpvp:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    pool:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    rbac:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    scripts:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    scripts::ai:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    scripts::ai::escortai:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    scripts::ai::followerai:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    scripts::ai::petai:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    scripts::ai::sai:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    scripts::cos:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    server::authserver:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    spells:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    spells::aura::effect:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    spells::aura::effect::nospell:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    spells::effect:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    spells::effect::nospell:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    sql::dev:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    sql::driver:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+#    warden:
+#        level: info
+#        appenders:
+#            - Console
+#            - Server
+
+PacketSpoof:
+    # Determines the course of action when packet spoofing is detected. 1 - (Log + kick), 0 - (Log only 'network'), 2 - (Log + kick + ban)
+    Policy: 1
+    # If PacketSpoof.Policy equals 2, this will determine the ban mode. 0 - Ban Account, 2 - Ban IP
+    BanMode: 0
+    # Duration of the ban in seconds. Only valid if PacketSpoof.Policy is set to 2. Set to 0 for permanent ban.
+    BanDuration: 86400
+
+AntiCheat:
+    # Time each client has to acknowledge a movement change until they are kicked.
+    #  Note: A lower time will give cheaters less advantage when using a very specific
+    #        type of hack. However, the cost is that innocent but laggy players might
+    #        sometimes get kicked. Disabled if 0.
+    PendingMoveChangesTimeoutTime: 0
+
+Metric:
+    # Enables statistics sent to the metric database.
+    Enable: false
+    # Interval between every batch of data sent in seconds
+    Interval: 1
+    # Connection settings for metric database (currently InfluxDB).
+    ConnectionInfo: "127.0.0.1;8086;worldserver"
+    # Interval between every gathering of overall worldserver status data in seconds
+    OverallStatusInterval: 1
+    #Threshold:
+    #    world_update_sessions_time = 100
+    #    worldsession_update_opcode_time = 50

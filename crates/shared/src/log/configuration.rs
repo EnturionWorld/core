@@ -257,6 +257,7 @@ pub(super) fn hashmap_to_logger(name: &str, config: &HashMap<String, Value>) -> 
 
     Ok(Logger::builder()
         .appenders(appenders)
+        .additive(false)
         .build(name, level_filter))
 }
 

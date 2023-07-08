@@ -1,0 +1,137 @@
+#########################################
+# Kitron Auth Server configuration file #
+#########################################
+
+# Logs directory
+LogsDir: ''
+
+### Network
+
+# TCP port to reach the auth server.
+RealmServerPort: 3724
+# Bind auth server to IP/hostname
+BindIP: '0.0.0.0'
+
+### Process
+
+# Auth server PID file.
+PidFile: ~
+# Processors mask for Windows and Linux based multi-processor systems.
+UseProcessors: ~
+# Process priority setting for Windows and Linux based systems. 0 - Normal, 1 - High
+ProcessPriority: 0
+
+### Timeouts
+
+# Time (in minutes) between database pings.
+MaxPingTime: 30
+# Time (in seconds) between realm list updates.
+RealmsStateUpdateDelay: 20
+# Time (in seconds) between checks for expired bans
+BanExpiryCheckInterval: 60
+
+WrongPass:
+    # Number of login attempts with wrong password before the account or IP will be banned. (0 = disabled)
+    MaxCount: 0
+    # Time (in seconds) for banning account or IP for invalid login attempts.
+    BanTime: 600
+    # Ban type for invalid login attempts. 0 - Ban IP, 1 - Ban Account
+    BanType: 0
+    # Additionally log attempted wrong password logging
+    Logging: false
+
+# Prevent modified clients from connecting
+StrictVersionCheck: false
+
+# The path to your IP2Location database CSV file.
+IPLocationFile: ~
+# Specifies if IP addresses can be logged to the database
+AllowLoggingIPAddressesInDatabase: true
+
+# LoginDatabaseInfo
+#     Description: Database connection settings for the realm server.
+#     Example:     "hostname;port;username;password;database;ssl"
+#                  ".;some_number;username;password;database" - (Use named pipes on Windows
+#                                                              "enable-named-pipe" to [mysqld]
+#                                                              section my.ini)
+#                  ".;/path/to/unix_socket;username;password;database" - (use Unix sockets on
+#                                                                        Unix/Linux)
+#     Default:     "127.0.0.1;3306;Kitron;Kitron;auth"
+#
+# The SSL option will enable TLS when connecting to the specified database. If not provided or
+# any value other than 'ssl' is set, TLS will not be used.
+
+LoginDatabaseInfo: "127.0.0.1;3306;Kitron;Kitron;auth"
+
+#
+#    LoginDatabase.WorkerThreads
+#        Description:
+#                     MySQL server and their own thread on the MySQL server.
+#        Default:     1
+
+LoginDatabase:
+    # The amount of worker threads spawned to handle asynchronous (delayed) MySQL
+    # statements. Each worker thread is mirrored with its own connection to the
+    WorkerThreads: 1
+    # The amount of MySQL connections spawned to handle.
+    SynchThreads: 1
+
+# The master key used to encrypt TOTP secrets for database storage.
+# If you want to change this, uncomment TOTPOldMasterSecret, then copy
+# your old secret there and startup authserver once. Afterwards, you can re-
+# comment that line and get rid of your old secret.
+TOTPMasterSecret:
+# TOTPOldMasterSecret:
+
+
+Updates:
+    # EnableDatabases
+    #  Description: A mask that describes which databases shall be updated.
+    #  Following flags are available
+    #     DATABASE_LOGIN     = 1, // Auth database
+    EnableDatabases: 0
+    # Auto populate empty databases.
+    AutoSetup: true
+    # Perform data redundancy checks through hashing
+    # to detect changes on sql updates and reapply it.
+    Redundancy: true
+    # Check hashes of archived updates (slows down startup).
+    ArchivedRedundancy: false
+    # Inserts the current file hash in the database if it is left empty.
+    # Useful if you want to mark a file as applied but you don't know its hash.
+    AllowRehash: true
+
+    # Cleans dead/ orphaned references that occur if an update was removed or renamed and edited in one step.
+    # It only starts the cleanup if the count of the missing updates is below or equal the Updates.CleanDeadRefMaxCount value.
+    # This way prevents erasing of the update history due to wrong source directory state (maybe wrong branch or bad revision).
+    # Disable this if you want to know if the database is in a possible "dirty state".
+    # 3 - (Enabled), 0 - (Disabled), -1 - (Enabled - unlimited)
+    CleanDeadRefMaxCount: 3
+
+Appender:
+    Console:
+        # Appender type: could be "console" or "file"
+        type: console
+        # Minimum log level
+        # One of "trace", "debug", "info", "warn" or "error"
+        level: debug
+        # Optional: when type == "console" this maps every level to a given color/style.
+        # color_map: { error: 9, warn: 11, info: 12, debug: 5, trace: 2 }
+
+    Auth:
+        type: file
+        level: debug
+        # Filename/path of the log file
+        filename: Auth.log
+        # Whether to open the file in "append" mode or reset it on server starts.
+        append: true
+
+Logger:
+    # The root logger is the logger used if no other logger can be used.
+    root:
+        # Minimum log level
+        level: info
+        # Appenders of the log
+        appenders:
+            - Console
+            - Auth
