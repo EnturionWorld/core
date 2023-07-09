@@ -1,4 +1,6 @@
 use std::ffi::{c_char, CString};
+use std::future::Future;
+use std::pin::Pin;
 use std::sync::OnceLock;
 use tokio::runtime::Runtime;
 
@@ -11,9 +13,12 @@ pub mod signals;
 pub mod timer;
 #[cfg(windows)]
 pub mod win_service;
+pub mod net;
 
 pub static RUNTIME: OnceLock<Runtime> = OnceLock::new();
 static CURRENT_EXE: OnceLock<CString> = OnceLock::new();
+
+pub type AsyncResult<'a, R> = Pin<Box<dyn 'a + Future<Output=anyhow::Result<R>> + Send>>;
 
 /// Gets the current executable filepath.
 #[no_mangle]

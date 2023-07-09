@@ -24,7 +24,7 @@
 #include "Common.h"
 #include "CryptoHash.h"
 #include "Optional.h"
-#include "Socket.h"
+#include "MessageBuffer.h"
 #include "SRP6.h"
 #include "QueryResult.h"
 #include <memory>
@@ -60,24 +60,30 @@ struct AccountInfo
     AccountTypes SecurityLevel = SEC_PLAYER;
 };
 
-class AuthSession : public Socket<AuthSession>
+class AuthSession
 {
-    typedef Socket<AuthSession> AuthSocket;
+    void *_rsAuthSession;
+    MessageBuffer _messageBuffer;
+    MessageBuffer& GetReadBuffer() { return _messageBuffer; }
 
 public:
     static std::unordered_map<uint8, AuthHandler> InitHandlers();
 
-    AuthSession(tcp::socket&& socket);
+    AuthSession(void* rsAuthSession);
+    void WriteIntoBuffer(const void* data, size_t size);
 
-    void Start() override;
-    bool Update() override;
+    void Start();
+    bool Update();
 
     void SendPacket(ByteBuffer& packet);
 
 protected:
-    void ReadHandler() override;
+    void ReadHandler();
 
 private:
+    const char* GetRemoteIpAddress();
+    uint16_t GetRemotePort();
+
     bool HandleLogonChallenge();
     bool HandleLogonProof();
     bool HandleReconnectChallenge();

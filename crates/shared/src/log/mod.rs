@@ -171,6 +171,7 @@ pub extern "C" fn LogMgr_Initialize(config: &Config) -> *const LogMgr {
         );
     }
 
+    ::log::set_max_level(LevelFilter::Trace);
     pointer.deref()
 }
 

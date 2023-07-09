@@ -1,5 +1,6 @@
 language = "C"
 cpp_compat = true
+
 include_guard = "libenturion_authserver_h"
 
 [defines]
@@ -7,3 +8,6 @@ include_guard = "libenturion_authserver_h"
 
 [enum]
 rename_variants = "ScreamingSnakeCase"
+
+[parse.expand]
+crates = ["enturion_authserver"]

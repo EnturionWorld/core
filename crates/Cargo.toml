@@ -15,6 +15,7 @@ libmpq-rs = { path = "libmpq-rs" }
 resolver = "2"
 members = [
     "authserver",
+    "kitros-derive",
     "libmpq-rs",
     "shared",
     "worldserver",

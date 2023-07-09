@@ -28,27 +28,13 @@
 #include "Log.h"
 #include "RealmList.h"
 #include "SecretMgr.h"
-#include "Timer.h"
 #include "TOTP.h"
 #include "Util.h"
 #include <boost/lexical_cast.hpp>
-#include <openssl/crypto.h>
+#include <boost/asio/ip/address.hpp>
+#include "libenturion_authserver.h"
 
 using boost::asio::ip::tcp;
-
-enum eAuthCmd
-{
-    AUTH_LOGON_CHALLENGE = 0x00,
-    AUTH_LOGON_PROOF = 0x01,
-    AUTH_RECONNECT_CHALLENGE = 0x02,
-    AUTH_RECONNECT_PROOF = 0x03,
-    REALM_LIST = 0x10,
-    XFER_INITIATE = 0x30,
-    XFER_DATA = 0x31,
-    XFER_ACCEPT = 0x32,
-    XFER_RESUME = 0x33,
-    XFER_CANCEL = 0x34
-};
 
 #pragma pack(push, 1)
 
@@ -160,26 +146,57 @@ void AccountInfo::LoadResult(Field* fields)
     Utf8ToUpperOnlyLatin(Login);
 }
 
-AuthSession::AuthSession(tcp::socket&& socket) : Socket(std::move(socket)),
-_status(STATUS_CHALLENGE), _build(0), _expversion(0) { }
+extern "C" void* AuthSession_New(void *rsAuthSession) {
+    return new AuthSession(rsAuthSession);
+}
+
+extern "C" void AuthSession_Start(const void *authSession) {
+    auto session = (AuthSession*) authSession;
+    session->Start();
+}
+
+extern "C" void AuthSession_WriteIntoBuffer(const void *authSession, const void* data, size_t size) {
+    auto session = (AuthSession*) authSession;
+    session->WriteIntoBuffer(data, size);
+}
+
+extern "C" void AuthSession_Update(const void *authSession) {
+    auto session = (AuthSession*) authSession;
+    session->Update();
+}
+
+extern "C" void AuthSession_Free(void *authSession) {
+    auto session = (AuthSession*) authSession;
+    delete session;
+}
+
+void AuthSession::WriteIntoBuffer(const void* data, size_t size) {
+    _messageBuffer.Write(data, size);
+}
+
+AuthSession::AuthSession(void* rsAuthSession) : _rsAuthSession(rsAuthSession), _status(STATUS_CHALLENGE),
+    _build(0), _expversion(0), _messageBuffer() { }
+
+const char * AuthSession::GetRemoteIpAddress() {
+    return AuthSession_GetRemoteIpAddress(_rsAuthSession);
+}
+
+uint16_t AuthSession::GetRemotePort() {
+    return AuthSession_GetRemotePort(_rsAuthSession);
+}
 
 void AuthSession::Start()
 {
-    std::string ip_address = GetRemoteIpAddress().to_string();
-    TC_LOG_TRACE("session", "Accepted connection from %s", ip_address.c_str());
-
     LoginDatabasePreparedStatement* stmt = LoginDatabase.GetPreparedStatement(LOGIN_SEL_IP_INFO);
-    stmt->setString(0, ip_address);
+    stmt->setString(0, GetRemoteIpAddress());
 
     _queryProcessor.AddCallback(LoginDatabase.AsyncQuery(stmt).WithPreparedCallback(std::bind(&AuthSession::CheckIpCallback, this, std::placeholders::_1)));
 }
 
 bool AuthSession::Update()
 {
-    if (!AuthSocket::Update())
-        return false;
-
     _queryProcessor.ProcessReadyCallbacks();
+    ReadHandler();
 
     return true;
 }
@@ -199,17 +216,12 @@ void AuthSession::CheckIpCallback(PreparedQueryResult result)
 
         if (banned)
         {
-            ByteBuffer pkt;
-            pkt << uint8(AUTH_LOGON_CHALLENGE);
-            pkt << uint8(0x00);
-            pkt << uint8(WOW_FAIL_BANNED);
-            SendPacket(pkt);
-            TC_LOG_DEBUG("session", "[AuthSession::CheckIpCallback] Banned ip '%s:%d' tries to login!", GetRemoteIpAddress().to_string().c_str(), GetRemotePort());
-            return;
+            auto response = LogonChallengeErrorResponse_New(AUTH_LOGON_CHALLENGE, 0, WOW_FAIL_BANNED);
+            LogonChallengeErrorResponse_Send(response, _rsAuthSession);
+            TC_LOG_DEBUG("session", "[AuthSession::CheckIpCallback] Banned ip '%s:%d' tries to login!", GetRemoteIpAddress(), GetRemotePort());
+            AuthSession_Shutdown(_rsAuthSession);
         }
     }
-
-    AsyncRead();
 }
 
 void AuthSession::ReadHandler()
@@ -228,7 +240,7 @@ void AuthSession::ReadHandler()
 
         if (_status != itr->second.status)
         {
-            CloseSocket();
+            AuthSession_Disconnect(_rsAuthSession);
             return;
         }
 
@@ -242,7 +254,7 @@ void AuthSession::ReadHandler()
             size += challenge->size;
             if (size > MAX_ACCEPTED_CHALLENGE_SIZE)
             {
-                CloseSocket();
+                AuthSession_Disconnect(_rsAuthSession);
                 return;
             }
         }
@@ -252,26 +264,18 @@ void AuthSession::ReadHandler()
 
         if (!(*this.*itr->second.handler)())
         {
-            CloseSocket();
+            AuthSession_Disconnect(_rsAuthSession);
             return;
         }
 
         packet.ReadCompleted(size);
     }
-
-    AsyncRead();
 }
 
 void AuthSession::SendPacket(ByteBuffer& packet)
 {
-    if (!IsOpen())
-        return;
-
-    if (!packet.empty())
-    {
-        MessageBuffer buffer(packet.size());
-        buffer.Write(packet.contents(), packet.size());
-        QueuePacket(std::move(buffer));
+    if (!packet.empty()) {
+        AuthSession_WritePacket(_rsAuthSession, packet.contents(), packet.size());
     }
 }
 
@@ -310,14 +314,10 @@ bool AuthSession::HandleLogonChallenge()
 
 void AuthSession::LogonChallengeCallback(PreparedQueryResult result)
 {
-    ByteBuffer pkt;
-    pkt << uint8(AUTH_LOGON_CHALLENGE);
-    pkt << uint8(0x00);
-
     if (!result)
     {
-        pkt << uint8(WOW_FAIL_UNKNOWN_ACCOUNT);
-        SendPacket(pkt);
+        auto response = LogonChallengeErrorResponse_New(AUTH_LOGON_CHALLENGE, 0, WOW_FAIL_UNKNOWN_ACCOUNT);
+        LogonChallengeErrorResponse_Send(response, _rsAuthSession);
         return;
     }
 
@@ -325,7 +325,7 @@ void AuthSession::LogonChallengeCallback(PreparedQueryResult result)
 
     _accountInfo.LoadResult(fields);
 
-    std::string ipAddress = GetRemoteIpAddress().to_string();
+    std::string ipAddress = std::string(GetRemoteIpAddress());
     uint16 port = GetRemotePort();
 
     // If the IP is 'locked', check that the player comes indeed from the correct IP address
@@ -334,8 +334,8 @@ void AuthSession::LogonChallengeCallback(PreparedQueryResult result)
         TC_LOG_DEBUG("server.authserver", "[AuthChallenge] Account '%s' is locked to IP - '%s' is logging in from '%s'", _accountInfo.Login.c_str(), _accountInfo.LastIP.c_str(), ipAddress.c_str());
         if (_accountInfo.LastIP != ipAddress)
         {
-            pkt << uint8(WOW_FAIL_LOCKED_ENFORCED);
-            SendPacket(pkt);
+            auto response = LogonChallengeErrorResponse_New(AUTH_LOGON_CHALLENGE, 0, WOW_FAIL_LOCKED_ENFORCED);
+            LogonChallengeErrorResponse_Send(response, _rsAuthSession);
             return;
         }
     }
@@ -352,8 +352,8 @@ void AuthSession::LogonChallengeCallback(PreparedQueryResult result)
             TC_LOG_DEBUG("server.authserver", "[AuthChallenge] Account '%s' is locked to country: '%s' Player country is '%s'", _accountInfo.Login.c_str(), _accountInfo.LockCountry.c_str(), _ipCountry.c_str());
             if (_ipCountry != _accountInfo.LockCountry)
             {
-                pkt << uint8(WOW_FAIL_UNLOCKABLE_LOCK);
-                SendPacket(pkt);
+                auto response = LogonChallengeErrorResponse_New(AUTH_LOGON_CHALLENGE, 0, WOW_FAIL_UNLOCKABLE_LOCK);
+                LogonChallengeErrorResponse_Send(response, _rsAuthSession);
                 return;
             }
         }
@@ -364,15 +364,15 @@ void AuthSession::LogonChallengeCallback(PreparedQueryResult result)
     {
         if (_accountInfo.IsPermanenetlyBanned)
         {
-            pkt << uint8(WOW_FAIL_BANNED);
-            SendPacket(pkt);
+            auto response = LogonChallengeErrorResponse_New(AUTH_LOGON_CHALLENGE, 0, WOW_FAIL_BANNED);
+            LogonChallengeErrorResponse_Send(response, _rsAuthSession);
             TC_LOG_INFO("server.authserver.banned", "'%s:%d' [AuthChallenge] Banned account %s tried to login!", ipAddress.c_str(), port, _accountInfo.Login.c_str());
             return;
         }
         else
         {
-            pkt << uint8(WOW_FAIL_SUSPENDED);
-            SendPacket(pkt);
+            auto response = LogonChallengeErrorResponse_New(AUTH_LOGON_CHALLENGE, 0, WOW_FAIL_SUSPENDED);
+            LogonChallengeErrorResponse_Send(response, _rsAuthSession);
             TC_LOG_INFO("server.authserver.banned", "'%s:%d' [AuthChallenge] Temporarily banned account %s tried to login!", ipAddress.c_str(), port, _accountInfo.Login.c_str());
             return;
         }
@@ -389,9 +389,9 @@ void AuthSession::LogonChallengeCallback(PreparedQueryResult result)
             bool success = Kitron::Crypto::AEDecrypt<Kitron::Crypto::AES>(*_totpSecret, *secret);
             if (!success)
             {
-                pkt << uint8(WOW_FAIL_DB_BUSY);
+                auto response = LogonChallengeErrorResponse_New(AUTH_LOGON_CHALLENGE, 0, WOW_FAIL_DB_BUSY);
+                LogonChallengeErrorResponse_Send(response, _rsAuthSession);
                 TC_LOG_ERROR("server.authserver", "[AuthChallenge] Account '%s' has invalid ciphertext for TOTP token key stored", _accountInfo.Login.c_str());
-                SendPacket(pkt);
                 return;
             }
         }
@@ -406,6 +406,9 @@ void AuthSession::LogonChallengeCallback(PreparedQueryResult result)
     // Fill the response packet with the result
     if (AuthHelper::IsAcceptedClientBuild(_build))
     {
+        ByteBuffer pkt;
+        pkt << uint8(AUTH_LOGON_CHALLENGE);
+        pkt << uint8(0x00);
         pkt << uint8(WOW_SUCCESS);
 
         pkt.append(_srp6->B);
@@ -439,11 +442,11 @@ void AuthSession::LogonChallengeCallback(PreparedQueryResult result)
             ipAddress.c_str(), port, _accountInfo.Login.c_str(), _localizationName.c_str(), GetLocaleByName(_localizationName));
 
         _status = STATUS_LOGON_PROOF;
+        SendPacket(pkt);
+    } else {
+        auto response = LogonChallengeErrorResponse_New(AUTH_LOGON_CHALLENGE, 0, WOW_FAIL_VERSION_INVALID);
+        LogonChallengeErrorResponse_Send(response, _rsAuthSession);
     }
-    else
-        pkt << uint8(WOW_FAIL_VERSION_INVALID);
-
-    SendPacket(pkt);
 }
 
 // Logon Proof command handler
@@ -502,12 +505,12 @@ bool AuthSession::HandleLogonProof()
             return true;
         }
 
-        TC_LOG_DEBUG("server.authserver", "'%s:%d' User '%s' successfully authenticated", GetRemoteIpAddress().to_string().c_str(), GetRemotePort(), _accountInfo.Login.c_str());
+        TC_LOG_DEBUG("server.authserver", "'%s:%d' User '%s' successfully authenticated", GetRemoteIpAddress(), GetRemotePort(), _accountInfo.Login.c_str());
 
         // Update the sessionkey, last_ip, last login time and reset number of failed logins in the account table for this account
         // No SQL injection (escaped user name) and IP address as received by socket
 
-        std::string address = sConfigMgr->GetBoolDefault("AllowLoggingIPAddressesInDatabase", true) ? GetRemoteIpAddress().to_string() : "127.0.0.1";
+        std::string address = sConfigMgr->GetBoolDefault("AllowLoggingIPAddressesInDatabase", true) ? GetRemoteIpAddress() : "127.0.0.1";
         LoginDatabasePreparedStatement* stmt = LoginDatabase.GetPreparedStatement(LOGIN_UPD_LOGONPROOF);
         stmt->setBinary(0, _sessionKey);
         stmt->setString(1, address);
@@ -557,7 +560,7 @@ bool AuthSession::HandleLogonProof()
         SendPacket(packet);
 
         TC_LOG_INFO("server.authserver.hack", "'%s:%d' [AuthChallenge] account %s tried to login with invalid password!",
-            GetRemoteIpAddress().to_string().c_str(), GetRemotePort(), _accountInfo.Login.c_str());
+            GetRemoteIpAddress(), GetRemotePort(), _accountInfo.Login.c_str());
 
         uint32 MaxWrongPassCount = sConfigMgr->GetIntDefault("WrongPass.MaxCount", 0);
 
@@ -566,7 +569,7 @@ bool AuthSession::HandleLogonProof()
         {
             LoginDatabasePreparedStatement* logstmt = LoginDatabase.GetPreparedStatement(LOGIN_INS_FALP_IP_LOGGING);
             logstmt->setUInt32(0, _accountInfo.Id);
-            logstmt->setString(1, GetRemoteIpAddress().to_string());
+            logstmt->setString(1, GetRemoteIpAddress());
             logstmt->setString(2, "Login to WoW Failed - Incorrect Password");
 
             LoginDatabase.Execute(logstmt);
@@ -592,17 +595,17 @@ bool AuthSession::HandleLogonProof()
                     LoginDatabase.Execute(stmt);
 
                     TC_LOG_DEBUG("server.authserver", "'%s:%d' [AuthChallenge] account %s got banned for '%u' seconds because it failed to authenticate '%u' times",
-                        GetRemoteIpAddress().to_string().c_str(), GetRemotePort(), _accountInfo.Login.c_str(), WrongPassBanTime, _accountInfo.FailedLogins);
+                        GetRemoteIpAddress(), GetRemotePort(), _accountInfo.Login.c_str(), WrongPassBanTime, _accountInfo.FailedLogins);
                 }
                 else
                 {
                     stmt = LoginDatabase.GetPreparedStatement(LOGIN_INS_IP_AUTO_BANNED);
-                    stmt->setString(0, GetRemoteIpAddress().to_string());
+                    stmt->setString(0, GetRemoteIpAddress());
                     stmt->setUInt32(1, WrongPassBanTime);
                     LoginDatabase.Execute(stmt);
 
                     TC_LOG_DEBUG("server.authserver", "'%s:%d' [AuthChallenge] IP got banned for '%u' seconds because account %s failed to authenticate '%u' times",
-                        GetRemoteIpAddress().to_string().c_str(), GetRemotePort(), WrongPassBanTime, _accountInfo.Login.c_str(), _accountInfo.FailedLogins);
+                        GetRemoteIpAddress(), GetRemotePort(), WrongPassBanTime, _accountInfo.Login.c_str(), _accountInfo.FailedLogins);
                 }
             }
         }
@@ -709,7 +712,7 @@ bool AuthSession::HandleReconnectProof()
     }
     else
     {
-        TC_LOG_ERROR("server.authserver.hack", "'%s:%d' [ERROR] user %s tried to login, but session is invalid.", GetRemoteIpAddress().to_string().c_str(),
+        TC_LOG_ERROR("server.authserver.hack", "'%s:%d' [ERROR] user %s tried to login, but session is invalid.", GetRemoteIpAddress(),
             GetRemotePort(), _accountInfo.Login.c_str());
         return false;
     }
@@ -778,7 +781,9 @@ void AuthSession::RealmListCallback(PreparedQueryResult result)
             pkt << uint8(lock);                             // if 1, then realm locked
         pkt << uint8(flag);                                 // RealmFlags
         pkt << name;
-        pkt << boost::lexical_cast<std::string>(realm.GetAddressForClient(GetRemoteIpAddress()));
+
+        auto address = boost::asio::ip::make_address(GetRemoteIpAddress());
+        pkt << boost::lexical_cast<std::string>(realm.GetAddressForClient(address));
         pkt << float(realm.PopulationLevel);
         pkt << uint8(characterCounts[realm.Id.Realm]);
         pkt << uint8(realm.Timezone);                       // realm category

@@ -33,7 +33,7 @@ void Log::outMessage(std::string const& filter, LogLevel level, std::string&& me
     LogMgr_Write(_logMgr, filter.c_str(), level, message.c_str());
 }
 
-void Log::outCommand(std::string&& message, std::string&& param1)
+void Log::outCommand(std::string&& message)
 {
     if (_logMgr == nullptr) {
         return;

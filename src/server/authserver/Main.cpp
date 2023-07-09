@@ -23,7 +23,6 @@
 * authentication server
 */
 
-#include "AuthSocketMgr.h"
 #include "Config.h"
 #include "DatabaseEnv.h"
 #include "DatabaseLoader.h"
@@ -155,24 +154,6 @@ int main(int argc, char** argv)
         TC_LOG_ERROR("server.authserver", "No valid realms specified.");
         return 1;
     }
-
-    // Start the listening port (acceptor) for auth connections
-    int32 port = sConfigMgr->GetIntDefault("RealmServerPort", 3724);
-    if (port < 0 || port > 0xFFFF)
-    {
-        TC_LOG_ERROR("server.authserver", "Specified port out of allowed range (1-65535)");
-        return 1;
-    }
-
-    std::string bindIp = sConfigMgr->GetStringDefault("BindIP", "0.0.0.0");
-
-    if (!sAuthSocketMgr.StartNetwork(*ioContext, bindIp, port))
-    {
-        TC_LOG_ERROR("server.authserver", "Failed to initialize network");
-        return 1;
-    }
-
-    std::shared_ptr<void> sAuthSocketMgrHandle(nullptr, [](void*) { sAuthSocketMgr.StopNetwork(); });
 
     // Set process priority according to configuration settings
     SetProcessPriority("server.authserver", sConfigMgr->GetIntDefault(CONFIG_PROCESSOR_AFFINITY, 0), sConfigMgr->GetBoolDefault(CONFIG_HIGH_PRIORITY, false));

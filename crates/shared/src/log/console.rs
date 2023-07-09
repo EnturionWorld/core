@@ -6,7 +6,6 @@ use std::io;
 use std::io::Write;
 use std::ops::DerefMut;
 use std::sync::Mutex;
-
 use crate::log::util::BufWriter;
 use log4rs::append::Append;
 use log4rs::encode;

@@ -22,6 +22,10 @@
 #include "Config.h"
 #include "Log.h"
 
+extern "C" Config* ConfigGetInstance() {
+    return sConfigMgr->ptr();
+}
+
 bool ConfigMgr::LoadInitial(std::string file, std::string& error)
 {
     _filename = std::move(file);
