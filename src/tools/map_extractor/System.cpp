@@ -16,7 +16,6 @@
  */
 
 #include "dbcfile.h"
-#include "Banner.h"
 #include "mpq_libmpq04.h"
 #include "StringFormat.h"
 
@@ -34,6 +33,7 @@
 
 #include <G3D/Plane.h>
 #include <boost/filesystem.hpp>
+#include "libenturion_shared.h"
 
 extern ArchiveSet gOpenArchives;
 
@@ -1120,7 +1120,8 @@ inline void CloseMPQFiles()
 
 int main(int argc, char * arg[])
 {
-    Kitron::Banner::Show("Map & DBC Extractor", [](char const* text) { printf("%s\n", text); }, nullptr);
+    PrintBanner();
+    printf("Map & DBC Extractor");
 
     HandleArgs(argc, arg);
 

@@ -42,11 +42,6 @@ void Log::outCommand(std::string&& message)
     LogMgr_Write(_logMgr, "commands.gm", LOG_LEVEL_INFO, message.c_str());
 }
 
-void Log::SetRealmId(uint32 id)
-{
-    // TODO
-}
-
 Log* Log::instance()
 {
     static Log instance;

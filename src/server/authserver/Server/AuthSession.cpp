@@ -174,8 +174,8 @@ void AuthSession::WriteIntoBuffer(const void* data, size_t size) {
     _messageBuffer.Write(data, size);
 }
 
-AuthSession::AuthSession(void* rsAuthSession) : _rsAuthSession(rsAuthSession), _status(STATUS_CHALLENGE),
-    _build(0), _expversion(0), _messageBuffer() { }
+AuthSession::AuthSession(void* rsAuthSession) : _rsAuthSession(rsAuthSession), _messageBuffer(),
+    _status(STATUS_CHALLENGE), _build(0), _expversion(0) { }
 
 const char * AuthSession::GetRemoteIpAddress() {
     return AuthSession_GetRemoteIpAddress(_rsAuthSession);

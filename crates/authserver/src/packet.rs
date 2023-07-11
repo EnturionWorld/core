@@ -1,5 +1,4 @@
 use bincode::de::Decoder;
-use bincode::enc::write::Writer;
 use bincode::enc::Encoder;
 use bincode::error::{DecodeError, EncodeError};
 use bincode::{impl_borrow_decode, Decode, Encode};
@@ -8,6 +7,7 @@ use kitros_derive::wow_auth_packet;
 #[derive(Copy, Clone)]
 #[repr(u8)]
 #[non_exhaustive]
+#[allow(dead_code)]
 pub enum AuthCommand {
     AuthLogonChallenge = 0x00,
     AuthLogonProof = 0x01,
@@ -24,6 +24,7 @@ pub enum AuthCommand {
 #[derive(Copy, Clone)]
 #[repr(u8)]
 #[non_exhaustive]
+#[allow(dead_code)]
 pub enum AuthResult {
     WowSuccess = 0x00,
     WowFailBanned = 0x03,
@@ -88,14 +89,4 @@ pub struct LogonChallengeErrorResponse {
     command: AuthCommand,
     padding: u8,
     auth_result: AuthResult,
-}
-
-impl LogonChallengeErrorResponse {
-    pub fn new(auth_result: AuthResult) -> Self {
-        Self {
-            command: AuthCommand::AuthLogonChallenge,
-            padding: 0,
-            auth_result,
-        }
-    }
 }

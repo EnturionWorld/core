@@ -19,6 +19,7 @@ add_executable(mmaps_generator ${PRIVATE_SOURCES})
 target_link_libraries(mmaps_generator
   PRIVATE
     Kitron-core-interface
+    enturion_shared
   PUBLIC
     common
     Recast
@@ -32,6 +33,7 @@ CollectIncludeDirectories(
 target_include_directories(mmaps_generator
   PUBLIC
     ${PUBLIC_INCLUDES}
+    ${CMAKE_SOURCE_DIR}/crates/shared
   PRIVATE
     ${CMAKE_CURRENT_BINARY_DIR})
 

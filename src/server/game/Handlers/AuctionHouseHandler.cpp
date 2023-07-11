@@ -294,7 +294,7 @@ void WorldSession::HandleAuctionSellItem(WorldPacket& recvData)
     {
         if (HasPermission(rbac::RBAC_PERM_LOG_GM_TRADE))
         {
-            sLog->outCommand(GetAccountId(), "GM %s (Account: %u) create auction: %s (Entry: %u Count: %u)",
+            sLog->outCommand("GM %s (Account: %u) create auction: %s (Entry: %u Count: %u)",
                 GetPlayerName().c_str(), GetAccountId(), item->GetTemplate()->Name1.c_str(), item->GetEntry(), item->GetCount());
         }
 
@@ -352,7 +352,7 @@ void WorldSession::HandleAuctionSellItem(WorldPacket& recvData)
 
         if (HasPermission(rbac::RBAC_PERM_LOG_GM_TRADE))
         {
-            sLog->outCommand(GetAccountId(), "GM %s (Account: %u) create auction: %s (Entry: %u Count: %u)",
+            sLog->outCommand("GM %s (Account: %u) create auction: %s (Entry: %u Count: %u)",
                 GetPlayerName().c_str(), GetAccountId(), newItem->GetTemplate()->Name1.c_str(), newItem->GetEntry(), newItem->GetCount());
         }
 

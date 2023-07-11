@@ -19,9 +19,16 @@ add_executable(vmap4extractor ${PRIVATE_SOURCES})
 target_link_libraries(vmap4extractor
   PRIVATE
     Kitron-core-interface
+    enturion_shared
   PUBLIC
     common
     mpq)
+
+target_include_directories(vmap4extractor
+  PUBLIC
+    ${CMAKE_SOURCE_DIR}/crates/shared
+  PRIVATE
+    ${CMAKE_CURRENT_BINARY_DIR})
 
 set_target_properties(vmap4extractor
     PROPERTIES

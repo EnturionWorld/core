@@ -15,7 +15,6 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "Banner.h"
 #include "DBCFileLoader.h"
 #include "MapBuilder.h"
 #include "PathCommon.h"
@@ -23,6 +22,7 @@
 #include "Util.h"
 #include <boost/filesystem.hpp>
 #include <unordered_map>
+#include "libenturion_shared.h"
 
 using namespace MMAP;
 
@@ -297,7 +297,8 @@ std::unordered_map<uint32, uint8> LoadLiquid()
 
 int main(int argc, char** argv)
 {
-    Kitron::Banner::Show("MMAP generator", [](char const* text) { printf("%s\n", text); }, nullptr);
+    PrintBanner();
+    printf("MMAP generator");
 
     unsigned int threads = std::thread::hardware_concurrency();
     int mapnum = -1;

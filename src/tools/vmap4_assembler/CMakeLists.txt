@@ -21,9 +21,16 @@ endif()
 target_link_libraries(vmap4assembler
   PRIVATE
     Kitron-core-interface
+    enturion_shared
   PUBLIC
     common
     zlib)
+
+target_include_directories(vmap4assembler
+  PUBLIC
+    ${CMAKE_SOURCE_DIR}/crates/shared
+  PRIVATE
+    ${CMAKE_CURRENT_BINARY_DIR})
 
 set_target_properties(vmap4assembler
     PROPERTIES

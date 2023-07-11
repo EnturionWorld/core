@@ -69,12 +69,12 @@ if(COPY_CONF AND WIN32)
   if("${CMAKE_MAKE_PROGRAM}" MATCHES "MSBuild")
     add_custom_command(TARGET authserver
       POST_BUILD
-      COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/authserver.conf.dist ${CMAKE_BINARY_DIR}/bin/$(ConfigurationName)/
+      COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/authserver.yaml ${CMAKE_BINARY_DIR}/bin/$(ConfigurationName)/authserver.yaml.dist
     )
   elseif(MINGW)
     add_custom_command(TARGET authserver
       POST_BUILD
-      COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/authserver.conf.dist ${CMAKE_BINARY_DIR}/bin/
+      COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/authserver.yaml ${CMAKE_BINARY_DIR}/bin/authserver.yaml.dist
     )
   endif()
 endif()
@@ -82,12 +82,12 @@ endif()
 if(UNIX)
   install(TARGETS authserver DESTINATION bin)
   if(COPY_CONF)
-    install(FILES  authserver.conf.dist DESTINATION ${CONF_DIR})
+    install(FILES  authserver.yaml DESTINATION ${CONF_DIR} RENAME authserver.yaml.dist)
   endif()
 elseif(WIN32)
   install(TARGETS authserver DESTINATION "${CMAKE_INSTALL_PREFIX}")
   if(COPY_CONF)
-    install(FILES authserver.conf.dist DESTINATION "${CMAKE_INSTALL_PREFIX}")
+    install(FILES authserver.yaml DESTINATION "${CMAKE_INSTALL_PREFIX}" RENAME authserver.yaml.dist)
   endif()
 endif()
 

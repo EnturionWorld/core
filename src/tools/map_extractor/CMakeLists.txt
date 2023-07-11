@@ -26,6 +26,7 @@ target_include_directories(mapextractor
 target_link_libraries(mapextractor
   PRIVATE
     Kitron-core-interface
+    enturion_shared
   PUBLIC
     common
     mpq)
@@ -37,6 +38,7 @@ CollectIncludeDirectories(
 target_include_directories(mapextractor
   PUBLIC
     ${PUBLIC_INCLUDES}
+    ${CMAKE_SOURCE_DIR}/crates/shared
   PRIVATE
     ${CMAKE_CURRENT_BINARY_DIR})
 

@@ -209,7 +209,6 @@ bool StartDB()
         return false;
 
     TC_LOG_INFO("server.authserver", "Started auth database connection pool.");
-    sLog->SetRealmId(0); // Enables DB appenders when realm is set.
     return true;
 }
 

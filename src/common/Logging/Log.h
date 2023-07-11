@@ -48,12 +48,10 @@ class TC_COMMON_API Log
         }
 
         template<typename Format, typename... Args>
-        void outCommand(uint32 account, Format&& fmt, Args&&... args)
+        void outCommand(Format&& fmt, Args&&... args)
         {
             outCommand(Kitron::StringFormat(std::forward<Format>(fmt), std::forward<Args>(args)...));
         }
-
-        void SetRealmId(uint32 id);
 
     private:
         void outMessage(std::string const& filter, LogLevel level, std::string&& message);

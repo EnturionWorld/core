@@ -1,13 +1,20 @@
 use proc_macro2::{Ident, Span, TokenStream};
 use quote::{quote, ToTokens};
-use syn::{DeriveInput, parse_macro_input};
+use syn::{parse_macro_input, DeriveInput};
 
-fn wow_packet(input: proc_macro::TokenStream, session_struct: TokenStream) -> proc_macro::TokenStream {
+fn wow_packet(
+    input: proc_macro::TokenStream,
+    session_struct: TokenStream,
+) -> proc_macro::TokenStream {
     let cloned = input.clone();
     let ast = parse_macro_input!(cloned as DeriveInput);
     let name = ast.ident;
 
-    let fields = if let syn::Data::Struct(syn::DataStruct { fields: syn::Fields::Named(ref fields), .. }) = ast.data {
+    let fields = if let syn::Data::Struct(syn::DataStruct {
+        fields: syn::Fields::Named(ref fields),
+        ..
+    }) = ast.data
+    {
         fields
     } else {
         panic!("Only support Struct")
@@ -56,7 +63,10 @@ fn wow_packet(input: proc_macro::TokenStream, session_struct: TokenStream) -> pr
 }
 
 #[proc_macro_attribute]
-pub fn wow_auth_packet(_args: proc_macro::TokenStream, input: proc_macro::TokenStream) -> proc_macro::TokenStream {
+pub fn wow_auth_packet(
+    _args: proc_macro::TokenStream,
+    input: proc_macro::TokenStream,
+) -> proc_macro::TokenStream {
     let session_type = quote! { &mut ::enturion_authserver::auth_session::AuthSession };
     wow_packet(input, session_type)
 }

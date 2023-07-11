@@ -9,16 +9,16 @@ pub mod config;
 pub mod dbc;
 pub mod error;
 pub mod log;
+pub mod net;
 pub mod signals;
 pub mod timer;
 #[cfg(windows)]
 pub mod win_service;
-pub mod net;
 
 pub static RUNTIME: OnceLock<Runtime> = OnceLock::new();
 static CURRENT_EXE: OnceLock<CString> = OnceLock::new();
 
-pub type AsyncResult<'a, R> = Pin<Box<dyn 'a + Future<Output=anyhow::Result<R>> + Send>>;
+pub type AsyncResult<'a, R> = Pin<Box<dyn 'a + Future<Output = anyhow::Result<R>> + Send>>;
 
 /// Gets the current executable filepath.
 #[no_mangle]

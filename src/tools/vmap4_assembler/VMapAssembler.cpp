@@ -19,11 +19,12 @@
 #include <iostream>
 
 #include "TileAssembler.h"
-#include "Banner.h"
+#include "libenturion_shared.h"
 
 int main(int argc, char* argv[])
 {
-    Kitron::Banner::Show("VMAP assembler", [](char const* text) { std::cout << text << std::endl; }, nullptr);
+    PrintBanner();
+    printf("VMAP assembler");
 
     std::string src = "Buildings";
     std::string dest = "vmaps";
